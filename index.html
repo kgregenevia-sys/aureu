@@ -328,6 +328,17 @@ body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;opa
 .rn{white-space:nowrap;flex:0 0 auto;background:var(--panel);border:1px solid var(--line);color:var(--muted);border-radius:30px;padding:8px 14px;font-size:13px;font-weight:500;display:flex;gap:6px;align-items:center;cursor:pointer;transition:.15s;backdrop-filter:blur(10px)}
 .rn:hover{color:var(--ink);border-color:var(--c)}
 .rn.on{color:#0a0a14;background:var(--c);border-color:var(--c);font-weight:700}
+.lockroom{position:relative;min-height:440px}
+.gateover{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:16px}
+.gatecard{max-width:470px;text-align:center;background:rgba(14,14,22,.9);backdrop-filter:blur(16px);border:1px solid var(--gold);border-radius:20px;padding:30px 24px;box-shadow:0 30px 90px -30px #000}
+.gatecard .glock{font-size:42px}
+.gatecard h3{font-size:24px;margin:8px 0}
+.gatecard p{color:var(--muted);font-size:14px;margin-bottom:18px}
+.gbtns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:16px}
+.viz360{background:linear-gradient(120deg,rgba(34,211,238,.14),rgba(167,139,250,.08));border:1px solid var(--gold);border-radius:12px;padding:12px 14px;font-size:13px;color:var(--ink);display:flex;gap:8px;align-items:center;justify-content:center;flex-wrap:wrap}
+.viz360 b{color:var(--gold2)}
+.vizrow{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap;background:linear-gradient(120deg,rgba(34,211,238,.14),rgba(167,139,250,.07));border:1px solid var(--gold);border-radius:12px;padding:13px 15px;margin-bottom:14px}
+.vizrow .vt{font-size:13.5px;flex:1;min-width:180px}.vizrow .vt b{color:var(--gold2)}
 </style>
 </head>
 <body>
@@ -497,7 +508,7 @@ function renderHome(){
     <p class="vanchor">Jeden lot poniżej wyceny to dziesiątki tysięcy w kieszeni. Abonament zwraca się przy pierwszej okazji.</p>
     <div class="price">
       <div class="pcard"><div class="tag">Premium</div><h3 class="serif">Klub</h3><div class="amt">99 zł<small>/mc</small></div><ul><li>Bezpośrednie linki do aukcji</li><li>Miejsce przy stole + licytacja</li><li>Alerty, kalkulator, mapa</li><li>Wszystkie pokoje</li></ul><button class="btn btn-gold" onclick="openSub()">Zostań Premium</button></div>
-      <div class="pcard"><div class="tag">Dodatek</div><h3 class="serif">Wizualizacje 360°</h3><div class="amt">+49 zł<small>/mc</small></div><ul><li>Dossier lotu i galeria 360°</li><li>Pełne dane i zdjęcia</li><li>Priorytet w kolejce danych</li></ul><button class="btn btn-ghost" onclick="doViz()">Dodaj pakiet</button></div>
+      <div class="pcard" style="border-color:var(--gold)"><span class="badge">★ Popularny dodatek</span><div class="tag">Dodatek</div><h3 class="serif">Wizualizacje 360°</h3><div class="amt">+49 zł<small>/mc</small></div><ul><li>Wirtualny spacer 360° po locie</li><li>Dossier i pełna galeria zdjęć</li><li>Priorytet w kolejce danych</li></ul><button class="btn btn-gold" onclick="doViz()">Dodaj pakiet</button></div>
       <div class="pcard best"><span class="badge">Dla poważnych graczy</span><div class="tag">VIP Concierge</div><h3 class="serif">Łowca</h3><div class="amt">od 1 490 zł<small>/mc</small></div><ul><li>Osobisty łowca okazji 1:1</li><li>Dossier due-diligence pod lot</li><li>Priorytet przy stole i alertach</li><li>Reprezentacja na aukcji (do ustalenia)</li></ul><button class="btn btn-gold" onclick="openSub('vip')">Zostań VIP-em</button></div>
       <div class="pcard"><div class="tag">Partner</div><h3 class="serif">Ambasador</h3><div class="amt">Prowizja</div><ul><li>Zarabiasz na poleceniach</li><li>Prowizja z abonamentów i VIP</li><li>Materiały i wsparcie</li></ul><button class="btn btn-ghost" onclick="openSub('vip')">Zostań partnerem</button></div>
     </div>
@@ -522,6 +533,7 @@ function sortList(a){a=a.slice();if(flt.sort==='disc')a.sort((x,y)=>(y.discount_
 function renderRoom(){
   const pool=poolFor();const regions=[...new Set(pool.map(l=>l.region).filter(Boolean))].sort();
   let list=sortList(pool.filter(passFilter));
+  const locked=!PREM&&cur.code!=='nieruchomosci'&&cur.code!=='__search';
   const toolbar=`<div class="toolbar">
     <div class="fl">Region <select onchange="flt.region=this.value;shown=12;renderRoom()">${['<option value="">Wszystkie</option>'].concat(regions.map(r=>`<option ${flt.region===r?'selected':''}>${r}</option>`)).join('')}</select></div>
     <div class="fl">Cena max <select onchange="flt.pmax=+this.value;shown=12;renderRoom()"><option value="0">Bez limitu</option><option value="100000"${flt.pmax==100000?' selected':''}>do 100 tys</option><option value="300000"${flt.pmax==300000?' selected':''}>do 300 tys</option><option value="500000"${flt.pmax==500000?' selected':''}>do 500 tys</option><option value="1000000"${flt.pmax==1000000?' selected':''}>do 1 mln</option></select></div>
@@ -532,7 +544,11 @@ function renderRoom(){
   </div>`;
   const tabs=`<div class="tabs">${['all|Wszystkie','today|Dziś','soon|Nadchodzące','done|Zakończone'].map(t=>{const[k,v]=t.split('|');return `<span class="tab ${curTab===k?'on':''}" onclick="curTab='${k}';shown=12;renderRoom()">${v}</span>`}).join('')}</div>`;
   let body;
-  if(mapMode){body=`<div id="map"></div><p style="font-size:12px;color:var(--muted2);margin-top:10px">Lokalizacje przybliżone na podstawie kodu pocztowego. Kliknij pinezkę, by zobaczyć ofertę.</p>`;}
+  if(locked){
+    const teaser=list.slice(0,6).map(l=>card(l,false)).join('');
+    body=`<div class="lockroom"><div class="grid ${view==='list'?'list':''}" style="filter:blur(7px);pointer-events:none;user-select:none">${teaser}</div><div class="gateover"><div class="gatecard"><div class="glock">🔒</div><h3 class="serif">Pokój „${cur.name}" — dla członków</h3><p>Odblokuj wszystkie ${NICHES.length} pokoi, bezpośrednie linki do aukcji, stół licytacyjny i alerty. Zwraca się już przy pierwszej okazji poniżej wyceny.</p><div class="gbtns"><button class="btn btn-gold" onclick="openSub()">Odblokuj wszystkie pokoje · 99 zł/mc</button><button class="btn btn-ghost" onclick="openSub('vip')">VIP Concierge</button></div><div class="viz360">🎥 <b>Wizualizacje 360°</b> — wirtualny spacer po każdym locie · dodatek +49 zł/mc <button class="btn btn-gold sm" onclick="doViz()">Dodaj</button></div></div></div></div>`;
+  }
+  else if(mapMode){body=`<div id="map"></div><p style="font-size:12px;color:var(--muted2);margin-top:10px">Lokalizacje przybliżone na podstawie kodu pocztowego. Kliknij pinezkę, by zobaczyć ofertę.</p>`;}
   else if(!list.length){body=`<div class="soonbox">Brak ofert dla tych filtrów. <a style="color:var(--gold2);cursor:pointer" onclick="flt={region:'',pmax:0,dmin:0,sort:'disc',verified:false};curTab='all';renderRoom()">Wyczyść filtry</a></div>`;}
   else{
     const slice=list.slice(0,shown);
@@ -548,7 +564,7 @@ function renderRoom(){
     <div class="roomnav">${NICHES.map(n=>`<button class="rn ${cur.code===n.code?'on':''}" style="--c:${acc(n.code)}" onclick="enterRoom('${n.code}')">${n.icon} ${n.name}</button>`).join('')}</div>
     <div class="rv-head"><div class="rv-title">${cur.icon} ${cur.name} <span class="cnt">${list.length} ofert</span></div>
       <div style="display:flex;gap:8px">${cur.code!=='__search'?`<button class="btn btn-ghost sm" onclick="openAlert()">🔔 Ustaw alert</button>`:''}${PREM?'':`<button class="btn btn-gold sm" onclick="openSub()">Premium</button>`}</div></div>
-    ${stoldnia}${toolbar}${tabs}${body}</div>`;
+    ${locked?'':stoldnia}${locked?'':toolbar}${locked?'':tabs}${body}</div>`;
   if(mapMode)setTimeout(()=>drawMap(list),60);
   updateCmpBar();
 }
@@ -615,6 +631,7 @@ function openDetail(id){
       ${chips.length?`<div class="cchips" style="margin-bottom:14px">${chips.join('')}</div>`:''}
       <div class="m-prices"><div><div class="lbl">Cena wywoławcza</div><div class="m-open">${fmt(op)}</div></div>${est?`<div><div class="lbl">Wycena</div><div style="font-size:19px;color:var(--muted);text-decoration:line-through">${fmt(est)}</div></div>`:''}${l.discount_pct?`<div><div class="lbl">Rabat</div><div style="font-size:21px;color:var(--gold2);font-weight:700">−${Math.round(l.discount_pct)}%</div></div>`:''}</div>
       ${(()=>{const s=score(l);return `<div class="gaugebox"><h4 style="color:${s.col}">🔥 Termometr okazji · ${s.label}</h4><div class="g"><div class="num" style="color:${s.col}">${s.n}<small>/100</small></div><div style="flex:1"><div class="bar"><i style="width:${s.n}%;background:${s.col}"></i></div><div style="font-size:11px;color:var(--muted);margin-top:7px">Łowca AI łączy rabat, weryfikację, presję czasu i zainteresowanie klubu.</div></div></div></div>`})()}
+      <div class="vizrow"><div class="vt">🎥 <b>Wizualizacja 360°</b> — wirtualny spacer po tym locie i pełna galeria zdjęć.</div><button class="btn btn-gold sm" onclick="doViz()">${PREM?'Włącz 360°':'Dodaj +49 zł/mc'}</button></div>
       <div id="mmap"></div>
       ${calc}
       ${gate}
