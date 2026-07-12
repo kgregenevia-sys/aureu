@@ -632,7 +632,7 @@ function openDetail(id){
       ${chips.length?`<div class="cchips" style="margin-bottom:14px">${chips.join('')}</div>`:''}
       <div class="m-prices"><div><div class="lbl">Cena wywoławcza</div><div class="m-open">${fmt(op)}</div></div>${est?`<div><div class="lbl">Wycena</div><div style="font-size:19px;color:var(--muted);text-decoration:line-through">${fmt(est)}</div></div>`:''}${l.discount_pct?`<div><div class="lbl">Rabat</div><div style="font-size:21px;color:var(--gold2);font-weight:700">−${Math.round(l.discount_pct)}%</div></div>`:''}</div>
       ${(()=>{const s=score(l);return `<div class="gaugebox"><h4 style="color:${s.col}">🔥 Termometr okazji · ${s.label}</h4><div class="g"><div class="num" style="color:${s.col}">${s.n}<small>/100</small></div><div style="flex:1"><div class="bar"><i style="width:${s.n}%;background:${s.col}"></i></div><div style="font-size:11px;color:var(--muted);margin-top:7px">Łowca AI łączy rabat, weryfikację, presję czasu i zainteresowanie klubu.</div></div></div></div>`})()}
-      <div class="vizrow"><div class="vt">🎥 <b>Dossier 360°</b> — galeria, rzuty i wirtualny podgląd, przygotowywane pod ten lot (do 48h).</div><button class="btn btn-gold sm" onclick="doViz()">${PREM?'Włącz 360°':'Dodaj +49 zł/mc'}</button></div>
+      <div class="vizrow"><div class="vt">🎥 <b>Dossier 360°</b> — galeria, rzuty i wirtualny podgląd, przygotowywane pod ten lot (do 48h).</div>${PREM?`<button class="btn btn-gold sm" onclick="window.open('/dossier.html?id=${l.id}','_blank')">📄 Otwórz Dossier 360°</button>`:`<button class="btn btn-gold sm" onclick="doViz()">Dodaj +49 zł/mc</button>`}</div>
       <div id="mmap"></div>
       ${calc}
       ${gate}
