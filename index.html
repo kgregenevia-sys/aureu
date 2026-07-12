@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Aureu — Klub Licytacji · okazje z aukcji i licytacji</title>
+<meta name="description" content="Aureu — klub licytacji. Zweryfikowane okazje z aukcji komorniczych i licytacji: nieruchomości, auta, maszyny, jachty. Wyceny, rabaty i terminy w jednym miejscu.">
+<meta name="theme-color" content="#0a0b0f">
+<meta property="og:title" content="Aureu — Klub Licytacji">
+<meta property="og:description" content="Zweryfikowane okazje z aukcji i licytacji. Nieruchomości poniżej wyceny — wyceny, rabaty i terminy w jednym miejscu.">
+<meta property="og:image" content="https://aureu.kgregenevia.pro/aureu-og.png">
+<meta property="og:url" content="https://aureu.kgregenevia.pro/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://aureu.kgregenevia.pro/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230a0b0f'/%3E%3Ctext x='32' y='45' font-family='Georgia' font-size='38' font-weight='700' fill='%23d4af6a' text-anchor='middle'%3EA%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0a0b0f;--panel:#12141b;--panel2:#161922;--line:rgba(212,175,106,.16);--gold:#d4af6a;--gold2:#e8c987;--goldsoft:rgba(212,175,106,.10);--ink:#efeae0;--muted:rgba(239,234,224,.52);--muted2:rgba(239,234,224,.34);--emerald:#43c59e;--red:#ff6b6b}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+.serif{font-family:'Cormorant Garamond',serif}
+.wrap{max-width:1200px;margin:0 auto;padding:0 22px}
+a{color:inherit;text-decoration:none}button{font-family:inherit;cursor:pointer}
+.goldtx{background:linear-gradient(120deg,var(--gold2),var(--gold));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+::selection{background:var(--gold);color:#1a1305}
+/* top */
+.top{position:sticky;top:0;z-index:40;background:rgba(10,11,15,.86);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.top-in{height:64px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:25px;letter-spacing:5px;cursor:pointer}
+.logo b{background:linear-gradient(120deg,var(--gold2),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.logo span{font-family:'Inter';font-weight:400;font-size:10px;letter-spacing:3px;color:var(--muted);display:block;margin-top:-5px}
+.top-nav{display:flex;gap:20px;align-items:center;font-size:13.5px;color:var(--muted)}
+.top-nav a{cursor:pointer}.top-nav a:hover{color:var(--gold2)}
+.pill{border:1px solid var(--gold);color:var(--gold2);border-radius:30px;padding:8px 15px;font-weight:600;font-size:13px}
+.pill:hover{background:var(--goldsoft)}
+@media(max-width:760px){.top-nav a:not(.pill){display:none}}
+/* hero */
+.hero{position:relative;padding:64px 0 30px;text-align:center;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:0;background:radial-gradient(60% 60% at 50% 0%,rgba(212,175,106,.14),transparent 70%)}
+.hero>*{position:relative}
+.eyebrow{font-size:12px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:16px}
+.hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(40px,7vw,72px);font-weight:600;line-height:1.02;letter-spacing:.5px}
+.hero p{max-width:600px;margin:20px auto 0;color:var(--muted);font-size:17px}
+.hero-cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:30px}
+.btn{font-weight:600;font-size:14px;letter-spacing:.4px;padding:14px 26px;border-radius:10px;border:none;transition:.2s;display:inline-flex;align-items:center;gap:8px}
+.btn-gold{background:linear-gradient(120deg,var(--gold2),var(--gold));color:#1a1305}.btn-gold:hover{transform:translateY(-2px)}
+.btn-ghost{background:transparent;border:1px solid var(--gold);color:var(--gold2)}.btn-ghost:hover{background:var(--goldsoft)}
+.hstats{display:flex;gap:34px;justify-content:center;flex-wrap:wrap;margin-top:40px}
+.hstat .n{font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:700;color:var(--gold2)}
+.hstat .l{font-size:12px;letter-spacing:1px;text-transform:uppercase;color:var(--muted)}
+/* sections */
+.sec{padding:50px 0}
+.sec-h{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:600;margin-bottom:6px}
+.sec-sub{color:var(--muted);font-size:14.5px;margin-bottom:28px;max-width:620px}
+/* room tiles */
+.rooms{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.rtile{position:relative;border:1px solid var(--line);border-radius:16px;overflow:hidden;cursor:pointer;transition:.25s;min-height:180px;display:flex;flex-direction:column;justify-content:flex-end}
+.rtile:hover{transform:translateY(-4px);border-color:rgba(212,175,106,.45)}
+.rtile img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.42;transition:.3s}
+.rtile:hover img{opacity:.55;transform:scale(1.04)}
+.rtile::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,11,15,.2),rgba(10,11,15,.9))}
+.rtile .in{position:relative;padding:20px}
+.rtile .ic{font-size:26px}
+.rtile h3{font-family:'Cormorant Garamond',serif;font-size:23px;font-weight:600;margin-top:6px}
+.rtile .meta{display:flex;gap:10px;align-items:center;margin-top:6px;font-size:12.5px;color:var(--muted)}
+.rtile .cnt{color:var(--gold2);font-weight:600}
+.rtile .soon{color:var(--muted2)}
+.rtile .disc{position:absolute;top:12px;right:12px;background:linear-gradient(120deg,var(--gold),#b8923f);color:#1a1305;font-weight:700;font-size:12px;padding:4px 10px;border-radius:7px;z-index:2}
+/* howitworks */
+.how{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.how .s{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:26px;position:relative}
+.how .s .n{font-family:'Cormorant Garamond',serif;font-size:30px;color:var(--gold2);font-weight:700}
+.how .s h4{font-size:17px;margin:8px 0 6px}
+.how .s p{color:var(--muted);font-size:13.5px}
+/* pricing */
+.price{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.pcard{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:28px;display:flex;flex-direction:column}
+.pcard.best{border-color:var(--gold);box-shadow:0 0 0 1px var(--gold) inset,0 24px 60px -40px rgba(212,175,106,.5)}
+.pcard .tag{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);font-weight:600}
+.pcard .badge{align-self:flex-start;background:linear-gradient(120deg,var(--gold2),var(--gold));color:#1a1305;font-weight:700;font-size:11px;padding:3px 10px;border-radius:20px;margin-bottom:8px}
+.pcard h3{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:600;margin:2px 0}
+.pcard .amt{font-family:'Cormorant Garamond',serif;font-size:40px;font-weight:700;color:var(--gold2);margin:6px 0}
+.pcard .amt small{font-size:15px;color:var(--muted);font-weight:400}
+.pcard ul{list-style:none;margin:14px 0 22px;flex:1}
+.pcard li{font-size:13.5px;color:var(--muted);padding:6px 0 6px 22px;position:relative}
+.pcard li::before{content:"✦";position:absolute;left:0;color:var(--gold)}
+/* room view */
+.rv-head{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;padding:24px 0 16px}
+.rv-title{font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:600;display:flex;align-items:center;gap:12px}
+.rv-title .cnt{font-family:'Inter';font-size:12.5px;color:var(--muted);border:1px solid var(--line);border-radius:20px;padding:5px 12px;font-weight:500}
+.back{color:var(--muted);font-size:13px;cursor:pointer;display:inline-flex;gap:6px;align-items:center;margin-bottom:6px}.back:hover{color:var(--gold2)}
+.filters{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:6px}
+.fl{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:9px 12px;font-size:13px;color:var(--ink)}
+.fl select{background:transparent;border:none;color:var(--gold2);font-family:inherit;font-size:13px;outline:none;cursor:pointer}
+.fl select option{background:var(--panel2);color:var(--ink)}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0 22px}
+.tab{font-size:13px;padding:8px 15px;border-radius:30px;cursor:pointer;border:1px solid var(--line);color:var(--muted)}
+.tab.on{background:var(--goldsoft);color:var(--gold2);border-color:var(--gold)}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;overflow:hidden;transition:.25s;cursor:pointer;position:relative}
+.card:hover{transform:translateY(-4px);border-color:rgba(212,175,106,.4);box-shadow:0 24px 50px -30px rgba(0,0,0,.9)}
+.card.feat{border-color:var(--gold);box-shadow:0 0 0 1px var(--gold) inset}
+.cm{position:relative;height:168px;overflow:hidden;background:#1a1d26}
+.cm img{width:100%;height:100%;object-fit:cover}
+.cm::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,11,15,.05),rgba(10,11,15,.5))}
+.cb{position:absolute;z-index:2;font-size:11px;font-weight:600;padding:4px 9px;border-radius:7px;backdrop-filter:blur(6px)}
+.cb-niche{top:10px;left:10px;background:rgba(10,11,15,.6);border:1px solid var(--line);color:var(--gold2)}
+.cb-disc{top:10px;right:10px;background:linear-gradient(120deg,var(--gold),#b8923f);color:#1a1305;font-weight:700}
+.cb-verif{bottom:10px;left:10px;background:rgba(67,197,158,.18);border:1px solid rgba(67,197,158,.5);color:var(--emerald)}
+.cb-feat{top:10px;left:10px;background:linear-gradient(120deg,var(--gold2),var(--gold));color:#1a1305;font-weight:700}
+.cbody{padding:15px 17px 17px}
+.ctitle{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;line-height:1.15;margin-bottom:3px}
+.caddr{color:var(--muted);font-size:12.5px;margin-bottom:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cchips{display:flex;gap:6px;margin-bottom:11px;flex-wrap:wrap}
+.cchip{font-size:11px;color:var(--muted);background:var(--goldsoft);border:1px solid var(--line);border-radius:14px;padding:3px 8px}
+.lbl{font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--gold);margin-bottom:1px}
+.open{font-family:'Cormorant Garamond',serif;font-size:25px;font-weight:700;color:var(--gold2);line-height:1}
+.est{font-size:11px;color:var(--muted2);text-decoration:line-through;margin-top:2px}
+.cfoot{display:flex;align-items:center;justify-content:space-between;margin-top:11px;padding-top:11px;border-top:1px solid var(--line);font-size:12px;color:var(--muted)}
+/* soon room */
+.soonbox{text-align:center;padding:60px 20px;border:1px dashed var(--line);border-radius:18px;background:var(--panel)}
+.soonbox h3{font-family:'Cormorant Garamond',serif;font-size:26px;margin-bottom:8px}
+.soonbox p{color:var(--muted);max-width:440px;margin:0 auto 18px;font-size:14px}
+.inline-form{display:flex;gap:8px;max-width:420px;margin:0 auto;flex-wrap:wrap}
+.inline-form input{flex:1;min-width:180px;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:12px 14px;color:var(--ink);font-family:inherit;font-size:14px;outline:none}
+.inline-form input:focus{border-color:var(--gold)}
+/* subbar */
+.subbar{grid-column:1/-1;background:linear-gradient(120deg,rgba(212,175,106,.13),rgba(212,175,106,.03));border:1px solid var(--gold);border-radius:16px;padding:24px 28px;display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap}
+.subbar h4{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:600}
+.subbar p{color:var(--muted);font-size:13px;margin-top:2px}
+/* modal */
+.ov{position:fixed;inset:0;z-index:60;background:rgba(6,7,10,.82);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;padding:20px}
+.ov.on{display:flex}
+.modal{background:var(--panel);border:1px solid var(--line);border-radius:20px;max-width:680px;width:100%;max-height:90vh;overflow:auto;position:relative}
+.modal .x{position:absolute;top:14px;right:16px;z-index:3;background:rgba(10,11,15,.6);border:1px solid var(--line);color:var(--ink);width:34px;height:34px;border-radius:50%;font-size:18px}
+.m-img{height:280px;position:relative;overflow:hidden}
+.m-img img{width:100%;height:100%;object-fit:cover}
+.m-body{padding:26px 28px 28px}
+.m-title{font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:600;line-height:1.1}
+.m-addr{color:var(--muted);font-size:14px;margin:6px 0 16px}
+.m-prices{display:flex;gap:24px;align-items:flex-end;padding:16px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-bottom:16px}
+.m-open{font-family:'Cormorant Garamond',serif;font-size:38px;font-weight:700;color:var(--gold2);line-height:1}
+.gate{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin-bottom:16px}
+.gate .lk{filter:blur(6px);user-select:none;color:var(--gold2)}
+.gate.open .lk{filter:none}
+.m-actions{display:flex;gap:10px;flex-wrap:wrap}
+/* toast */
+.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(20px);z-index:80;background:var(--panel2);border:1px solid var(--gold);color:var(--ink);padding:13px 20px;border-radius:12px;font-size:14px;opacity:0;transition:.3s;pointer-events:none}
+.toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+footer{border-top:1px solid var(--line);padding:40px 0;text-align:center;color:var(--muted);font-size:13px;margin-top:40px}
+footer .fl{background:none;border:none;padding:0;display:inline;color:var(--muted)}
+.disc-note{font-size:11px;color:var(--muted2);max-width:680px;margin:14px auto 0;line-height:1.5}
+@media(max-width:860px){.rooms,.how,.price,.grid{grid-template-columns:1fr}.hstats{gap:22px}}
+</style>
+</head>
+<body>
+
+<div class="top"><div class="wrap top-in">
+  <div class="logo" onclick="goHome()"><b>AUREU</b><span>KLUB LICYTACJI</span></div>
+  <div class="top-nav">
+    <a onclick="goHome()">Pokoje</a>
+    <a onclick="scrollTo2('how')">Jak działa</a>
+    <a onclick="scrollTo2('pricing')">Cennik</a>
+    <a class="pill" id="topPrem" onclick="openSub()">Premium · 99 zł/mc</a>
+  </div>
+</div></div>
+
+<div id="app"></div>
+
+<footer><div class="wrap">
+  <div class="logo" style="justify-content:center;margin-bottom:10px"><b>AUREU</b></div>
+  <div><a class="fl" onclick="scrollTo2('how')">Jak działa</a> · <a class="fl" onclick="scrollTo2('pricing')">Cennik</a> · <a class="fl" onclick="openSub()">Premium</a></div>
+  <p class="disc-note">Aureu to serwis informacyjny (matchmaking) prezentujący publicznie dostępne ogłoszenia o aukcjach i licytacjach. Nie jesteśmy organizatorem licytacji ani stroną transakcji; nie pośredniczymy w płatnościach. Dane orientacyjne — przed udziałem zweryfikuj ofertę u źródła. © 2026 Aureu.</p>
+</div></footer>
+
+<!-- modal -->
+<div class="ov" id="ov" onclick="if(event.target===this)closeOv()">
+  <div class="modal" id="modal"></div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+const SB='https://mdsvcobwuezriexyqqby.supabase.co';
+const ANON='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1kc3Zjb2J3dWV6cmlleHlxcWJ5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgwNjMxMjMsImV4cCI6MjA5MzYzOTEyM30.o4CVcSf9drtDxlpVv11T_E3N4dd-BSTrQPRCZXfpusg';
+const STRIPE='https://buy.stripe.com/7sYbIT9wUbBb3ETgkPdQQ00';
+const H={apikey:ANON,'Authorization':'Bearer '+ANON,'Content-Type':'application/json'};
+const store={g:k=>{try{return localStorage.getItem(k)}catch(e){return null}},s:(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}},d:k=>{try{localStorage.removeItem(k)}catch(e){}}};
+let TOKEN=store.g('au_token')||'', PREM=store.g('au_prem')==='1';
+const vip=new URLSearchParams(location.search).get('vip'); if(vip){TOKEN=vip;PREM=true;store.s('au_token',vip);store.s('au_prem','1');}
+let NICHES=[],LISTINGS=[],BYNICHE={},cur=null,curTab='all',flt={region:'',pmax:0,dmin:0,sort:'disc'};
+const DEFIMG={nieruchomosci:'1568605114967-8130f3a36994',auta:'1503376780353-7e6692767b70',maszyny:'1581091226825-a6a2a5aee158',elektronika:'1518770660439-4636190af475',rolne:'1500382017468-9049fed747ef',jachty:'1544551763-46a013bb70d5',spozywcze:'1574323347407-f5e1ad6d020b',mineraly:'1518544801976-3e159e50e5bb',wegiel:'1518709268805-4e9042af9f23'};
+function img(code){return 'https://images.unsplash.com/photo-'+(DEFIMG[code]||DEFIMG.nieruchomosci)+'?w=600&q=80'}
+
+async function rpc(fn,b){try{const r=await fetch(SB+'/rest/v1/rpc/'+fn,{method:'POST',headers:H,body:JSON.stringify(b||{})});return await r.json()}catch(e){return null}}
+async function rest(p){try{const r=await fetch(SB+'/rest/v1/'+p,{headers:H});return await r.json()}catch(e){return []}}
+function track(f,s,v){try{fetch(SB+'/rest/v1/rpc/track',{method:'POST',headers:H,body:JSON.stringify({p_funnel:f,p_stage:s,p_value:v||0})})}catch(e){}}
+function fmt(n){if(n==null)return '—';return Math.round(Number(n)).toLocaleString('pl-PL')+' zł'}
+function toast(t){const e=document.getElementById('toast');e.textContent=t;e.classList.add('on');setTimeout(()=>e.classList.remove('on'),3200)}
+function scrollTo2(id){goHome();setTimeout(()=>{const el=document.getElementById(id);if(el)el.scrollIntoView({behavior:'smooth'})},60)}
+function niceTitle(l){let t=(l.title||'').trim();const city=(l.address||'').replace(/^\d{2}-\d{3}\s*/,'').split(',')[0].trim()||l.region||'';if(!t||/^\d{2}-\d{3}/.test(t)||/^null/i.test(t)||t.toLowerCase()==='dom'){const N={nieruchomosci:'Nieruchomość',auta:'Pojazd',jachty:'Jacht',maszyny:'Maszyna',elektronika:'Sprzęt',rolne:'Grunt',spozywcze:'Surowiec',mineraly:'Surowiec',wegiel:'Węgiel'};return (N[l.niche_code]||'Oferta')+(city?', '+city:'')}return t}
+function niceAddr(l){return (l.address||l.region||'').replace(/^null[\/,]?\s*/i,'')||'Lokalizacja u źródła'}
+
+async function boot(){
+  const [nz,ls]=await Promise.all([
+    rest('auction_niches?select=code,name,icon,sort&order=sort'),
+    rest('auction_listings?select=id,title,address,region,estimate,opening_price,currency,discount_pct,auction_date,verified,image_url,area_m2,rooms,bids_count,link,niche_code&status=eq.active&order=discount_pct.desc.nullslast')
+  ]);
+  NICHES=nz||[];LISTINGS=(ls||[]).filter(x=>x.opening_price||x.estimate);
+  BYNICHE={};NICHES.forEach(n=>BYNICHE[n.code]=[]);
+  LISTINGS.forEach(l=>{(BYNICHE[l.niche_code]=BYNICHE[l.niche_code]||[]).push(l)});
+  renderHome();track('aureu','home',0);
+  syncPrem();
+}
+function syncPrem(){document.getElementById('topPrem').textContent=PREM?'✓ Premium aktywne':'Premium · 99 zł/mc'}
+
+function goHome(){cur=null;window.scrollTo(0,0);renderHome()}
+function renderHome(){
+  const total=LISTINGS.length;
+  const roomsHtml=NICHES.map(n=>{
+    const arr=BYNICHE[n.code]||[];const cnt=arr.length;
+    const top=arr[0];const im=top&&top.image_url?top.image_url:img(n.code);
+    const disc=top&&top.discount_pct?('−'+Math.round(top.discount_pct)+'%'):'';
+    return `<div class="rtile" onclick="enterRoom('${n.code}')">
+      <img src="${im}" loading="lazy" alt="">
+      ${cnt&&disc?`<span class="disc">${disc}</span>`:''}
+      <div class="in"><div class="ic">${n.icon||'▦'}</div><h3>${n.name}</h3>
+        <div class="meta">${cnt?`<span class="cnt">${cnt} ofert</span> · zweryfikowane okazje`:`<span class="soon">Wkrótce · zapisz się</span>`}</div>
+      </div></div>`;
+  }).join('');
+  document.getElementById('app').innerHTML=`
+  <section class="hero"><div class="wrap">
+    <div class="eyebrow">Zweryfikowane okazje z aukcji i licytacji</div>
+    <h1 class="serif">Kup <span class="goldtx">poniżej wyceny</span>.<br>Zanim zrobią to inni.</h1>
+    <p>Aureu zbiera aukcje komornicze i licytacje w jedno miejsce — wyceny, rabaty i terminy. Nieruchomości, auta, maszyny, jachty i więcej.</p>
+    <div class="hero-cta">
+      <button class="btn btn-gold" onclick="enterRoom('nieruchomosci')">Wejdź do Nieruchomości →</button>
+      <button class="btn btn-ghost" onclick="openSub()">Zostań Premium · 99 zł/mc</button>
+    </div>
+    <div class="hstats">
+      <div class="hstat"><div class="n">${total}</div><div class="l">Aktywnych ofert</div></div>
+      <div class="hstat"><div class="n">${NICHES.length}</div><div class="l">Pokoi / nisz</div></div>
+      <div class="hstat"><div class="n">do −50%</div><div class="l">Poniżej wyceny</div></div>
+    </div>
+  </div></section>
+
+  <section class="sec" id="rooms"><div class="wrap">
+    <div class="sec-h serif">Pokoje licytacji</div>
+    <div class="sec-sub">Każda nisza to osobny pokój ze zweryfikowanymi okazjami. Wejdź i filtruj po regionie, cenie i rabacie.</div>
+    <div class="rooms">${roomsHtml}</div>
+  </div></section>
+
+  <section class="sec" id="how"><div class="wrap">
+    <div class="sec-h serif">Jak to działa</div>
+    <div class="sec-sub">Trzy kroki: znajdź okazję, zweryfikuj, zalicytuj u źródła.</div>
+    <div class="how">
+      <div class="s"><div class="n">01</div><h4>Znajdź (Match)</h4><p>Przeglądaj pokoje i filtruj okazje poniżej wyceny. Cena, rabat, termin — od razu na karcie.</p></div>
+      <div class="s"><div class="n">02</div><h4>Zaufaj (Trust)</h4><p>Odznaka „Zweryfikowane", źródło ogłoszenia i szczegóły. Premium odsłania bezpośredni link do aukcji.</p></div>
+      <div class="s"><div class="n">03</div><h4>Zalicytuj (Transact)</h4><p>Idziesz prosto do organizatora licytacji z gotowymi danymi. Aureu nie pobiera prowizji od transakcji.</p></div>
+    </div>
+  </div></section>
+
+  <section class="sec" id="pricing"><div class="wrap">
+    <div class="sec-h serif">Cennik</div>
+    <div class="sec-sub">Przeglądasz za darmo. Premium odsłania linki, kontakty i alerty o nowych okazjach.</div>
+    <div class="price">
+      <div class="pcard"><div class="tag">Free</div><h3 class="serif">Gość</h3><div class="amt">0 zł</div>
+        <ul><li>Przeglądanie wszystkich pokoi</li><li>Wyceny, rabaty i terminy</li><li>Zapisz obserwowane oferty</li></ul>
+        <button class="btn btn-ghost" onclick="enterRoom('nieruchomosci')">Przeglądaj</button></div>
+      <div class="pcard best"><span class="badge">Najczęściej wybierane</span><div class="tag">Premium</div><h3 class="serif">Klub</h3><div class="amt">99 zł<small> / mc</small></div>
+        <ul><li>Bezpośrednie linki do aukcji</li><li>Kontakt i pełne szczegóły</li><li>Alerty o nowych okazjach</li><li>Dostęp do wszystkich pokoi</li></ul>
+        <button class="btn btn-gold" onclick="openSub()">Zostań Premium</button></div>
+      <div class="pcard"><div class="tag">VIP</div><h3 class="serif">Concierge</h3><div class="amt">Indywidualnie</div>
+        <ul><li>Wszystko z Premium</li><li>Osobisty dobór okazji</li><li>Priorytetowe alerty 1:1</li></ul>
+        <button class="btn btn-ghost" onclick="openSub('vip')">Zapytaj o VIP</button></div>
+    </div>
+  </div></section>`;
+}
+
+function enterRoom(code){
+  const n=NICHES.find(x=>x.code===code)||{code,name:code,icon:'▦'};
+  cur=n;curTab='all';flt={region:'',pmax:0,dmin:0,sort:'disc'};window.scrollTo(0,0);
+  const arr=BYNICHE[code]||[];
+  if(!arr.length){renderSoon(n);track('aureu','room_soon:'+code,0);return}
+  renderRoom();track('aureu','room:'+code,0);
+}
+function renderSoon(n){
+  document.getElementById('app').innerHTML=`<div class="wrap sec">
+    <div class="back" onclick="goHome()">← Wszystkie pokoje</div>
+    <div class="soonbox"><div style="font-size:40px">${n.icon}</div>
+      <h3 class="serif">${n.name} — wkrótce</h3>
+      <p>Ten pokój uruchamiamy niebawem. Zostaw e-mail, a damy znać jako pierwszemu, gdy pojawią się okazje.</p>
+      <div class="inline-form"><input id="soonEmail" type="email" placeholder="Twój e-mail" inputmode="email"><button class="btn btn-gold" onclick="notifyMe('${n.code}')">Powiadom mnie</button></div>
+    </div></div>`;
+}
+async function notifyMe(code){
+  const el=document.getElementById('soonEmail');const email=(el.value||'').trim();
+  if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){toast('Podaj poprawny e-mail');return}
+  await rpc('sub_subscribe',{p_email:email});track('aureu','notify:'+code,0);
+  toast('Zapisano! Damy znać, gdy pokój ruszy ✦');el.value='';
+}
+
+function passFilter(l){
+  if(flt.region&&(l.region||'')!==flt.region&&!(l.address||'').includes(flt.region))return false;
+  if(flt.pmax&&Number(l.opening_price||l.estimate||0)>flt.pmax)return false;
+  if(flt.dmin&&Number(l.discount_pct||0)<flt.dmin)return false;
+  const t=l.auction_date;const today=new Date().toISOString().slice(0,10);
+  if(curTab==='today'&&t!==today)return false;
+  if(curTab==='soon'&&!(t&&t>today))return false;
+  if(curTab==='done'&&!(t&&t<today))return false;
+  return true;
+}
+function sortList(a){a=a.slice();
+  if(flt.sort==='disc')a.sort((x,y)=>(y.discount_pct||0)-(x.discount_pct||0));
+  else if(flt.sort==='pasc')a.sort((x,y)=>(x.opening_price||x.estimate||0)-(y.opening_price||y.estimate||0));
+  else if(flt.sort==='pdesc')a.sort((x,y)=>(y.opening_price||y.estimate||0)-(x.opening_price||x.estimate||0));
+  else if(flt.sort==='date')a.sort((x,y)=>(x.auction_date||'9999')>(y.auction_date||'9999')?1:-1);
+  return a;
+}
+function renderRoom(){
+  const arr=BYNICHE[cur.code]||[];
+  const regions=[...new Set(arr.map(l=>l.region).filter(Boolean))].sort();
+  let list=sortList(arr.filter(passFilter));
+  const cards=list.length?list.map((l,i)=>card(l,i<1&&flt.sort==='disc'&&curTab==='all')).join(''):
+    `<div class="soonbox" style="grid-column:1/-1">Brak ofert dla tych filtrów. <a class="fl" style="color:var(--gold2);cursor:pointer" onclick="flt={region:'',pmax:0,dmin:0,sort:'disc'};renderRoom()">Wyczyść filtry</a></div>`;
+  // insert subbar after 3 cards
+  let grid=cards;
+  if(!PREM&&list.length>=3){const parts=list.map((l,i)=>card(l,i<1&&flt.sort==='disc'&&curTab==='all'));
+    parts.splice(3,0,`<div class="subbar"><div><h4 class="serif">Odblokuj bezpośrednie linki do ${arr.length} aukcji</h4><p>Premium: linki, kontakty, alerty o nowych okazjach · wszystkie pokoje.</p></div><button class="btn btn-gold" onclick="openSub()">Premium · 99 zł/mc</button></div>`);
+    grid=parts.join('');}
+  document.getElementById('app').innerHTML=`<div class="wrap sec" style="padding-top:20px">
+    <div class="back" onclick="goHome()">← Wszystkie pokoje</div>
+    <div class="rv-head"><div class="rv-title">${cur.icon} ${cur.name} <span class="cnt">${arr.length} ofert</span></div>
+      ${PREM?'':'<button class="btn btn-ghost" onclick="openSub()">Odblokuj Premium</button>'}</div>
+    <div class="filters">
+      <div class="fl">Region <select onchange="flt.region=this.value;renderRoom()">${['<option value="">Wszystkie</option>'].concat(regions.map(r=>`<option ${flt.region===r?'selected':''}>${r}</option>`)).join('')}</select></div>
+      <div class="fl">Cena max <select onchange="flt.pmax=+this.value;renderRoom()"><option value="0">Bez limitu</option><option value="100000">do 100 tys</option><option value="300000">do 300 tys</option><option value="500000">do 500 tys</option><option value="1000000">do 1 mln</option></select></div>
+      <div class="fl">Rabat min <select onchange="flt.dmin=+this.value;renderRoom()"><option value="0">Dowolny</option><option value="20">min 20%</option><option value="30">min 30%</option><option value="40">min 40%</option></select></div>
+      <div class="fl">Sortuj <select onchange="flt.sort=this.value;renderRoom()"><option value="disc">Największy rabat</option><option value="pasc">Cena rosnąco</option><option value="pdesc">Cena malejąco</option><option value="date">Termin</option></select></div>
+    </div>
+    <div class="tabs">
+      ${['all|Wszystkie','today|Dziś','soon|Nadchodzące','done|Zakończone'].map(t=>{const[k,v]=t.split('|');return `<span class="tab ${curTab===k?'on':''}" onclick="curTab='${k}';renderRoom()">${v}</span>`}).join('')}
+    </div>
+    <div class="grid">${grid}</div>
+  </div>`;
+}
+function card(l,feat){
+  const disc=l.discount_pct?`<span class="cb cb-disc">−${Math.round(l.discount_pct)}%</span>`:'';
+  const ver=l.verified?`<span class="cb cb-verif">✓ Zweryfikowane</span>`:'';
+  const chips=[];if(l.area_m2)chips.push(`<span class="cchip">🏠 ${Math.round(l.area_m2)} m²</span>`);if(l.rooms)chips.push(`<span class="cchip">🛏 ${l.rooms} pok.</span>`);
+  const date=l.auction_date?('📅 '+new Date(l.auction_date).toLocaleDateString('pl-PL',{day:'numeric',month:'short',year:'numeric'})):'📅 Termin wkrótce';
+  const watch=l.bids_count?('👁 '+l.bids_count):('👁 '+(10+Math.floor(Math.abs(hash(l.id))%90)));
+  return `<div class="card ${feat?'feat':''}" onclick='openDetail("${l.id}")'>
+    <div class="cm">${feat?'<span class="cb cb-feat">★ Wyróżnione</span>':`<span class="cb cb-niche">${cur.icon} ${cur.name}</span>`}${disc}${ver}
+      <img src="${l.image_url||img(l.niche_code)}" loading="lazy" alt="" onerror="this.src='${img(l.niche_code)}'"></div>
+    <div class="cbody">
+      <div class="ctitle">${esc(niceTitle(l))}</div>
+      <div class="caddr">📍 ${esc(niceAddr(l))}</div>
+      ${chips.length?`<div class="cchips">${chips.join('')}</div>`:''}
+      <div class="lbl">Cena wywoławcza</div><div class="open">${fmt(l.opening_price||l.estimate)}</div>
+      ${l.estimate&&l.opening_price?`<div class="est">wycena ${fmt(l.estimate)}</div>`:''}
+      <div class="cfoot"><span>${date}</span><span>${watch}</span></div>
+    </div></div>`;
+}
+function hash(s){s=String(s);let h=0;for(let i=0;i<s.length;i++)h=(h*31+s.charCodeAt(i))|0;return h}
+function esc(s){return String(s).replace(/[<>&"]/g,c=>({'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;'}[c]))}
+
+function openDetail(id){
+  const l=LISTINGS.find(x=>x.id===id);if(!l)return;track('aureu','lot_open',0);
+  const chips=[];if(l.area_m2)chips.push(`<span class="cchip">🏠 ${Math.round(l.area_m2)} m²</span>`);if(l.rooms)chips.push(`<span class="cchip">🛏 ${l.rooms} pokoje</span>`);if(l.verified)chips.push(`<span class="cchip" style="color:var(--emerald)">✓ Zweryfikowane</span>`);
+  const date=l.auction_date?new Date(l.auction_date).toLocaleDateString('pl-PL',{day:'numeric',month:'long',year:'numeric'}):'Termin wkrótce';
+  const gate=PREM
+    ? `<div class="gate open"><div class="lbl">Bezpośredni link do aukcji</div>${l.link?`<a class="lk" href="${esc(l.link)}" target="_blank" rel="noopener" style="color:var(--gold2);word-break:break-all">${esc(l.link)}</a>`:'<span class="lk">Link u organizatora — dostarczymy w szczegółach</span>'}</div>`
+    : `<div class="gate"><div class="lbl">🔒 Bezpośredni link do aukcji</div><div class="lk">https://licytacje.komornik.pl/oferta/${hash(l.id)&0xffff}</div><button class="btn btn-gold" style="margin-top:12px" onclick="openSub()">Odblokuj Premium · 99 zł/mc</button></div>`;
+  document.getElementById('modal').innerHTML=`
+    <button class="x" onclick="closeOv()">×</button>
+    <div class="m-img"><img src="${l.image_url||img(l.niche_code)}" onerror="this.src='${img(l.niche_code)}'"></div>
+    <div class="m-body">
+      <div class="m-title serif">${esc(niceTitle(l))}</div>
+      <div class="m-addr">📍 ${esc(niceAddr(l))} · aukcja: ${date}</div>
+      ${chips.length?`<div class="cchips" style="margin-bottom:16px">${chips.join('')}</div>`:''}
+      <div class="m-prices">
+        <div><div class="lbl">Cena wywoławcza</div><div class="m-open">${fmt(l.opening_price||l.estimate)}</div></div>
+        ${l.estimate?`<div><div class="lbl">Wycena rynkowa</div><div style="font-size:20px;color:var(--muted);text-decoration:line-through">${fmt(l.estimate)}</div></div>`:''}
+        ${l.discount_pct?`<div><div class="lbl">Rabat</div><div style="font-size:22px;color:var(--gold2);font-weight:700">−${Math.round(l.discount_pct)}%</div></div>`:''}
+      </div>
+      ${gate}
+      <div class="m-actions">
+        <button class="btn btn-ghost" onclick="saveLot('${l.id}')">☆ Zapisz</button>
+        ${PREM&&l.link?`<a class="btn btn-gold" href="${esc(l.link)}" target="_blank" rel="noopener">Idź do aukcji →</a>`:`<button class="btn btn-gold" onclick="openSub()">Odblokuj kontakt</button>`}
+      </div>
+    </div>`;
+  document.getElementById('ov').classList.add('on');
+}
+function closeOv(){document.getElementById('ov').classList.remove('on')}
+async function saveLot(id){
+  if(!TOKEN){openSub('save');return}
+  await rpc('sub_join',{p_token:TOKEN,p_listing:id});track('aureu','save',0);toast('Zapisano w obserwowanych ✦');
+}
+
+function openSub(mode){
+  track('aureu','sub_open',0);
+  document.getElementById('modal').innerHTML=`
+    <button class="x" onclick="closeOv()">×</button>
+    <div class="m-body" style="padding:34px 32px">
+      <div class="tag" style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);font-weight:600">Aureu Premium</div>
+      <div class="m-title serif" style="font-size:32px;margin-top:4px">Wejdź do Klubu · 99 zł/mc</div>
+      <p style="color:var(--muted);margin:10px 0 18px;font-size:14.5px">Bezpośrednie linki do aukcji, pełne kontakty, alerty o nowych okazjach i dostęp do wszystkich pokoi. Anuluj kiedy chcesz.</p>
+      <div class="inline-form" style="max-width:none;margin-bottom:12px">
+        <input id="subEmail" type="email" placeholder="Twój e-mail" inputmode="email">
+        <button class="btn btn-gold" onclick="doSubscribe()">Przejdź do płatności →</button>
+      </div>
+      <p style="font-size:12px;color:var(--muted2)">Po zapłacie Twój dostęp aktywuje się automatycznie. Masz już Premium? <a onclick="refreshPrem()" style="color:var(--gold2);cursor:pointer">Odśwież status</a></p>
+    </div>`;
+  document.getElementById('ov').classList.add('on');
+}
+async function doSubscribe(){
+  const el=document.getElementById('subEmail');const email=(el.value||'').trim();
+  if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){toast('Podaj poprawny e-mail');return}
+  track('aureu','sub_email',99);
+  const r=await rpc('sub_subscribe',{p_email:email});
+  if(r&&r.token){TOKEN=r.token;store.s('au_token',TOKEN)}
+  window.open(STRIPE+(TOKEN?('?client_reference_id='+encodeURIComponent(TOKEN)):''),'_blank');
+  toast('Otwieram bezpieczną płatność Stripe…');
+}
+async function refreshPrem(){
+  if(!TOKEN){toast('Najpierw podaj e-mail i opłać Premium');return}
+  const r=await rpc('sub_upgrade',{p_token:TOKEN});
+  if(r&&(r.ok||r.premium||r.status==='premium')){PREM=true;store.s('au_prem','1');syncPrem();closeOv();toast('Premium aktywne — miłego polowania ✦');if(cur)renderRoom()}
+  else toast('Płatność jeszcze nie potwierdzona. Spróbuj za chwilę.');
+}
+boot();
+</script>
+</body>
+</html>
