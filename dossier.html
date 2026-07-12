@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="pl"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Aureu — Dossier 360°</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<style>
+*{margin:0;box-sizing:border-box}
+:root{--bg:#06060c;--panel:#101018;--ink:#eef0ff;--muted:rgba(238,240,255,.55);--v:#a78bfa;--c:#22d3ee;--line:rgba(167,139,250,.22);--emerald:#43c59e}
+body{background:var(--bg);color:var(--ink);font-family:Inter,sans-serif;-webkit-font-smoothing:antialiased;line-height:1.6}
+.serif{font-family:'Cormorant Garamond',serif}
+.hl{background:linear-gradient(110deg,var(--v),var(--c));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.bar{position:sticky;top:0;z-index:20;background:rgba(6,6,12,.8);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:12px 20px}
+.logo{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:22px;letter-spacing:5px}.logo b{background:linear-gradient(110deg,var(--v),var(--c));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.logo span{display:block;font-family:Inter;font-size:9px;letter-spacing:3px;color:var(--muted);margin-top:-4px}
+.btn{border:none;font-weight:700;font-size:13px;padding:10px 18px;border-radius:10px;cursor:pointer;background:linear-gradient(110deg,var(--v),var(--c));color:#0a0a14}
+.page{max-width:900px;margin:0 auto;padding:26px 22px 60px}
+.cover{position:relative;border-radius:18px;overflow:hidden;border:1px solid var(--line);margin-bottom:22px}
+.cover img{width:100%;height:280px;object-fit:cover}
+.cover .ov{position:absolute;inset:0;background:linear-gradient(180deg,rgba(6,6,12,.1),rgba(6,6,12,.9))}
+.cover .in{position:absolute;left:0;right:0;bottom:0;padding:22px}
+.kd{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--c);font-weight:600}
+.cover h1{font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:600;line-height:1.05;margin:4px 0}
+.cover .loc{color:var(--muted);font-size:14px}
+.badges{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.bdg{font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;border:1px solid var(--line);color:var(--v)}
+.bdg.disc{background:linear-gradient(110deg,var(--v),var(--c));color:#0a0a14;border:none}
+.bdg.ver{color:var(--emerald);border-color:rgba(67,197,158,.5)}
+h2.sec{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;margin:26px 0 12px;padding-left:12px;border-left:3px solid var(--v)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.metric{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px}
+.metric .l{font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--c)}
+.metric .val{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:700}
+.metric.gold .val{color:var(--v)}.metric.em .val{color:var(--emerald)}
+.strike{text-decoration:line-through;color:var(--muted)}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px}
+.row{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--line);font-size:14px}
+.row:last-child{border:none}.row .k{color:var(--muted)}
+[contenteditable]{outline:none;border:1px dashed transparent;border-radius:6px;transition:.15s;min-height:1.4em}
+[contenteditable]:hover{border-color:var(--line)}
+[contenteditable]:focus{border-color:var(--v);background:rgba(167,139,250,.06)}
+.ph{color:var(--muted);font-style:italic}
+#map,#tour{height:280px;border-radius:14px;border:1px solid var(--line);overflow:hidden}
+#tour iframe{width:100%;height:100%;border:0}
+.tourbox{display:flex;gap:8px;margin-bottom:10px}
+.tourbox input{flex:1;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px 12px;color:var(--ink);font-family:inherit;font-size:13px;outline:none}
+.tourph{height:280px;border-radius:14px;border:1px dashed var(--line);display:flex;align-items:center;justify-content:center;text-align:center;color:var(--muted);font-size:13px;padding:20px;background:var(--panel)}
+.contact{display:flex;gap:18px;flex-wrap:wrap;background:linear-gradient(110deg,rgba(167,139,250,.1),rgba(34,211,238,.05));border:1px solid var(--line);border-radius:14px;padding:18px}
+.contact b{color:var(--c)}
+.disc{font-size:11px;color:rgba(238,240,255,.35);margin-top:22px;line-height:1.5;border-top:1px solid var(--line);padding-top:14px}
+.note{font-size:12px;color:var(--muted);margin-bottom:8px}
+@media(max-width:640px){.grid2{grid-template-columns:1fr}.cover h1{font-size:26px}}
+@media print{
+ body{background:#fff;color:#111}
+ .bar,.no-print,.tourbox{display:none!important}
+ .page{max-width:none;padding:0}
+ .metric,.card,.contact,.cover,#map,#tour,.tourph{border-color:#ccc!important;background:#fff!important}
+ .kd,.metric .l{color:#7a5cff!important}
+ .metric.gold .val,.hl,.logo b,.cover h1{-webkit-text-fill-color:#5b3fd6!important;color:#5b3fd6!important;background:none!important}
+ .metric.em .val{color:#0a8f6a!important}
+ h2.sec{border-color:#7a5cff}
+ .muted,.loc,.k,.row .k{color:#555!important}
+ [contenteditable]{border:none!important}
+ a{color:#5b3fd6!important}
+}
+</style></head>
+<body>
+<div class="bar">
+  <div class="logo"><b>AUREU</b><span>DOSSIER 360°</span></div>
+  <div class="no-print" style="display:flex;gap:8px">
+    <button class="btn" onclick="window.print()">🖨️ Zapisz PDF / Drukuj</button>
+  </div>
+</div>
+<div class="page" id="page"><p class="note">Ładowanie danych lotu…</p></div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+const SB='https://mdsvcobwuezriexyqqby.supabase.co';
+const ANON='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1kc3Zjb2J3dWV6cmlleHlxcWJ5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgwNjMxMjMsImV4cCI6MjA5MzYzOTEyM30.o4CVcSf9drtDxlpVv11T_E3N4dd-BSTrQPRCZXfpusg';
+const H={apikey:ANON,'Authorization':'Bearer '+ANON};
+const NAME={nieruchomosci:'Nieruchomość',auta:'Pojazd',jachty:'Jacht',maszyny:'Maszyna',elektronika:'Sprzęt',rolne:'Grunt',spozywcze:'Surowiec',mineraly:'Surowiec',wegiel:'Węgiel'};
+const NCOLN={nieruchomosci:'Nieruchomości',auta:'Pojazdy i auta',jachty:'Jachty i łodzie',maszyny:'Maszyny i przemysł',elektronika:'Elektronika',rolne:'Grunty i rolne',spozywcze:'Spożywcze',mineraly:'Minerały',wegiel:'Węgiel'};
+const DEF={nieruchomosci:'1568605114967-8130f3a36994',auta:'1503376780353-7e6692767b70',jachty:'1544551763-46a013bb70d5',maszyny:'1581091226825-a6a2a5aee158',elektronika:'1518770660439-4636190af475',rolne:'1500382017468-9049fed747ef',spozywcze:'1509440159596-0249088772ff',mineraly:'1518544801976-3e159e50e5bb',wegiel:'1518709268805-4e9042af9f23'};
+const REG={'małopolskie':[50.06,19.94],'mazowieckie':[52.23,21.0],'wielkopolskie':[52.41,16.93],'pomorskie':[54.35,18.65],'dolnośląskie':[51.11,17.03],'śląskie':[50.26,19.02],'łódzkie':[51.76,19.46],'zachodniopomorskie':[53.43,14.55],'kujawsko-pomorskie':[53.12,18.0],'lubelskie':[51.25,22.57],'świętokrzyskie':[50.87,20.63],'podlaskie':[53.13,23.16],'warmińsko-mazurskie':[53.78,20.48]};
+function fmt(n){return n==null?'—':Math.round(Number(n)).toLocaleString('pl-PL')+' zł'}
+function esc(s){return String(s==null?'':s).replace(/[<>&]/g,c=>({'<':'&lt;','>':'&gt;','&':'&amp;'}[c]))}
+function img(c){return 'https://images.unsplash.com/photo-'+(DEF[c]||DEF.nieruchomosci)+'?w=1000&q=80'}
+function niceTitle(l){let t=(l.title||'').trim();const city=(l.address||'').replace(/^\d{2}-\d{3}\s*/,'').split(',')[0].trim()||l.region||'';if(!t||/^\d{2}-\d{3}/.test(t)||/^null/i.test(t))return (NAME[l.niche_code]||'Oferta')+(city?', '+city:'');return t}
+
+const id=new URLSearchParams(location.search).get('id');
+async function load(){
+  if(!id){document.getElementById('page').innerHTML='<p class="note">Brak parametru <b>?id=</b> lotu. Otwórz dossier z platformy Aureu (przycisk „Dossier 360°").</p>';return}
+  let l=null;
+  try{const r=await fetch(SB+'/rest/v1/auction_listings?id=eq.'+encodeURIComponent(id)+'&select=*',{headers:H});const a=await r.json();l=a&&a[0];}catch(e){}
+  if(!l){document.getElementById('page').innerHTML='<p class="note">Nie znaleziono lotu o tym id (mógł zostać zamknięty).</p>';return}
+  const est=Number(l.estimate||0),op=Number(l.opening_price||est);const rek=Number(l.rekojmia||Math.round(op*0.1));const koszty=Math.round(op*0.05);const zysk=est-op-koszty;
+  const date=l.auction_date?new Date(l.auction_date).toLocaleDateString('pl-PL',{day:'numeric',month:'long',year:'numeric'}):'termin w przygotowaniu';
+  document.title='Aureu — Dossier 360° · '+niceTitle(l);
+  document.getElementById('page').innerHTML=`
+   <div class="cover"><img src="${l.image_url||img(l.niche_code)}" onerror="this.src='${img(l.niche_code)}'"><div class="ov"></div>
+     <div class="in"><div class="kd">Dossier 360° · ${esc(NCOLN[l.niche_code]||'')}</div>
+       <h1 class="serif">${esc(niceTitle(l))}</h1>
+       <div class="loc">📍 ${esc(l.address||l.region||'lokalizacja u organizatora')}</div>
+       <div class="badges">${l.discount_pct?`<span class="bdg disc">−${Math.round(l.discount_pct)}% poniżej wyceny</span>`:''}${l.verified?'<span class="bdg ver">✓ Zweryfikowane</span>':''}<span class="bdg">Aukcja: ${date}</span></div>
+     </div></div>
+
+   <h2 class="sec">Metryka finansowa</h2>
+   <div class="grid2">
+     <div class="metric gold"><div class="l">Cena wywoławcza</div><div class="val">${fmt(op)}</div></div>
+     <div class="metric"><div class="l">Wycena rynkowa</div><div class="val strike" style="font-size:22px">${fmt(est)}</div></div>
+     <div class="metric"><div class="l">Rękojmia (wadium)</div><div class="val" style="font-size:22px">${fmt(rek)}</div></div>
+     <div class="metric em"><div class="l">Potencjał (wycena − wywoławcza − koszty)</div><div class="val">${zysk>0?'+':''}${fmt(zysk)}</div></div>
+   </div>
+   <p class="note" style="margin-top:8px">Szacunek orientacyjny. Koszty przyjęto ~5% ceny wywoławczej; potencjał = różnica do wyceny rynkowej. Zweryfikuj u organizatora.</p>
+
+   <h2 class="sec">Przedmiot licytacji i organizator</h2>
+   <div class="card">
+     <div class="row"><span class="k">Kategoria</span><span>${esc(NCOLN[l.niche_code]||'')}</span></div>
+     ${l.area_m2?`<div class="row"><span class="k">Powierzchnia</span><span>${Math.round(l.area_m2)} m²</span></div>`:''}
+     ${l.rooms?`<div class="row"><span class="k">Liczba pomieszczeń</span><span>${l.rooms}</span></div>`:''}
+     <div class="row"><span class="k">Termin aukcji</span><span>${date}</span></div>
+     <div class="row"><span class="k">Organizator / komornik</span><span contenteditable="true" class="ph">[uzupełnij — komornik/syndyk, kancelaria]</span></div>
+     <div class="row"><span class="k">Sygnatura / nr sprawy</span><span contenteditable="true" class="ph">[uzupełnij — sygnatura]</span></div>
+     <div class="row"><span class="k">Link do ogłoszenia</span><span>${l.link?`<a href="${esc(l.link)}" target="_blank" style="color:var(--c);word-break:break-all">${esc(l.link)}</a>`:'<span contenteditable="true" class="ph">[wklej link do licytacji]</span>'}</span></div>
+   </div>
+
+   <h2 class="sec">Wirtualny spacer 360°</h2>
+   <div class="tourbox no-print"><input id="tourUrl" placeholder="Wklej URL spaceru 360° (Kuula / Matterport / Google 360 / YouTube 360)"><button class="btn" onclick="setTour()">Wstaw</button></div>
+   <div id="tourWrap"><div class="tourph" id="tourPh">🌐 Miejsce na wirtualny spacer 360°.<br>Wklej URL panoramy powyżej — osadzi się tutaj. W wydruku PDF pojawi się adres spaceru.</div></div>
+   <div id="tourLink" class="note" style="margin-top:8px"></div>
+
+   <h2 class="sec">Lokalizacja</h2>
+   <div id="map"></div>
+   <p class="note" style="margin-top:8px">Lokalizacja przybliżona. Dokładny adres i dojazd — u organizatora.</p>
+
+   <h2 class="sec">Stan prawny, obciążenia i uwagi</h2>
+   <div class="card"><div contenteditable="true"><span class="ph">[uzupełnij: stan prawny, wpisy w KW, obciążenia, służebności, zadłużenie, stan techniczny, dostęp do oględzin, warunki przystąpienia do licytacji, wysokość i termin wpłaty rękojmi…]</span></div></div>
+
+   <h2 class="sec">Analiza i rekomendacja Aureu</h2>
+   <div class="card"><div contenteditable="true"><span class="ph">[uzupełnij: dlaczego to okazja, ryzyka, sugerowany limit licytacji, strategia, porównanie z rynkiem…]</span></div></div>
+
+   <h2 class="sec">Kontakt</h2>
+   <div class="contact">
+     <div><div class="kd">Opiekun</div><div>Aureu — Klub Licytacji</div></div>
+     <div><div class="kd">WhatsApp</div><div><b>+48 536 828 393</b></div></div>
+     <div><div class="kd">E-mail</div><div><b>kg.regenevia@gmail.com</b></div></div>
+     <div><div class="kd">Serwis</div><div>aureu.kgregenevia.pro</div></div>
+   </div>
+
+   <p class="disc">Dossier informacyjne przygotowane przez Aureu na podstawie publicznie dostępnych ogłoszeń o licytacji. Aureu nie jest organizatorem licytacji ani stroną transakcji i nie pośredniczy w płatnościach. Wszystkie dane (w tym wyceny, rabaty, stan prawny) mają charakter orientacyjny i wymagają samodzielnej weryfikacji u organizatora przed przystąpieniem do licytacji. © 2026 Aureu.</p>`;
+
+  // mapa
+  const m=(l.address||'').match(/(\d)\d-\d{3}/);const PGEO={'0':[52.23,21],'1':[53.78,20.48],'2':[51.25,22.57],'3':[50.06,19.94],'4':[50.26,19.02],'5':[51.11,17.03],'6':[52.41,16.93],'7':[53.43,14.55],'8':[54.35,18.65],'9':[51.76,19.46]};
+  let ll=m?PGEO[m[1]]:(l.region&&REG[l.region]?REG[l.region]:PGEO['0']);
+  try{const map=L.map('map',{scrollWheelZoom:false}).setView(ll,m?11:9);L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',{maxZoom:18}).addTo(map);L.circleMarker(ll,{radius:11,color:'#a78bfa',fillColor:'#22d3ee',fillOpacity:.85}).addTo(map);setTimeout(()=>map.invalidateSize(),200);}catch(e){}
+}
+function setTour(){
+  const u=(document.getElementById('tourUrl').value||'').trim();if(!u)return;
+  let src=u;const yt=u.match(/(?:youtu\.be\/|v=)([\w-]{11})/);if(yt)src='https://www.youtube.com/embed/'+yt[1];
+  document.getElementById('tourWrap').innerHTML='<div id="tour"><iframe src="'+src.replace(/"/g,'')+'" allowfullscreen allow="xr-spatial-tracking; gyroscope; accelerometer"></iframe></div>';
+  document.getElementById('tourLink').innerHTML='🌐 Spacer 360°: <a href="'+esc(u)+'" style="color:var(--c);word-break:break-all">'+esc(u)+'</a>';
+}
+load();
+</script>
+</body></html>
