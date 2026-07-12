@@ -323,6 +323,11 @@ body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;opa
  #tableOv .seat{width:76px}
  #tableOv .seat .av{width:48px;height:48px;font-size:13px}
 }
+.roomnav{display:flex;gap:8px;overflow-x:auto;padding:2px 0 12px;margin-bottom:4px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.roomnav::-webkit-scrollbar{display:none}
+.rn{white-space:nowrap;flex:0 0 auto;background:var(--panel);border:1px solid var(--line);color:var(--muted);border-radius:30px;padding:8px 14px;font-size:13px;font-weight:500;display:flex;gap:6px;align-items:center;cursor:pointer;transition:.15s;backdrop-filter:blur(10px)}
+.rn:hover{color:var(--ink);border-color:var(--c)}
+.rn.on{color:#0a0a14;background:var(--c);border-color:var(--c);font-weight:700}
 </style>
 </head>
 <body>
@@ -540,6 +545,7 @@ function renderRoom(){
   const stoldnia=(cur.code!=='__search'&&_hot)?`<div class="stoldnia" style="--acc:${acc(cur.code)}" onclick="openTable('${_hot.id}')"><img src="${_hot.image_url||img(_hot.niche_code)}" onerror="this.src='${img(_hot.niche_code)}'"><div><div class="sdk">🔴 Stół dnia · na żywo</div><div class="sdn">${esc(niceTitle(_hot))} — ${fmt(_hot.current_bid||_hot.opening_price||_hot.estimate)}</div></div><span class="sdcta">Podejdź do stołu →</span></div>`:'';
   document.getElementById('app').innerHTML=`<div class="wrap sec" style="padding-top:16px;--acc:${acc(cur.code)}">
     <div class="back" onclick="goHome()">← Wszystkie pokoje</div>
+    <div class="roomnav">${NICHES.map(n=>`<button class="rn ${cur.code===n.code?'on':''}" style="--c:${acc(n.code)}" onclick="enterRoom('${n.code}')">${n.icon} ${n.name}</button>`).join('')}</div>
     <div class="rv-head"><div class="rv-title">${cur.icon} ${cur.name} <span class="cnt">${list.length} ofert</span></div>
       <div style="display:flex;gap:8px">${cur.code!=='__search'?`<button class="btn btn-ghost sm" onclick="openAlert()">🔔 Ustaw alert</button>`:''}${PREM?'':`<button class="btn btn-gold sm" onclick="openSub()">Premium</button>`}</div></div>
     ${stoldnia}${toolbar}${tabs}${body}</div>`;
