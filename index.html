@@ -365,7 +365,8 @@ const NCOL={nieruchomosci:'#d4af6a',auta:'#ff6b6b',maszyny:'#8aa0b8',elektronika
 function acc(c){return NCOL[c]||'#d4af6a'}
 let tableTimer=null;
 const PGEO={'0':[52.23,21.0],'1':[53.78,20.48],'2':[51.25,22.57],'3':[50.06,19.94],'4':[50.26,19.02],'5':[51.11,17.03],'6':[52.4,16.93],'7':[53.43,14.55],'8':[54.35,18.65],'9':[51.76,19.46]};
-function geo(l){const m=(l.address||'').match(/(\d)\d-\d{3}/);const k=m?m[1]:'0';const b=PGEO[k]||PGEO['0'];const j=((hash(l.id)%1000)/1000-0.5);return [b[0]+j*0.7,b[1]+j*1.1]}
+const REGGEO={'małopolskie':[50.06,19.94],'mazowieckie':[52.23,21.0],'wielkopolskie':[52.41,16.93],'pomorskie':[54.35,18.65],'dolnośląskie':[51.11,17.03],'śląskie':[50.26,19.02],'łódzkie':[51.76,19.46],'zachodniopomorskie':[53.43,14.55],'kujawsko-pomorskie':[53.12,18.0],'lubelskie':[51.25,22.57],'świętokrzyskie':[50.87,20.63],'podlaskie':[53.13,23.16],'warmińsko-mazurskie':[53.78,20.48]};
+function geo(l){const m=(l.address||'').match(/(\d)\d-\d{3}/);let b;if(m){b=PGEO[m[1]]||PGEO['0']}else if(l.region&&REGGEO[l.region]){b=REGGEO[l.region]}else{b=PGEO['0']}const j=((hash(l.id)%1000)/1000-0.5);return [b[0]+j*0.55,b[1]+j*0.8]}
 async function rpc(fn,b){try{const r=await fetch(SB+'/rest/v1/rpc/'+fn,{method:'POST',headers:H,body:JSON.stringify(b||{})});return await r.json()}catch(e){return null}}
 async function rest(p){try{const r=await fetch(SB+'/rest/v1/'+p,{headers:H});return await r.json()}catch(e){return []}}
 function track(f,s,v){try{fetch(SB+'/rest/v1/rpc/track',{method:'POST',headers:H,body:JSON.stringify({p_funnel:f,p_stage:s,p_value:v||0})})}catch(e){}}
