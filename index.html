@@ -339,6 +339,8 @@ body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;opa
 .viz360 b{color:var(--gold2)}
 .vizrow{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap;background:linear-gradient(120deg,rgba(34,211,238,.14),rgba(167,139,250,.07));border:1px solid var(--gold);border-radius:12px;padding:13px 15px;margin-bottom:14px}
 .vizrow .vt{font-size:13.5px;flex:1;min-width:180px}.vizrow .vt b{color:var(--gold2)}
+.srcnote{font-size:12px;color:var(--muted);background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:9px 13px;margin-bottom:12px;line-height:1.5}
+.pxnote{font-size:11.5px;color:var(--muted);margin:-2px 0 14px;line-height:1.5}
 </style>
 </head>
 <body>
@@ -485,13 +487,14 @@ function renderHome(){
   </div></section>
 
   <section class="sec"><div class="wrap">
-    <div class="sec-h serif">Opinie członków</div>
+    <div class="sec-h serif">Przejrzystość i zasady</div>
+    <div class="sec-sub">Jak działamy i skąd bierzemy dane — bez ściemy.</div>
     <div class="tst">
-      <div class="t"><div class="st">★★★★★</div><p>„Kupiłem lokal 30% poniżej wyceny. Aureu skróciło mi tygodnie szukania po komornikach do kilku minut."</p><div class="who">— [Imię, miasto]</div></div>
-      <div class="t"><div class="st">★★★★★</div><p>„Alerty to złoto — dostaję okazję zanim trafi szerzej. Sam kalkulator opłacalności wart jest abonamentu."</p><div class="who">— [Imię, miasto]</div></div>
-      <div class="t"><div class="st">★★★★★</div><p>„Przejrzyste: wycena, cena wywoławcza, rabat i termin w jednym miejscu. Wreszcie wiadomo co i za ile."</p><div class="who">— [Imię, miasto]</div></div>
+      <div class="t"><div style="font-size:26px;margin-bottom:8px">📑</div><div class="serif" style="font-size:19px;margin-bottom:6px;color:var(--gold2)">Skąd dane</div><p>Agregujemy <b>publicznie dostępne ogłoszenia o licytacjach</b> — komorniczych, sądowych (e-licytacje) i syndyka. Nie tworzymy ofert; zbieramy je w jednym miejscu i porządkujemy.</p></div>
+      <div class="t"><div style="font-size:26px;margin-bottom:8px">🤝</div><div class="serif" style="font-size:19px;margin-bottom:6px;color:var(--gold2)">Nasz model</div><p>Zarabiamy na abonamencie i dodatkach — <b>0% prowizji</b> od Twojej licytacji. Nie jesteśmy organizatorem aukcji ani stroną transakcji i <b>nie pośredniczymy w płatnościach</b>.</p></div>
+      <div class="t"><div style="font-size:26px;margin-bottom:8px">⚠️</div><div class="serif" style="font-size:19px;margin-bottom:6px;color:var(--gold2)">Dane orientacyjne</div><p>Ceny wywoławcze, wyceny i terminy pochodzą ze źródeł zewnętrznych i <b>mogą się zmienić</b>. Zawsze potwierdź szczegóły u organizatora przed przystąpieniem do licytacji.</p></div>
     </div>
-    <p style="font-size:12px;color:var(--muted2);margin-top:14px">Miejsce na realne opinie członków klubu — dodamy po zebraniu zgód.</p>
+    <p style="font-size:12px;color:var(--muted2);margin-top:14px">Nie publikujemy zmyślonych opinii. Realne referencje członków dodamy dopiero po ich zgodzie.</p>
   </div></section>
 
   <section class="sec" id="faq"><div class="wrap">
@@ -562,6 +565,7 @@ function renderRoom(){
   const stoldnia=(cur.code!=='__search'&&_hot)?`<div class="stoldnia" style="--acc:${acc(cur.code)}" onclick="openTable('${_hot.id}')"><img src="${_hot.image_url||img(_hot.niche_code)}" onerror="this.src='${img(_hot.niche_code)}'"><div><div class="sdk">🔴 Stół dnia · na żywo</div><div class="sdn">${esc(niceTitle(_hot))} — ${fmt(_hot.current_bid||_hot.opening_price||_hot.estimate)}</div></div><span class="sdcta">Podejdź do stołu →</span></div>`:'';
   document.getElementById('app').innerHTML=`<div class="wrap sec" style="padding-top:16px;--acc:${acc(cur.code)}">
     <div class="back" onclick="goHome()">← Wszystkie pokoje</div>
+    <div class="srcnote">ⓘ Ceny wywoławcze i terminy pochodzą z publicznych ogłoszeń o licytacji (komornik, syndyk, e-licytacje) i mogą się zmienić — potwierdź u organizatora przed licytacją.</div>
     <div class="roomnav">${NICHES.map(n=>`<button class="rn ${cur.code===n.code?'on':''}" style="--c:${acc(n.code)}" onclick="enterRoom('${n.code}')">${n.icon} ${n.name}</button>`).join('')}</div>
     <div class="rv-head"><div class="rv-title">${cur.icon} ${cur.name} <span class="cnt">${list.length} ofert</span></div>
       <div style="display:flex;gap:8px">${cur.code!=='__search'?`<button class="btn btn-ghost sm" onclick="openAlert()">🔔 Ustaw alert</button>`:''}${PREM?'':`<button class="btn btn-gold sm" onclick="openSub()">Premium</button>`}</div></div>
@@ -632,6 +636,7 @@ function openDetail(id){
       ${chips.length?`<div class="cchips" style="margin-bottom:14px">${chips.join('')}</div>`:''}
       <div class="m-prices"><div><div class="lbl">Cena wywoławcza</div><div class="m-open">${fmt(op)}</div></div>${est?`<div><div class="lbl">Wycena</div><div style="font-size:19px;color:var(--muted);text-decoration:line-through">${fmt(est)}</div></div>`:''}${l.discount_pct?`<div><div class="lbl">Rabat</div><div style="font-size:21px;color:var(--gold2);font-weight:700">−${Math.round(l.discount_pct)}%</div></div>`:''}</div>
       ${(()=>{const s=score(l);return `<div class="gaugebox"><h4 style="color:${s.col}">🔥 Termometr okazji · ${s.label}</h4><div class="g"><div class="num" style="color:${s.col}">${s.n}<small>/100</small></div><div style="flex:1"><div class="bar"><i style="width:${s.n}%;background:${s.col}"></i></div><div style="font-size:11px;color:var(--muted);margin-top:7px">Łowca AI łączy rabat, weryfikację, presję czasu i zainteresowanie klubu.</div></div></div></div>`})()}
+      <p class="pxnote">ⓘ Cena wywoławcza, wycena i termin pochodzą ze źródła zewnętrznego i mogą się zmienić — potwierdź u organizatora.</p>
       <div class="vizrow"><div class="vt">🎥 <b>Dossier 360°</b> — galeria, rzuty i wirtualny podgląd, przygotowywane pod ten lot (do 48h).</div>${PREM?`<button class="btn btn-gold sm" onclick="window.open('/dossier.html?id=${l.id}','_blank')">📄 Otwórz Dossier 360°</button>`:`<button class="btn btn-gold sm" onclick="doViz()">Dodaj +49 zł/mc</button>`}</div>
       <div id="mmap"></div>
       ${calc}
