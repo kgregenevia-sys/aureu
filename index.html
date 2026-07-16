@@ -4,10 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Aureu — Klub Licytacji · okazje z aukcji i licytacji</title>
-<meta name="description" content="Aureu — klub licytacji. Zweryfikowane okazje z aukcji komorniczych i licytacji: nieruchomości, auta, maszyny, jachty. Wyceny, rabaty, terminy i mapa w jednym miejscu.">
+<meta name="description" content="Aureu — klub licytacji. Okazje z licytacji komorniczych prosto z rejestru Krajowej Rady Komorniczej: nieruchomości, auta, maszyny, jachty. Wyceny, rabaty, terminy i mapa w jednym miejscu.">
 <meta name="theme-color" content="#0a0b0f">
 <meta property="og:title" content="Aureu — Klub Licytacji">
-<meta property="og:description" content="Zweryfikowane okazje z aukcji i licytacji. Kup poniżej wyceny — wyceny, rabaty, terminy i mapa w jednym miejscu.">
+<meta property="og:description" content="Okazje z licytacji komorniczych prosto z rejestru KRK. Kup poniżej wyceny — wyceny, rabaty, terminy i mapa w jednym miejscu.">
 <meta property="og:image" content="https://aureu.kgregenevia.pro/aureu-og.png">
 <meta property="og:url" content="https://aureu.kgregenevia.pro/">
 <meta name="twitter:card" content="summary_large_image">
@@ -454,13 +454,13 @@ function renderHome(){
   const hot40=LISTINGS.filter(l=>Number(l.discount_pct||0)>=40).length;
   const sc=score(hotLot);
   const rooms=NICHES.map(n=>{const arr=BYNICHE[n.code]||[];const t=arr[0];const im=t?img(t):img(n.code);const d=t&&t.discount_pct?('−'+Math.round(t.discount_pct)+'%'):'';
-    return `<div class="rtile" style="--acc:${acc(n.code)}" onclick="enterRoom('${n.code}')"><img src="${im}" loading="lazy" alt="">${arr.length&&d?`<span class="disc">${d}</span>`:''}<div class="in"><div class="ic">${n.icon||'▦'}</div><h3>${n.name}</h3><div class="meta">${arr.length?`<span class="cnt">${arr.length} ofert</span> · zweryfikowane`:`<span style="color:var(--muted2)">Wkrótce</span>`}</div></div></div>`}).join('');
+    return `<div class="rtile" style="--acc:${acc(n.code)}" onclick="enterRoom('${n.code}')"><img src="${im}" loading="lazy" alt="">${arr.length&&d?`<span class="disc">${d}</span>`:''}<div class="in"><div class="ic">${n.icon||'▦'}</div><h3>${n.name}</h3><div class="meta">${arr.length?`<span class="cnt">${arr.length} ofert</span> · z rejestru KRK`:`<span style="color:var(--muted2)">Wkrótce</span>`}</div></div></div>`}).join('');
   const topDeals=top.slice(0,6).map(l=>miniCard(l)).join('');
   const tick=LISTINGS.slice(0,14).map(l=>`<span>${cur?'':''}<b>${esc(niceTitle(l))}</b> · ${fmt(l.opening_price||l.estimate)} ${l.discount_pct?'· −'+Math.round(l.discount_pct)+'%':''}</span>`).join('');
   document.getElementById('app').innerHTML=`
   <section class="hero"><div class="wrap"><div class="hero-grid">
     <div>
-      <div class="eyebrow">Zweryfikowane okazje z aukcji i licytacji</div>
+      <div class="eyebrow">Okazje z licytacji komorniczych — prosto z rejestru KRK</div>
       <h1 class="serif">Kup <span class="goldtx">poniżej wyceny</span>.<br>Zanim zrobią to inni.</h1>
       <p>Aureu zbiera aukcje komornicze i licytacje w jedno miejsce — wyceny, rabaty, terminy i mapa. Nieruchomości, auta, maszyny, jachty i więcej.</p>
       <div class="hsearch"><input id="hq" placeholder="Szukaj: miasto, tytuł, np. Kraków…" onkeydown="if(event.key==='Enter')doSearch(this.value)"><button class="btn btn-gold" onclick="doSearch(document.getElementById('hq').value)">Szukaj</button></div>
@@ -495,7 +495,7 @@ function renderHome(){
 
   <section class="sec" id="rooms"><div class="wrap">
     <div class="sec-h serif">Pokoje licytacji</div>
-    <div class="sec-sub">Każda nisza to osobny pokój ze zweryfikowanymi okazjami. Filtruj po regionie, cenie i rabacie.</div>
+    <div class="sec-sub">Każda nisza to osobny pokój z okazjami z rejestru KRK. Filtruj po regionie, cenie i rabacie.</div>
     <div class="rooms">${rooms}</div>
   </div></section>
 
@@ -507,7 +507,7 @@ function renderHome(){
     <div class="sec-h serif">Jak to działa</div>
     <div class="how">
       <div class="s"><div class="n">01</div><h4>Znajdź (Match)</h4><p>Przeglądaj pokoje i mapę, filtruj okazje poniżej wyceny. Cena, rabat, termin — od razu na karcie.</p></div>
-      <div class="s"><div class="n">02</div><h4>Zaufaj (Trust)</h4><p>Odznaka „Zweryfikowane", źródło ogłoszenia, kalkulator opłacalności. Premium odsłania link do aukcji.</p></div>
+      <div class="s"><div class="n">02</div><h4>Zaufaj (Trust)</h4><p>Źródło ogłoszenia wprost z rejestru KRK, kalkulator opłacalności. Premium odsłania link do aukcji.</p></div>
       <div class="s"><div class="n">03</div><h4>Zalicytuj (Transact)</h4><p>Idziesz prosto do organizatora z gotowymi danymi. Aureu nie pobiera prowizji od transakcji.</p></div>
     </div>
   </div></section>
@@ -552,7 +552,7 @@ function renderHome(){
   if(dealTimer)clearInterval(dealTimer);
   if(top.length>1)dealTimer=setInterval(()=>{dealIdx++;const d=top[dealIdx%top.length];const box=document.querySelector('.deal');if(d&&box){box.setAttribute('onclick','openDetail("'+d.id+'")');box.querySelector('img').src=img(d);box.querySelector('.disc').innerHTML='−'+Math.round(d.discount_pct)+'%';box.querySelector('h3').textContent=niceTitle(d);box.querySelector('.da').textContent='📍 '+niceAddr(d);box.querySelector('.dp').textContent=fmt(d.opening_price||d.estimate);}},4500);
 }
-function miniCard(l){const cd=cdText(l);const ver=l.verified?'<span class="cb cb-verif">✓ Zweryfikowane</span>':'';const nw=isNew(l)?'<span class="cb cb-new">Nowe</span>':'';const hot=watchCnt(l)>=3?'<span class="cb cb-hot">🔥 Hot</span>':(cd.c==='soon'?'<span class="cb cb-end">Kończy się</span>':'');
+function miniCard(l){const cd=cdText(l);const ver=l.verified?'<span class="cb cb-verif">✓ Rejestr KRK</span>':'';const nw=isNew(l)?'<span class="cb cb-new">Nowe</span>':'';const hot=watchCnt(l)>=3?'<span class="cb cb-hot">🔥 Hot</span>':(cd.c==='soon'?'<span class="cb cb-end">Kończy się</span>':'');
   return `<div class="card" onclick='openDetail("${l.id}")'><div class="cm">${nw||`<span class="cb cb-niche">${(NICHES.find(n=>n.code===l.niche_code)||{}).icon||''} ${(NICHES.find(n=>n.code===l.niche_code)||{}).name||''}</span>`}${l.discount_pct?`<span class="cb cb-disc">−${Math.round(l.discount_pct)}%</span>`:''}${ver}${hot}<img src="${img(l)}" loading="lazy" onerror="this.src='${img(l.niche_code)}'"></div><div class="cbody"><div class="ctitle">${esc(niceTitle(l))}</div><div class="caddr">📍 ${esc(niceAddr(l))}</div><div class="lbl">Cena wywoławcza</div><div class="open">${fmt(l.opening_price||l.estimate)}</div>${l.estimate&&l.opening_price?`<div class="est">wycena ${fmt(l.estimate)}</div>`:''}<div class="cfoot"><span class="cd ${cd.c}">${cd.t}</span>${watchCnt(l)>0?`<span>👁 ${watchCnt(l)}</span>`:''}</div></div></div>`}
 
 function doSearch(q){q=(q||'').trim();if(!q){return}query=q;cur={code:'__search',name:'Wyniki: „'+q+'"',icon:'⌕'};mapMode=false;curTab='all';shown=12;window.scrollTo(0,0);renderRoom();track('aureu','search',0)}
@@ -569,7 +569,7 @@ function renderRoom(){
     <div class="fl">Cena max <select onchange="flt.pmax=+this.value;shown=12;renderRoom()"><option value="0">Bez limitu</option><option value="100000"${flt.pmax==100000?' selected':''}>do 100 tys</option><option value="300000"${flt.pmax==300000?' selected':''}>do 300 tys</option><option value="500000"${flt.pmax==500000?' selected':''}>do 500 tys</option><option value="1000000"${flt.pmax==1000000?' selected':''}>do 1 mln</option></select></div>
     <div class="fl">Rabat <select onchange="flt.dmin=+this.value;shown=12;renderRoom()"><option value="0">Dowolny</option><option value="20"${flt.dmin==20?' selected':''}>min 20%</option><option value="30"${flt.dmin==30?' selected':''}>min 30%</option><option value="40"${flt.dmin==40?' selected':''}>min 40%</option></select></div>
     <div class="fl">Sortuj <select onchange="flt.sort=this.value;renderRoom()"><option value="disc">Największy rabat</option><option value="pasc"${flt.sort=='pasc'?' selected':''}>Cena rosnąco</option><option value="pdesc"${flt.sort=='pdesc'?' selected':''}>Cena malejąco</option><option value="date"${flt.sort=='date'?' selected':''}>Termin</option></select></div>
-    <div class="chk ${flt.verified?'on':''}" onclick="flt.verified=!flt.verified;shown=12;renderRoom()">✓ Tylko zweryfikowane</div>
+    <div class="chk ${flt.verified?'on':''}" onclick="flt.verified=!flt.verified;shown=12;renderRoom()">✓ Tylko z rejestru KRK</div>
     <div class="viewtog"><button class="${!mapMode&&view==='grid'?'on':''}" onclick="mapMode=false;view='grid';store.s('au_view','grid');renderRoom()">▦ Siatka</button><button class="${!mapMode&&view==='list'?'on':''}" onclick="mapMode=false;view='list';store.s('au_view','list');renderRoom()">☰ Lista</button><button class="${mapMode?'on':''}" onclick="mapMode=true;renderRoom()">🗺 Mapa</button></div>
   </div>`;
   const tabs=`<div class="tabs">${['all|Wszystkie','today|Dziś','soon|Nadchodzące','done|Zakończone'].map(t=>{const[k,v]=t.split('|');return `<span class="tab ${curTab===k?'on':''}" onclick="curTab='${k}';shown=12;renderRoom()">${v}</span>`}).join('')}</div>`;
@@ -609,7 +609,7 @@ function drawMap(list){
 }
 function closeLeafOpen(id){openDetail(id)}
 function card(l,feat){
-  const cd=cdText(l);const disc=l.discount_pct?`<span class="cb cb-disc">−${Math.round(l.discount_pct)}%</span>`:'';const ver=l.verified?`<span class="cb cb-verif">✓ Zweryfikowane</span>`:'';
+  const cd=cdText(l);const disc=l.discount_pct?`<span class="cb cb-disc">−${Math.round(l.discount_pct)}%</span>`:'';const ver=l.verified?`<span class="cb cb-verif">✓ Rejestr KRK</span>`:'';
   const nw=isNew(l)?'<span class="cb cb-new">Nowe</span>':'';const hot=watchCnt(l)>=3?'<span class="cb cb-hot">🔥 Hot</span>':(cd.c==='soon'?'<span class="cb cb-end">Kończy się</span>':'');
   const chips=[];if(l.area_m2)chips.push(`<span class="cchip">🏠 ${Math.round(l.area_m2)} m²</span>`);if(l.rooms)chips.push(`<span class="cchip">🛏 ${l.rooms} pok.</span>`);
   const w=WATCH.includes(l.id)?'on':'';const c=CMP.includes(l.id)?'on':'';
@@ -632,7 +632,7 @@ function toggleWatch(id,el){event.stopPropagation();const i=WATCH.indexOf(id);if
 function toggleCmp(id,el){event.stopPropagation();const i=CMP.indexOf(id);if(i<0){if(CMP.length>=3){toast('Maks. 3 do porównania');return}CMP.push(id);el&&el.classList.add('on')}else{CMP.splice(i,1);el&&el.classList.remove('on')}updateCmpBar()}
 function clearCmp(){CMP=[];document.getElementById('cmpbar').classList.remove('on');if(cur)renderRoom()}
 function updateCmpBar(){const b=document.getElementById('cmpbar');if(!CMP.length){b.classList.remove('on');return}b.classList.add('on');document.getElementById('cmpitems').innerHTML='Porównaj: '+CMP.map(id=>{const l=LISTINGS.find(x=>x.id===id);return '<b style="color:var(--gold2)">'+esc(niceTitle(l))+'</b>'}).join(' · ')}
-function showCompare(){if(CMP.length<2){toast('Wybierz min. 2 oferty');return}const items=CMP.map(id=>LISTINGS.find(x=>x.id===id));const rows=[['Lokalizacja',l=>esc(niceAddr(l))],['Cena wywoławcza',l=>fmt(l.opening_price||l.estimate)],['Wycena',l=>fmt(l.estimate)],['Rabat',l=>l.discount_pct?'−'+Math.round(l.discount_pct)+'%':'—'],['Metraż',l=>l.area_m2?Math.round(l.area_m2)+' m²':'—'],['Termin',l=>cdText(l).t],['Zweryf.',l=>l.verified?'✓':'—']];
+function showCompare(){if(CMP.length<2){toast('Wybierz min. 2 oferty');return}const items=CMP.map(id=>LISTINGS.find(x=>x.id===id));const rows=[['Lokalizacja',l=>esc(niceAddr(l))],['Cena wywoławcza',l=>fmt(l.opening_price||l.estimate)],['Wycena',l=>fmt(l.estimate)],['Rabat',l=>l.discount_pct?'−'+Math.round(l.discount_pct)+'%':'—'],['Metraż',l=>l.area_m2?Math.round(l.area_m2)+' m²':'—'],['Termin',l=>cdText(l).t],['Źródło',l=>l.verified?'KRK':'—']];
   document.getElementById('modal').className='modal wide';document.getElementById('modal').innerHTML=`<button class="x" onclick="closeOv()">×</button><div class="m-body"><div class="m-title serif">Porównanie ofert</div><div style="overflow:auto;margin-top:14px"><table style="width:100%;border-collapse:collapse;font-size:13px"><tr><td></td>${items.map(l=>`<td style="padding:10px;text-align:center"><img src="${l.image_url||img(l.niche_code)}" style="width:100%;height:80px;object-fit:cover;border-radius:8px"><div style="font-weight:600;margin-top:6px;font-size:13px">${esc(niceTitle(l))}</div></td>`).join('')}</tr>${rows.map(r=>`<tr style="border-top:1px solid var(--line)"><td style="padding:9px;color:var(--muted);font-size:12px">${r[0]}</td>${items.map(l=>`<td style="padding:9px;text-align:center">${r[1](l)}</td>`).join('')}</tr>`).join('')}</table></div></div>`;
   document.getElementById('ov').classList.add('on')}
 
@@ -644,7 +644,7 @@ async function saveAlert(){const e=(document.getElementById('alEmail').value||''
 
 function openDetail(id){
   const l=LISTINGS.find(x=>x.id===id);if(!l)return;track('aureu','lot_open',0);closeOv();
-  const chips=[];if(l.area_m2)chips.push(`<span class="cchip">🏠 ${Math.round(l.area_m2)} m²</span>`);if(l.rooms)chips.push(`<span class="cchip">🛏 ${l.rooms} pokoje</span>`);if(l.verified)chips.push(`<span class="cchip" style="color:var(--emerald)">✓ Zweryfikowane</span>`);
+  const chips=[];if(l.area_m2)chips.push(`<span class="cchip">🏠 ${Math.round(l.area_m2)} m²</span>`);if(l.rooms)chips.push(`<span class="cchip">🛏 ${l.rooms} pokoje</span>`);if(l.verified)chips.push(`<span class="cchip" style="color:var(--emerald)">✓ Rejestr KRK</span>`);
   const cd=cdText(l);const date=l.auction_date?new Date(l.auction_date).toLocaleDateString('pl-PL',{day:'numeric',month:'long',year:'numeric'}):'Sprawdź w obwieszczeniu';
   const gate=PREM?`<div class="gate open"><div class="lbl">Bezpośredni link do aukcji</div>${l.link?`<a class="lk" href="${esc(l.link)}" target="_blank" rel="noopener" style="color:var(--gold2);word-break:break-all">${esc(l.link)}</a>`:'<span class="lk">Dane organizatora dostarczamy do 24h po zapisie</span>'}</div>`:`<div class="gate"><div class="lbl">🔒 Bezpośredni link do aukcji</div><div class="lk">licytacje.komornik.pl/oferta/••••••</div><button class="btn btn-gold" style="margin-top:12px" onclick="openSub()">Odblokuj Premium · 99 zł/mc</button></div>`;
   // kalkulator
