@@ -359,7 +359,7 @@ body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;opa
 <footer><div class="wrap">
   <div class="logo" style="margin-bottom:8px"><b>AUREU</b></div>
   <div><a class="fl" onclick="scrollTo2('how')">Jak działa</a> · <a class="fl" onclick="scrollTo2('pricing')">Cennik</a> · <a class="fl" href="/regulamin.html">Regulamin</a> · <a class="fl" href="/polityka.html">Polityka prywatności</a></div>
-  <p class="disc-note">Aureu to serwis informacyjny (matchmaking) prezentujący publicznie dostępne ogłoszenia o aukcjach i licytacjach. Nie jesteśmy organizatorem licytacji ani stroną transakcji; nie pośredniczymy w płatnościach. Dane orientacyjne — przed udziałem zweryfikuj ofertę u źródła. © 2026 Aureu.</p>
+  <p class="disc-note">Aureu to serwis informacyjny (matchmaking) prezentujący publicznie dostępne ogłoszenia o aukcjach i licytacjach. Nie jesteśmy organizatorem licytacji ani stroną transakcji; nie pośredniczymy w płatnościach. Dane orientacyjne — przed udziałem zweryfikuj ofertę u źródła. Licytacje pochodzą z publicznego portalu Krajowej Rady Komorniczej (licytacje.komornik.pl); cena wywoławcza i rękojmia zgodnie z kpc. Mapy: © OpenStreetMap contributors, © CARTO — pokazują lokalizację według adresu z obwieszczenia i <b>nie są zdjęciami przedmiotu licytacji</b>. © 2026 Aureu.</p>
 </div></footer>
 <div id="tableOv"></div>
 <div class="ov" id="ov" onclick="if(event.target===this)closeOv()"><div class="modal" id="modal"></div></div>
@@ -373,18 +373,37 @@ const STRIPE_VIZ='https://buy.stripe.com/cNi8wH8sQ7kV0sH6KfdQQ01';
 const H={apikey:ANON,'Authorization':'Bearer '+ANON,'Content-Type':'application/json'};
 const store={g:k=>{try{return localStorage.getItem(k)}catch(e){return null}},s:(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}},d:k=>{try{localStorage.removeItem(k)}catch(e){}}};
 let TOKEN=store.g('au_token')||'', PREM=store.g('au_prem')==='1';
+const LINK_ID=new URLSearchParams(location.search).get('id');
 const vip=new URLSearchParams(location.search).get('vip'); if(vip){TOKEN=vip;PREM=true;store.s('au_token',vip);store.s('au_prem','1');}
 let NICHES=[],LISTINGS=[],BYNICHE={},cur=null,curTab='all',view=store.g('au_view')||'grid',mapMode=false;
 let flt={region:'',pmax:0,dmin:0,sort:'disc',verified:false},shown=12,query='';
 let WATCH=JSON.parse(store.g('au_watch')||'[]'),CMP=[],dealIdx=0,dealTimer=null,leafMap=null,mMap=null;
 const DEFIMG={nieruchomosci:'1568605114967-8130f3a36994',auta:'1503376780353-7e6692767b70',maszyny:'1581091226825-a6a2a5aee158',elektronika:'1518770660439-4636190af475',rolne:'1500382017468-9049fed747ef',jachty:'1544551763-46a013bb70d5',spozywcze:'1574323347407-f5e1ad6d020b',mineraly:'1518544801976-3e159e50e5bb',wegiel:'1518709268805-4e9042af9f23'};
-function img(c){return 'https://images.unsplash.com/photo-'+(DEFIMG[c]||DEFIMG.nieruchomosci)+'?w=600&q=80'}
+const NEMO={nieruchomosci:'\u{1F3E0}',auta:'\u{1F697}',maszyny:'\u2699\uFE0F',elektronika:'\u{1F4BB}',rolne:'\u{1F33E}',jachty:'\u26F5',spozywcze:'\u{1F33D}',mineraly:'\u{1F48E}',wegiel:'\u{1FAA8}'};
+/* Kafel mapy z prawdziwych wspolrzednych adresu z obwieszczenia. To NIE jest zdjecie przedmiotu. */
+function kafelMapy(lat,lon,z){z=z||13;const n=Math.pow(2,z);
+  const x=Math.floor((lon+180)/360*n);
+  const y=Math.floor((1-Math.asinh(Math.tan(lat*Math.PI/180))/Math.PI)/2*n);
+  return 'https://a.basemaps.cartocdn.com/dark_all/'+z+'/'+x+'/'+y+'@2x.png';}
+function zaslepka(code){const e=NEMO[code]||'\u{1F4E6}';
+  return 'data:image/svg+xml;charset=utf-8,'+encodeURIComponent(
+   '<svg xmlns="http://www.w3.org/2000/svg" width="600" height="400"><rect width="600" height="400" fill="#0e141c"/>'+
+   '<text x="300" y="185" font-size="86" text-anchor="middle" dominant-baseline="central">'+e+'</text>'+
+   '<text x="300" y="268" fill="#5f7773" font-family="sans-serif" font-size="17" text-anchor="middle">lokalizacja w opracowaniu</text></svg>');}
+/* Przyjmuje CALY rekord albo sam kod niszy. Zdjec przedmiotow nie mamy i nie udajemy, ze mamy. */
+function img(x){const l=(x&&typeof x==='object')?x:null;
+  if(l&&l.lat!=null&&l.lon!=null)return kafelMapy(Number(l.lat),Number(l.lon));
+  return zaslepka(l?l.niche_code:x);}
 const NCOL={nieruchomosci:'#d4af6a',auta:'#ff6b6b',maszyny:'#8aa0b8',elektronika:'#9b8cff',rolne:'#7fce6b',jachty:'#5cc8ff',spozywcze:'#ffb46b',mineraly:'#43c59e',wegiel:'#9aa4b0'};
 function acc(c){return NCOL[c]||'#d4af6a'}
 let tableTimer=null;
 const PGEO={'0':[52.23,21.0],'1':[53.78,20.48],'2':[51.25,22.57],'3':[50.06,19.94],'4':[50.26,19.02],'5':[51.11,17.03],'6':[52.4,16.93],'7':[53.43,14.55],'8':[54.35,18.65],'9':[51.76,19.46]};
 const REGGEO={'małopolskie':[50.06,19.94],'mazowieckie':[52.23,21.0],'wielkopolskie':[52.41,16.93],'pomorskie':[54.35,18.65],'dolnośląskie':[51.11,17.03],'śląskie':[50.26,19.02],'łódzkie':[51.76,19.46],'zachodniopomorskie':[53.43,14.55],'kujawsko-pomorskie':[53.12,18.0],'lubelskie':[51.25,22.57],'świętokrzyskie':[50.87,20.63],'podlaskie':[53.13,23.16],'warmińsko-mazurskie':[53.78,20.48]};
-function geo(l){const m=(l.address||'').match(/(\d)\d-\d{3}/);let b;if(m){b=PGEO[m[1]]||PGEO['0']}else if(l.region&&REGGEO[l.region]){b=REGGEO[l.region]}else{b=PGEO['0']}const j=((hash(l.id)%1000)/1000-0.5);return [b[0]+j*0.55,b[1]+j*0.8]}
+function geo(l){ /* Tylko prawdziwe wspolrzedne z geokodera (Nominatim, adres z obwieszczenia).
+   Poprzednia wersja brala srodek regionu wg PIERWSZEJ CYFRY kodu pocztowego i dorzucala szum
+   z hasha id (+-30 km) - pinezka wygladala na konkretny adres, a byla zmyslona. */
+  if(l&&l.lat!=null&&l.lon!=null)return [Number(l.lat),Number(l.lon)];
+  return null;}
 async function rpc(fn,b){try{const r=await fetch(SB+'/rest/v1/rpc/'+fn,{method:'POST',headers:H,body:JSON.stringify(b||{})});return await r.json()}catch(e){return null}}
 async function rest(p){try{const r=await fetch(SB+'/rest/v1/'+p,{headers:H});return await r.json()}catch(e){return []}}
 function track(f,s,v){try{fetch(SB+'/rest/v1/rpc/track',{method:'POST',headers:H,body:JSON.stringify({p_funnel:f,p_stage:s,p_value:v||0})})}catch(e){}}
@@ -406,12 +425,16 @@ function scoreBar(l){const s=score(l);return `<div class="score" style="--sc:${s
 async function boot(){
   const [nz,ls]=await Promise.all([
     rest('auction_niches?select=code,name,icon,sort&order=sort'),
-    rest('auction_listings?select=id,title,address,region,estimate,opening_price,currency,discount_pct,auction_date,verified,image_url,area_m2,rooms,bids_count,link,niche_code,created_at,rekojmia&status=eq.active&order=discount_pct.desc.nullslast')
+    rest('auction_listings?select=id,title,address,region,estimate,opening_price,currency,discount_pct,auction_date,verified,image_url,area_m2,rooms,bids_count,link,niche_code,created_at,rekojmia,lat,lon,map_url,data_class&status=eq.active&data_class=eq.REAL_KOMORNIK&order=discount_pct.desc.nullslast')
   ]);
   NICHES=nz||[];LISTINGS=(ls||[]).filter(x=>x.opening_price||x.estimate);
   BYNICHE={};NICHES.forEach(n=>BYNICHE[n.code]=[]);LISTINGS.forEach(l=>{(BYNICHE[l.niche_code]=BYNICHE[l.niche_code]||[]).push(l)});
   if(TOKEN){try{const s=await rpc('sub_status',{p_token:TOKEN});if(s&&s.premium){PREM=true;store.s('au_prem','1')}else{PREM=false;store.d('au_prem')}}catch(e){}}
   renderHome();syncPrem();track('aureu','home',0);
+  /* Link z kanalu Telegram: aureu.kgregenevia.pro/?id=<uuid> -> otwiera te licytacje. */
+  if(LINK_ID){const l=LISTINGS.find(x=>x.id===LINK_ID);
+    if(l){try{openDetail(LINK_ID);track('aureu','z_kanalu',0)}catch(e){}}
+    else{try{track('aureu','z_kanalu_wygasla',0)}catch(e){}}}
 }
 function syncPrem(){document.getElementById('topPrem').textContent=PREM?'✓ Premium':'Premium · 99 zł/mc'}
 function goHome(){cur=null;mapMode=false;window.scrollTo(0,0);renderHome()}
@@ -427,7 +450,7 @@ function renderHome(){
   const hunters=LISTINGS.reduce((s,l)=>s+watchCnt(l),0);
   const hot40=LISTINGS.filter(l=>Number(l.discount_pct||0)>=40).length;
   const sc=score(hotLot);
-  const rooms=NICHES.map(n=>{const arr=BYNICHE[n.code]||[];const t=arr[0];const im=t&&t.image_url?t.image_url:img(n.code);const d=t&&t.discount_pct?('−'+Math.round(t.discount_pct)+'%'):'';
+  const rooms=NICHES.map(n=>{const arr=BYNICHE[n.code]||[];const t=arr[0];const im=t?img(t):img(n.code);const d=t&&t.discount_pct?('−'+Math.round(t.discount_pct)+'%'):'';
     return `<div class="rtile" style="--acc:${acc(n.code)}" onclick="enterRoom('${n.code}')"><img src="${im}" loading="lazy" alt="">${arr.length&&d?`<span class="disc">${d}</span>`:''}<div class="in"><div class="ic">${n.icon||'▦'}</div><h3>${n.name}</h3><div class="meta">${arr.length?`<span class="cnt">${arr.length} ofert</span> · zweryfikowane`:`<span style="color:var(--muted2)">Wkrótce</span>`}</div></div></div>`}).join('');
   const topDeals=top.slice(0,6).map(l=>miniCard(l)).join('');
   const tick=LISTINGS.slice(0,14).map(l=>`<span>${cur?'':''}<b>${esc(niceTitle(l))}</b> · ${fmt(l.opening_price||l.estimate)} ${l.discount_pct?'· −'+Math.round(l.discount_pct)+'%':''}</span>`).join('');
@@ -446,7 +469,7 @@ function renderHome(){
         <div class="hstat"><div class="n">${newCnt||NICHES.length}</div><div class="l">${newCnt?'Nowe (3 dni)':'Pokoi'}</div></div>
       </div>
     </div>
-    <div>${deal?`<div class="deal" onclick='openDetail("${deal.id}")'><div class="dm"><span class="tag">★ Okazja dnia</span>${deal.discount_pct?`<span class="disc">−${Math.round(deal.discount_pct)}%</span>`:''}<img src="${deal.image_url||img(deal.niche_code)}" alt=""></div><div class="db"><h3>${esc(niceTitle(deal))}</h3><div class="da">📍 ${esc(niceAddr(deal))}</div><div class="lbl">Cena wywoławcza</div><div class="dp">${fmt(deal.opening_price||deal.estimate)}</div>${deal.estimate?`<div class="de">wycena ${fmt(deal.estimate)}</div>`:''}</div></div>`:''}</div>
+    <div>${deal?`<div class="deal" onclick='openDetail("${deal.id}")'><div class="dm"><span class="tag">★ Okazja dnia</span>${deal.discount_pct?`<span class="disc">−${Math.round(deal.discount_pct)}%</span>`:''}<img src="${img(deal)}" alt=""></div><div class="db"><h3>${esc(niceTitle(deal))}</h3><div class="da">📍 ${esc(niceAddr(deal))}</div><div class="lbl">Cena wywoławcza</div><div class="dp">${fmt(deal.opening_price||deal.estimate)}</div>${deal.estimate?`<div class="de">wycena ${fmt(deal.estimate)}</div>`:''}</div></div>`:''}</div>
   </div></div></section>
   <div class="ticker"><div class="tk">${tick}${tick}</div></div>
   <div class="puls"><span class="live"><span class="dot"></span>Klub na żywo</span> · ${hunters.toLocaleString('pl-PL')} obserwujących · ${hot40} okazji poniżej −40% · stoły otwarte całą dobę</div>
@@ -455,7 +478,7 @@ function renderHome(){
     <div class="sec-h serif">🔴 Stół dnia · na żywo</div>
     <div class="sec-sub">Najgorętszy lot w klubie — usiądź przy stole i przebijaj, zanim ruszy oficjalna aukcja.</div>
     <div class="stoldnia big" style="--acc:${acc(hotLot.niche_code)}" onclick="openTable('${hotLot.id}')">
-      <img src="${hotLot.image_url||img(hotLot.niche_code)}" onerror="this.src='${img(hotLot.niche_code)}'">
+      <img src="${img(hotLot)}" onerror="this.src='${img(hotLot.niche_code)}'">
       <div><div class="sdk">🔴 Stół dnia · ${watchCnt(hotLot)} obserwuje</div><div class="sdn">${esc(niceTitle(hotLot))} — ${fmt(hotLot.current_bid||hotLot.opening_price||hotLot.estimate)}</div><div style="font-size:12px;color:${sc.col};margin-top:3px;font-weight:600">🔥 Aureu Score ${sc.n}/100 · ${sc.label}</div></div>
       <span class="sdcta">Podejdź do stołu →</span>
     </div>
@@ -524,10 +547,10 @@ function renderHome(){
     <div class="inline-form"><input id="alertEmail" type="email" placeholder="Twój e-mail" inputmode="email"><button class="btn btn-gold" onclick="quickAlert()">Włącz alerty</button></div>
   </div></div></section>`;
   if(dealTimer)clearInterval(dealTimer);
-  if(top.length>1)dealTimer=setInterval(()=>{dealIdx++;const d=top[dealIdx%top.length];const box=document.querySelector('.deal');if(d&&box){box.setAttribute('onclick','openDetail("'+d.id+'")');box.querySelector('img').src=d.image_url||img(d.niche_code);box.querySelector('.disc').innerHTML='−'+Math.round(d.discount_pct)+'%';box.querySelector('h3').textContent=niceTitle(d);box.querySelector('.da').textContent='📍 '+niceAddr(d);box.querySelector('.dp').textContent=fmt(d.opening_price||d.estimate);}},4500);
+  if(top.length>1)dealTimer=setInterval(()=>{dealIdx++;const d=top[dealIdx%top.length];const box=document.querySelector('.deal');if(d&&box){box.setAttribute('onclick','openDetail("'+d.id+'")');box.querySelector('img').src=img(d);box.querySelector('.disc').innerHTML='−'+Math.round(d.discount_pct)+'%';box.querySelector('h3').textContent=niceTitle(d);box.querySelector('.da').textContent='📍 '+niceAddr(d);box.querySelector('.dp').textContent=fmt(d.opening_price||d.estimate);}},4500);
 }
 function miniCard(l){const cd=cdText(l);const ver=l.verified?'<span class="cb cb-verif">✓ Zweryfikowane</span>':'';const nw=isNew(l)?'<span class="cb cb-new">Nowe</span>':'';const hot=watchCnt(l)>200?'<span class="cb cb-hot">🔥 Hot</span>':(cd.c==='soon'?'<span class="cb cb-end">Kończy się</span>':'');
-  return `<div class="card" onclick='openDetail("${l.id}")'><div class="cm">${nw||`<span class="cb cb-niche">${(NICHES.find(n=>n.code===l.niche_code)||{}).icon||''} ${(NICHES.find(n=>n.code===l.niche_code)||{}).name||''}</span>`}${l.discount_pct?`<span class="cb cb-disc">−${Math.round(l.discount_pct)}%</span>`:''}${ver}${hot}<img src="${l.image_url||img(l.niche_code)}" loading="lazy" onerror="this.src='${img(l.niche_code)}'"></div><div class="cbody"><div class="ctitle">${esc(niceTitle(l))}</div><div class="caddr">📍 ${esc(niceAddr(l))}</div><div class="lbl">Cena wywoławcza</div><div class="open">${fmt(l.opening_price||l.estimate)}</div>${l.estimate&&l.opening_price?`<div class="est">wycena ${fmt(l.estimate)}</div>`:''}<div class="cfoot"><span class="cd ${cd.c}">${cd.t}</span><span>👁 ${watchCnt(l)}</span></div></div></div>`}
+  return `<div class="card" onclick='openDetail("${l.id}")'><div class="cm">${nw||`<span class="cb cb-niche">${(NICHES.find(n=>n.code===l.niche_code)||{}).icon||''} ${(NICHES.find(n=>n.code===l.niche_code)||{}).name||''}</span>`}${l.discount_pct?`<span class="cb cb-disc">−${Math.round(l.discount_pct)}%</span>`:''}${ver}${hot}<img src="${img(l)}" loading="lazy" onerror="this.src='${img(l.niche_code)}'"></div><div class="cbody"><div class="ctitle">${esc(niceTitle(l))}</div><div class="caddr">📍 ${esc(niceAddr(l))}</div><div class="lbl">Cena wywoławcza</div><div class="open">${fmt(l.opening_price||l.estimate)}</div>${l.estimate&&l.opening_price?`<div class="est">wycena ${fmt(l.estimate)}</div>`:''}<div class="cfoot"><span class="cd ${cd.c}">${cd.t}</span><span>👁 ${watchCnt(l)}</span></div></div></div>`}
 
 function doSearch(q){q=(q||'').trim();if(!q){return}query=q;cur={code:'__search',name:'Wyniki: „'+q+'"',icon:'⌕'};mapMode=false;curTab='all';shown=12;window.scrollTo(0,0);renderRoom();track('aureu','search',0)}
 function enterRoom(code){const n=NICHES.find(x=>x.code===code)||{code,name:code,icon:'▦'};cur=n;query='';curTab='all';shown=12;mapMode=false;flt={region:'',pmax:0,dmin:0,sort:'disc',verified:false};window.scrollTo(0,0);const arr=BYNICHE[code]||[];if(!arr.length){renderSoon(n);track('aureu','room_soon:'+code,0);return}renderRoom();track('aureu','room:'+code,0)}
@@ -562,7 +585,7 @@ function renderRoom(){
     body=`<div class="grid ${view==='list'?'list':''}">${cards.join('')}</div>`;
   }
   const _hot=pool.slice().sort((a,b)=>watchCnt(b)-watchCnt(a))[0];
-  const stoldnia=(cur.code!=='__search'&&_hot)?`<div class="stoldnia" style="--acc:${acc(cur.code)}" onclick="openTable('${_hot.id}')"><img src="${_hot.image_url||img(_hot.niche_code)}" onerror="this.src='${img(_hot.niche_code)}'"><div><div class="sdk">🔴 Stół dnia · na żywo</div><div class="sdn">${esc(niceTitle(_hot))} — ${fmt(_hot.current_bid||_hot.opening_price||_hot.estimate)}</div></div><span class="sdcta">Podejdź do stołu →</span></div>`:'';
+  const stoldnia=(cur.code!=='__search'&&_hot)?`<div class="stoldnia" style="--acc:${acc(cur.code)}" onclick="openTable('${_hot.id}')"><img src="${img(_hot)}" onerror="this.src='${img(_hot.niche_code)}'"><div><div class="sdk">🔴 Stół dnia · na żywo</div><div class="sdn">${esc(niceTitle(_hot))} — ${fmt(_hot.current_bid||_hot.opening_price||_hot.estimate)}</div></div><span class="sdcta">Podejdź do stołu →</span></div>`:'';
   document.getElementById('app').innerHTML=`<div class="wrap sec" style="padding-top:16px;--acc:${acc(cur.code)}">
     <div class="back" onclick="goHome()">← Wszystkie pokoje</div>
     <div class="srcnote">ⓘ Ceny wywoławcze i terminy pochodzą z publicznych ogłoszeń o licytacji (komornik, syndyk, e-licytacje) i mogą się zmienić — potwierdź u organizatora przed licytacją.</div>
@@ -578,7 +601,7 @@ function drawMap(list){
   leafMap=L.map('map',{scrollWheelZoom:false}).setView([52.0,19.3],6);
   L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',{attribution:'© OSM © CARTO',maxZoom:18}).addTo(leafMap);
   const ic=L.divIcon({className:'',html:'<div style="background:linear-gradient(120deg,#a78bfa,#22d3ee);color:#0a0a14;font-weight:700;font-size:11px;padding:3px 7px;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,.6);white-space:nowrap">%</div>',iconSize:[40,20],iconAnchor:[20,10]});
-  list.forEach(l=>{const[la,ln]=geo(l);const m=L.marker([la,ln],{icon:L.divIcon({className:'',html:`<div style="background:linear-gradient(120deg,#a78bfa,#22d3ee);color:#0a0a14;font-weight:700;font-size:11px;padding:3px 7px;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,.6)">${l.discount_pct?'−'+Math.round(l.discount_pct)+'%':fmtM(l.opening_price)}</div>`,iconSize:[44,20],iconAnchor:[22,10]})}).addTo(leafMap);
+  list.forEach(l=>{const g=geo(l);if(!g)return;const[la,ln]=g;const m=L.marker([la,ln],{icon:L.divIcon({className:'',html:`<div style="background:linear-gradient(120deg,#a78bfa,#22d3ee);color:#0a0a14;font-weight:700;font-size:11px;padding:3px 7px;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,.6)">${l.discount_pct?'−'+Math.round(l.discount_pct)+'%':fmtM(l.opening_price)}</div>`,iconSize:[44,20],iconAnchor:[22,10]})}).addTo(leafMap);
     m.bindPopup(`<b>${esc(niceTitle(l))}</b><br>${esc(niceAddr(l))}<br><b style="color:#e8c987">${fmt(l.opening_price||l.estimate)}</b><br><a href="#" onclick="closeLeafOpen('${l.id}');return false" style="color:#e8c987">Szczegóły →</a>`);});
 }
 function closeLeafOpen(id){openDetail(id)}
@@ -649,7 +672,7 @@ function openDetail(id){
       ${similar}
     </div>`;
   document.getElementById('ov').classList.add('on');
-  setTimeout(()=>{if(mMap){mMap.remove();mMap=null}const[la,ln]=geo(l);mMap=L.map('mmap',{scrollWheelZoom:false,zoomControl:false,dragging:false}).setView([la,ln],11);L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',{maxZoom:18}).addTo(mMap);L.circleMarker([la,ln],{radius:10,color:'#d4af6a',fillColor:'#e8c987',fillOpacity:.9}).addTo(mMap)},80);
+  setTimeout(()=>{if(mMap){mMap.remove();mMap=null}const g=geo(l);if(!g){const el=document.getElementById('mmap');if(el)el.innerHTML='<div style="height:100%;display:flex;align-items:center;justify-content:center;color:#5f7773;font-size:13px;text-align:center;padding:12px">Lokalizacja tej licytacji jest w opracowaniu.<br>Dok\u0142adny adres znajdziesz w obwieszczeniu.</div>';return}const[la,ln]=g;mMap=L.map('mmap',{scrollWheelZoom:false,zoomControl:false,dragging:false}).setView([la,ln],11);L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',{maxZoom:18}).addTo(mMap);L.circleMarker([la,ln],{radius:10,color:'#d4af6a',fillColor:'#e8c987',fillOpacity:.9}).addTo(mMap)},80);
 }
 function toggleWatchDetail(id){const i=WATCH.indexOf(id);if(i<0){WATCH.push(id);if(TOKEN)rpc('sub_join',{p_token:TOKEN,p_listing:id});toast('Dodano do obserwowanych ✦')}else{WATCH.splice(i,1);toast('Usunięto z obserwowanych')}store.s('au_watch',JSON.stringify(WATCH));openDetail(id)}
 function closeOv(){document.getElementById('ov').classList.remove('on');if(mMap){mMap.remove();mMap=null}}
