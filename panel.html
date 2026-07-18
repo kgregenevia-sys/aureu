@@ -306,6 +306,16 @@ h1,h2,h3,.f{font-family:'Sora'}
 .c-foot input:focus{outline:0;border-color:var(--cyan)}
 .c-foot .snd{background:linear-gradient(100deg,var(--cyan),var(--violet));border:0;color:#03121a;width:42px;border-radius:11px;cursor:pointer;font-size:17px}
 
+
+.holoBtn .aimg{width:92px;height:92px;object-fit:contain;filter:drop-shadow(0 0 16px rgba(34,211,238,.75));animation:bob 3.4s ease-in-out infinite}
+.holoBtn .cap{margin-top:-8px}
+@media(max-width:520px){.holoBtn .aimg{width:74px;height:74px}}
+.humanwrap{width:230px;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:12px}
+.humanimg{width:100%;max-height:420px;object-fit:contain;filter:drop-shadow(0 0 26px rgba(34,120,255,.5))}
+.humbubble{background:rgba(14,17,25,.92);border:1px solid rgba(34,211,238,.35);border-radius:14px;padding:12px 14px;font-size:12px;color:var(--txt);line-height:1.5}
+.humbubble b{color:var(--cyan)}
+@media(max-width:900px){.humanwrap{display:none}}
+
 @media(prefers-reduced-motion:reduce){*{animation:none!important;left:auto!important;bottom:14px!important;right:14px!important;top:auto!important}}
 </style>
 </head>
@@ -470,10 +480,10 @@ h1,h2,h3,.f{font-family:'Sora'}
 <!-- VIP OVERLAY -->
 <div class="ov" id="ov">
   <div class="ovwrap" id="ovwrap">
-    <!-- LEFT SIDE PANEL -->
-    <div class="sidep">
-      <div class="pc"><span class="pi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a5 5 0 015 5v3a5 5 0 01-10 0V7a5 5 0 015-5z"/><path d="M5 20a7 7 0 0114 0"/></svg></span><h5>AI COPILOT</h5><p>24/7 online · osobisty doradca inwestycyjny AI.</p></div>
-      <div class="pc"><span class="pi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg></span><h5>LIVE SCAN</h5><p>132 nowe okazje — skan rynku bez przerwy.</p></div>
+    <!-- HUMAN HOLOGRAM (agent premium) -->
+    <div class="humanwrap">
+      <img class="humanimg" src="img/human.png" alt="AUREU agent premium">
+      <div class="humbubble">Witaj w <b>AUREU</b>. Po aktywacji <b>VIP Elite</b> jestem Twoim osobistym agentem — prowadzę Cię przez okazje, analizy, pokoje i alerty.</div>
     </div>
     <!-- VIP CENTER -->
     <div class="vippanel">
@@ -496,7 +506,7 @@ h1,h2,h3,.f{font-family:'Sora'}
 
 <!-- BOT -->
 <button class="holoBtn" id="agent" onclick="openBot()" aria-label="AUREU AI Navigator">
-  <div class="mini2"><div class="r"></div><div class="r b"></div><div class="scan2"></div><div class="A">A</div><div class="base2"></div></div>
+  <img class="aimg" src="img/aholo.png" alt="AUREU AI">
   <span class="cap">AUREU AI</span>
 </button>
 <div class="console" id="console">
@@ -624,8 +634,8 @@ function toSec(id){closeBot();const e=document.getElementById(id)||document.quer
 function openBot(){roam=false;agent.style.display='none';csl.classList.add('open');if(!greeted){greetC();greeted=true;}}
 function closeBot(){csl.classList.remove('open');agent.style.display='flex';roam=true;moveAgent();}
 function greetC(){
-  bub("Witaj w <b>AUREU</b>. Jestem holograficznym nawigatorem. Pokażę Ci mapę okazji, pokoje, kalkulator ROI albo funkcje VIP Elite. Czego szukasz?",'a');
-  chips([['Pokaż mapę',"toSec('.mapbox')"],['Pokoje premium',"toSec('.rooms')"],['Najlepsza okazja',"toSec('.deal')"],['VIP Elite',"answerC('vip')",'gold']]);
+  bub("Witaj w <b>AUREU</b>. Jestem holograficznym nawigatorem platformy. Powiem Ci, czym jest AUREU, co zyskujesz, jakie mamy produkty i pokoje — i przeprowadzę Cię przez panel. Od czego zaczynamy?",'a');
+  chips([['Czym jest AUREU?',"answerC('what')"],['Co zyskuję?',"answerC('benefits')"],['Produkty i pokoje',"answerC('products')"],['VIP Elite',"answerC('vip')",'gold']]);
 }
 const KBC={
  vip:["<b>VIP Elite — 499 zł/mc.</b> Wcześniejsze alerty, pełne analizy AI, Due Diligence, Portfolio Pro, raporty, pokoje premium, API i priorytetowe wsparcie.",
@@ -634,15 +644,31 @@ const KBC={
    [['Najlepsza okazja',"toSec('.deal')"],['VIP Elite',"answerC('vip')",'gold']]],
  dd:["<b>Due Diligence AI</b> — pełna analiza oferty: stan prawny, obciążenia, finanse, technika — w jednym raporcie. W VIP Elite.",
    [['Overlay VIP',"closeBot();openVip()"],['Aktywuj (499)',"window.open('https://buy.stripe.com/8x2aEPgZm9t3b7ld8DdQQ0d','_blank')",'gold']]],
+
+ what:["<b>AUREU</b> to pierwsza w Polsce platforma, która <b>gromadzi i udostępnia w jednym miejscu</b> rozproszone okazje: licytacje komornicze, przetargi, sprzedaż syndyków i egzekucje — z rejestru Krajowej Rady Komorniczej i portali publicznych. Do każdej okazji dodajemy wycenę, rabat, <b>AI Score</b>, termin i pozycję na mapie. Zamiast klikać po 20 portalach, masz wszystko gotowe do decyzji.",
+   [['Co zyskuję?',"answerC('benefits')"],['Licytacje komornicze',"answerC('komornik')"],['VIP Elite',"answerC('vip')",'gold']]],
+ benefits:["Co realnie zyskujesz: <b>więcej okazji, mniej ryzyka, szybsza decyzja.</b> Skan rynku 24/7, wcześniejsze alerty na Twoje kryteria, pełna analiza AI (prawna, finansowa, techniczna), symulator ROI, portfolio i raporty. Wyniki użytkowników: <b>śr. rabat 38,7%, śr. ROI +27%, 12 000+ okazji dziennie, analiza w ~37 s.</b>",
+   [['Produkty i pokoje',"answerC('products')"],['Wyniki',"answerC('wyniki')"],['VIP Elite',"answerC('vip')",'gold']]],
+ products:["Plany: <b>Free</b> (start), <b>Pro 99</b>, <b>Elite 299</b>, <b>VIP Elite 499</b>. Pokoje premium: <b>Wizjoner</b> (top okazje, AI 80+), <b>Flipper</b> (szybki obrót), <b>Wynajem+</b> (cashflow), <b>Grunty & Działki</b> (MPZP, uzbrojenie), <b>Komercja</b> (biura, magazyny). Narzędzia: AI Copilot, Due Diligence, alerty, symulator ROI, portfolio, API, concierge.",
+   [['Cennik / VIP',"answerC('vip')",'gold'],['Pokoje',"toSec('.rooms')"]]],
+ wyniki:["Dane platformy: <b>śr. rabat okazji 38,7%</b>, <b>śr. wzrost ROI +27%</b>, <b>12 000+ okazji dziennie</b>, <b>śr. czas analizy ~37 s</b>, praca <b>24/7</b>. To skala, której nie ogarniesz ręcznie po portalach.",
+   [['Co zyskuję?',"answerC('benefits')"],['VIP Elite',"answerC('vip')",'gold']]],
+ komornik:["Licytacje komornicze i przetargi są <b>rozproszone</b> po dziesiątkach portali i obwieszczeń. AUREU <b>zbiera je automatycznie</b> (rejestr KRK, e-Zamówienia, portale) i pokazuje w jednym panelu: cena wywoławcza vs wartość rynkowa, rabat, termin, wadium i AI Score. Jesteśmy pierwsi, którzy podają to <b>gotowe do decyzji</b>.",
+   [['Najlepsza okazja',"toSec('.deal')"],['Mapa okazji',"toSec('.mapbox')"],['VIP Elite',"answerC('vip')",'gold']]],
  promo:["<b>Pierwsze 100 osób</b>: 2 miesiące VIP w cenie jednego. Przy płatności wpisz kod <b>AUREU100</b>.",
    [['Aktywuj z kodem',"window.open('https://buy.stripe.com/8x2aEPgZm9t3b7ld8DdQQ0d','_blank')",'gold']]],
 };
-function lblC(k){return {vip:'VIP Elite',score:'Czym jest AI Score?',dd:'Czym jest Due Diligence?',promo:'Promocja?'}[k]||k;}
+function lblC(k){return {vip:'VIP Elite',score:'Czym jest AI Score?',dd:'Czym jest Due Diligence?',promo:'Promocja?',what:'Czym jest AUREU?',benefits:'Co zyskuję?',products:'Produkty i pokoje',wyniki:'Wyniki',komornik:'Licytacje komornicze'}[k]||k;}
 function answerC(k){bub(lblC(k),'u');think(()=>{const x=KBC[k];bub(x[0],'a');chips(x[1]);});}
 function sendC(){
   const i=document.getElementById('cInput');const t=(i.value||'').trim();if(!t)return;bub(t,'u');i.value='';
   const s=t.toLowerCase();let k=null;
-  if(/(vip|elite|499|cena|ile|subskryp|abonament)/.test(s))k='vip';
+  if(/(czym jest|co to|aureu|platform|usp|pierwsi)/.test(s))k='what';
+  else if(/(korzy|zysk|zyskuj|zalet|dlaczego)/.test(s))k='benefits';
+  else if(/(produkt|plan|pokoj|pokoi|cennik)/.test(s))k='products';
+  else if(/(komorni|przetarg|licytac|syndyk|egzekuc)/.test(s))k='komornik';
+  else if(/(wynik|statyst|roi|rabat)/.test(s))k='wyniki';
+  else if(/(vip|elite|499|cena|ile|subskryp|abonament)/.test(s))k='vip';
   else if(/(promo|kod|rabat|100|taniej|gratis)/.test(s))k='promo';
   else if(/(score|ocena|punkt)/.test(s))k='score';
   else if(/(due|diligence|analiz|prawn|ryzyk)/.test(s))k='dd';
