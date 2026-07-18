@@ -268,7 +268,45 @@ h1,h2,h3,.f{font-family:'Sora'}
   .topbar .ic-btn:nth-child(4){display:none}
 }
 
-@media(prefers-reduced-motion:reduce){*{animation:none!important}}
+
+/* roaming hologram A */
+.holoBtn{transition:left 3.2s cubic-bezier(.45,.05,.35,1),top 3.2s cubic-bezier(.45,.05,.35,1)}
+.holoBtn .mini2{animation:bob 3.4s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-8px)}}
+.holoBtn .base2{position:absolute;bottom:-4px;left:50%;transform:translateX(-50%);width:44px;height:9px;border-radius:50%;
+  background:radial-gradient(ellipse,rgba(139,92,246,.6),transparent 70%);filter:blur(3px)}
+.holoBtn .scan2{position:absolute;inset:0;border-radius:50%;overflow:hidden;pointer-events:none}
+.holoBtn .scan2::before{content:"";position:absolute;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,rgba(34,211,238,.8),transparent);animation:scanm 3s linear infinite}
+@keyframes scanm{0%{top:12%}100%{top:88%}}
+/* console */
+.console{position:fixed;right:14px;bottom:16px;z-index:70;width:min(360px,calc(100vw - 28px));max-height:min(74vh,560px);
+  display:none;flex-direction:column;background:linear-gradient(180deg,rgba(14,17,25,.97),rgba(10,12,19,.98));
+  border:1px solid rgba(34,211,238,.35);border-radius:20px;overflow:hidden;box-shadow:0 30px 70px rgba(0,0,0,.6),0 0 50px rgba(34,211,238,.12);animation:grow .28s ease}
+.console.open{display:flex}
+@keyframes grow{from{transform:scale(.4) translateY(30px);opacity:0}to{transform:scale(1);opacity:1}}
+.c-head{display:flex;align-items:center;gap:11px;padding:12px 13px;border-bottom:1px solid var(--line);background:radial-gradient(120% 200% at 0 0,rgba(34,211,238,.14),transparent 60%)}
+.c-head .cA{position:relative;width:38px;height:38px;display:grid;place-items:center;flex:0 0 38px}
+.c-head .cA .r2{position:absolute;inset:0;border-radius:50%;border:1px solid rgba(34,211,238,.5);animation:spinZ 7s linear infinite}
+.c-head .cA span{font:800 19px 'Sora';background:linear-gradient(180deg,#dff6ff,var(--cyan),var(--violet));-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 6px rgba(34,211,238,.7))}
+.c-head .nm2{font:700 14px 'Sora';letter-spacing:.06em}
+.c-head .st2{font-size:11px;color:var(--cyan);display:flex;align-items:center;gap:6px}
+.c-head .st2 .d2{width:7px;height:7px;border-radius:50%;background:var(--cyan);box-shadow:0 0 8px var(--cyan);animation:blink 2s infinite}
+@keyframes blink{50%{opacity:.4}}
+.c-head .min2{margin-left:auto;background:rgba(255,255,255,.05);border:1px solid var(--line2);color:var(--txt);width:30px;height:30px;border-radius:9px;cursor:pointer;font-size:16px}
+.c-body{flex:1;overflow-y:auto;padding:13px;display:flex;flex-direction:column;gap:9px}
+.msg{max-width:88%;font-size:13px;padding:10px 12px;border-radius:13px;line-height:1.5}
+.msg.a{align-self:flex-start;background:rgba(34,211,238,.08);border:1px solid rgba(34,211,238,.22);border-bottom-left-radius:4px}
+.msg.u{align-self:flex-end;background:rgba(139,92,246,.16);border:1px solid rgba(139,92,246,.3);border-bottom-right-radius:4px}
+.msg b{color:var(--gold)}
+.chips{display:flex;flex-wrap:wrap;gap:7px;padding:0 13px 6px}
+.cchip{font:600 12px 'Sora';color:var(--cyan);background:rgba(34,211,238,.08);border:1px solid rgba(34,211,238,.28);border-radius:999px;padding:8px 11px;cursor:pointer}
+.cchip.gold{color:var(--gold);background:rgba(245,196,81,.08);border-color:rgba(245,196,81,.35)}
+.c-foot{display:flex;gap:8px;padding:11px 13px;border-top:1px solid var(--line)}
+.c-foot input{flex:1;background:rgba(255,255,255,.04);border:1px solid var(--line2);border-radius:11px;padding:10px 12px;color:var(--txt);font:inherit;font-size:14px}
+.c-foot input:focus{outline:0;border-color:var(--cyan)}
+.c-foot .snd{background:linear-gradient(100deg,var(--cyan),var(--violet));border:0;color:#03121a;width:42px;border-radius:11px;cursor:pointer;font-size:17px}
+
+@media(prefers-reduced-motion:reduce){*{animation:none!important;left:auto!important;bottom:14px!important;right:14px!important;top:auto!important}}
 </style>
 </head>
 <body>
@@ -457,10 +495,20 @@ h1,h2,h3,.f{font-family:'Sora'}
 </div>
 
 <!-- BOT -->
-<button class="holoBtn" onclick="window.open('https://aureu.kgregenevia.pro/vip.html','_blank')">
-  <div class="mini2"><div class="r"></div><div class="r b"></div><div class="A">A</div></div>
-  <span class="cap">Zapytaj AUREU</span>
+<button class="holoBtn" id="agent" onclick="openBot()" aria-label="AUREU AI Navigator">
+  <div class="mini2"><div class="r"></div><div class="r b"></div><div class="scan2"></div><div class="A">A</div><div class="base2"></div></div>
+  <span class="cap">AUREU AI</span>
 </button>
+<div class="console" id="console">
+  <div class="c-head">
+    <div class="cA"><div class="r2"></div><span>A</span></div>
+    <div><div class="nm2">AUREU</div><div class="st2" id="cSt"><span class="d2"></span> AUREU ONLINE</div></div>
+    <button class="min2" onclick="closeBot()" aria-label="Zwiń">–</button>
+  </div>
+  <div class="c-body" id="cBody"></div>
+  <div class="chips" id="cChips"></div>
+  <div class="c-foot"><input id="cInput" placeholder="Zapytaj AUREU…" onkeydown="if(event.key==='Enter')sendC()"><button class="snd" onclick="sendC()">➤</button></div>
+</div>
 
 <script>
 /* fit-to-screen */
@@ -561,6 +609,57 @@ if(!matchMedia('(prefers-reduced-motion:reduce)').matches){
    c.insertAdjacentHTML('beforeend',svg);
  });
 })();
+
+/* ===== ROAMING HOLOGRAM A + CONSOLE ===== */
+const agent=document.getElementById('agent'),csl=document.getElementById('console'),
+ cBody=document.getElementById('cBody'),cChips=document.getElementById('cChips'),cSt=document.getElementById('cSt');
+let roam=true, greeted=false;
+function moveAgent(){
+  if(!roam) return;
+  const m=90, capH=110;
+  const x=m+Math.random()*Math.max(40,innerWidth-2*m-70);
+  const y=m+Math.random()*Math.max(40,innerHeight-m-capH-40);
+  agent.style.left=x+'px'; agent.style.top=y+'px';
+  agent.style.right='auto'; agent.style.bottom='auto';
+}
+setTimeout(moveAgent,400); setInterval(moveAgent,4200);
+addEventListener('resize',()=>{if(roam)moveAgent();});
+
+function bub(t,w){const d=document.createElement('div');d.className='msg '+w;d.innerHTML=t;cBody.appendChild(d);cBody.scrollTop=cBody.scrollHeight;}
+function chips(a){cChips.innerHTML=a.map(c=>`<button class="cchip ${c[2]||''}" onclick="${c[1]}">${c[0]}</button>`).join('');}
+function sst(t){cSt.innerHTML='<span class="d2"></span> '+t;}
+function think(cb){sst('ANALIZUJĘ…');setTimeout(()=>{sst('AUREU ONLINE');cb();},480);}
+function toSec(id){closeBot();const e=document.getElementById(id)||document.querySelector(id);if(e)e.scrollIntoView({behavior:'smooth'});}
+function openBot(){roam=false;agent.style.display='none';csl.classList.add('open');if(!greeted){greetC();greeted=true;}}
+function closeBot(){csl.classList.remove('open');agent.style.display='flex';roam=true;moveAgent();}
+function greetC(){
+  bub("Witaj w <b>AUREU</b>. Jestem holograficznym nawigatorem. Pokażę Ci mapę okazji, pokoje, kalkulator ROI albo funkcje VIP Elite. Czego szukasz?",'a');
+  chips([['Pokaż mapę',"toSec('.mapbox')"],['Pokoje premium',"toSec('.rooms')"],['Najlepsza okazja',"toSec('.deal')"],['VIP Elite',"answerC('vip')",'gold']]);
+}
+const KBC={
+ vip:["<b>VIP Elite — 499 zł/mc.</b> Wcześniejsze alerty, pełne analizy AI, Due Diligence, Portfolio Pro, raporty, pokoje premium, API i priorytetowe wsparcie.",
+   [['Zobacz overlay VIP',"closeBot();openVip()"],['Aktywuj (499)',"window.open('https://buy.stripe.com/8x2aEPgZm9t3b7ld8DdQQ0d','_blank')",'gold']]],
+ score:["<b>AI Score (0–100)</b> ocenia okazję: runda licytacji, konkurencja, czas reakcji, próg wejścia i pewność danych. Im wyżej — tym lepszy stosunek okazji do ryzyka.",
+   [['Najlepsza okazja',"toSec('.deal')"],['VIP Elite',"answerC('vip')",'gold']]],
+ dd:["<b>Due Diligence AI</b> — pełna analiza oferty: stan prawny, obciążenia, finanse, technika — w jednym raporcie. W VIP Elite.",
+   [['Overlay VIP',"closeBot();openVip()"],['Aktywuj (499)',"window.open('https://buy.stripe.com/8x2aEPgZm9t3b7ld8DdQQ0d','_blank')",'gold']]],
+ promo:["<b>Pierwsze 100 osób</b>: 2 miesiące VIP w cenie jednego. Przy płatności wpisz kod <b>AUREU100</b>.",
+   [['Aktywuj z kodem',"window.open('https://buy.stripe.com/8x2aEPgZm9t3b7ld8DdQQ0d','_blank')",'gold']]],
+};
+function lblC(k){return {vip:'VIP Elite',score:'Czym jest AI Score?',dd:'Czym jest Due Diligence?',promo:'Promocja?'}[k]||k;}
+function answerC(k){bub(lblC(k),'u');think(()=>{const x=KBC[k];bub(x[0],'a');chips(x[1]);});}
+function sendC(){
+  const i=document.getElementById('cInput');const t=(i.value||'').trim();if(!t)return;bub(t,'u');i.value='';
+  const s=t.toLowerCase();let k=null;
+  if(/(vip|elite|499|cena|ile|subskryp|abonament)/.test(s))k='vip';
+  else if(/(promo|kod|rabat|100|taniej|gratis)/.test(s))k='promo';
+  else if(/(score|ocena|punkt)/.test(s))k='score';
+  else if(/(due|diligence|analiz|prawn|ryzyk)/.test(s))k='dd';
+  else if(/(mapa|region|wojew)/.test(s)){think(()=>{bub('Otwieram mapę okazji.','a');toSec('.mapbox');});return;}
+  else if(/(pokoj|flipper|wynajem|grunt|komerc|wizjoner)/.test(s)){think(()=>{bub('Prowadzę do pokoi premium.','a');toSec('.rooms');});return;}
+  if(k){const x=KBC[k];think(()=>{bub(x[0],'a');chips(x[1]);});}
+  else think(()=>{bub("Mogę pokazać mapę, pokoje, najlepszą okazję, AI Score, Due Diligence albo plan <b>VIP Elite</b>. Co Cię interesuje?",'a');chips([['VIP Elite',"answerC('vip')",'gold'],['Mapa',"toSec('.mapbox')"],['Pokoje',"toSec('.rooms')"]]);});
+}
 </script>
 </body>
 </html>
