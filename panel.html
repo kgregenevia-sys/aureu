@@ -325,6 +325,36 @@ h1,h2,h3,.f{font-family:'Sora'}
 .sidep.rail5 .pc p{font-size:9.5px}
 @media(max-width:900px){.sidep.rail5{width:100%;flex-direction:row;flex-wrap:wrap}.sidep.rail5 .pc{flex:1 1 45%}}
 
+
+.ovwrap{flex-direction:column;gap:12px;width:min(940px,calc(100vw - 28px));background:linear-gradient(180deg,rgba(12,15,24,.98),rgba(8,10,17,.99));border:1px solid var(--line2);border-radius:22px;padding:22px;position:relative;transform:scale(var(--ovs,1));transform-origin:center}
+.ovx{position:absolute;top:14px;right:14px;background:rgba(255,255,255,.06);border:1px solid var(--line2);color:var(--txt);width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:18px;z-index:2}
+.ovhead{text-align:center;font-family:'Sora';font-weight:700;font-size:18px}.ovhead .crown{color:var(--gold)}
+.ladder{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;align-items:stretch}
+.tier{position:relative;border:1px solid var(--line2);border-radius:16px;padding:16px 14px;display:flex;flex-direction:column;gap:7px;background:var(--panel)}
+.tier.full{border-color:rgba(245,196,81,.5);background:radial-gradient(120% 70% at 50% 0,rgba(245,196,81,.1),transparent 60%),var(--panel)}
+.tier.holo{border-color:rgba(139,92,246,.5);background:radial-gradient(120% 70% at 50% 0,rgba(139,92,246,.12),transparent 60%),var(--panel);align-items:center;text-align:center}
+.tier.free{border-color:rgba(34,211,238,.4);align-items:center;text-align:center}
+.tbadge{position:absolute;top:-10px;left:14px;font:700 9px 'Sora';letter-spacing:.1em;text-transform:uppercase;color:#0b0b0b;background:linear-gradient(100deg,var(--gold-hi),var(--gold-d));padding:5px 9px;border-radius:999px}
+.tbadge.vi{left:auto;color:#fff;background:linear-gradient(100deg,var(--violet),var(--cyan))}
+.tnm{font:700 14px 'Sora'}
+.tpr{font:800 30px 'Sora';line-height:1}.tpr span{font-size:13px;color:var(--mut);font-weight:500}
+.tpr.gold{color:var(--gold)}.tpr.cy{color:var(--cyan)}.tpr.vi{color:var(--violet)}
+.tsub{font-size:11px;color:var(--mut)}.tsub b{color:var(--txt)}
+.tor{font-size:11px;color:var(--mut2);margin:4px 0}
+.tl{list-style:none;display:flex;flex-direction:column;gap:5px;margin:6px 0;text-align:left;width:100%}
+.tl li{font-size:11px;color:var(--mut);display:flex;gap:7px}
+.tl li::before{content:"✓";color:var(--green);font-weight:700}
+.tbtn{margin-top:auto;display:block;text-align:center;font:700 13px 'Sora';padding:12px;border-radius:11px;text-decoration:none}
+.tbtn.gold{color:#0b0b0b;background:linear-gradient(100deg,var(--gold-hi),var(--gold-d));box-shadow:0 0 24px rgba(245,196,81,.3)}
+.tbtn.cy{color:#03121a;background:linear-gradient(100deg,var(--cyan),var(--cyan-d))}
+.tbtn.vi{color:#fff;background:linear-gradient(100deg,var(--violet),#5b21b6);box-shadow:0 0 24px rgba(139,92,246,.3)}
+.humanimg.mini{width:150px;max-height:180px;margin:-4px auto 0}
+.komplet{display:flex;align-items:center;justify-content:space-between;gap:12px;border:1px solid var(--gold);border-radius:14px;padding:14px 18px;text-decoration:none;
+  background:linear-gradient(100deg,rgba(245,196,81,.14),rgba(139,92,246,.14));box-shadow:0 0 30px rgba(245,196,81,.15)}
+.komplet .kt{font:700 14px 'Sora';color:var(--txt)}.komplet .kt b{color:var(--gold)}
+.komplet .kp{font:800 26px 'Sora';color:var(--gold)}.komplet .kp small{font-size:13px;color:var(--mut);font-weight:500}
+@media(max-width:820px){.ladder{grid-template-columns:1fr}.humanimg.mini{width:120px}.komplet{flex-direction:column;text-align:center}}
+
 @media(prefers-reduced-motion:reduce){*{animation:none!important;left:auto!important;bottom:14px!important;right:14px!important;top:auto!important}}
 </style>
 </head>
@@ -489,30 +519,42 @@ h1,h2,h3,.f{font-family:'Sora'}
 <!-- VIP OVERLAY -->
 <div class="ov" id="ov">
   <div class="ovwrap" id="ovwrap">
-    <!-- HUMAN HOLOGRAM (agent premium) -->
-    <div class="humanwrap">
-      <img class="humanimg" src="img/human.png" alt="AUREU agent premium">
-      <div class="humbubble">Witaj w <b>AUREU</b>. Po aktywacji <b>VIP Elite</b> jestem Twoim osobistym agentem — prowadzę Cię przez okazje, analizy, pokoje i alerty.</div>
+    <button class="ovx" onclick="closeVip()" aria-label="Zamknij">×</button>
+    <div class="ovhead"><span class="crown">♛</span> <b>Wybierz swój dostęp do AUREU</b></div>
+    <div class="ladder">
+      <div class="tier full">
+        <div class="tbadge">Najwięcej funkcji</div>
+        <div class="tnm">VIP · Pełne usługi</div>
+        <div class="tpr gold">499 zł<span>/mc</span></div>
+        <div class="tsub">Wszystkie funkcje — <b>bez hologramu</b></div>
+        <ul class="tl"><li>AI Copilot 24/7</li><li>AI Due Diligence</li><li>Natychmiastowe alerty</li><li>Nielimitowane okazje</li><li>Zaawansowane filtry AI</li><li>Eksporty i raporty</li><li>Portfolio Pro</li><li>Priorytetowe wsparcie</li><li>Dostęp do API</li><li>Intelligence Network</li></ul>
+        <a class="tbtn gold" href="https://buy.stripe.com/8x2aEPgZm9t3b7ld8DdQQ0d" target="_blank" rel="noopener">Wybierz — 499 zł</a>
+      </div>
+      <div class="tier free">
+        <div class="tnm">Podgląd FREE</div>
+        <div class="tpr">0 zł</div>
+        <div class="tsub">Oglądasz okazje, mapę i AI Score</div>
+        <div class="tor">— lub —</div>
+        <div class="tnm">Wejście do pokoju</div>
+        <div class="tpr cy">99 zł<span>/mc</span></div>
+        <div class="tsub">Dostęp do jednego pokoju premium</div>
+        <a class="tbtn cy" href="https://buy.stripe.com/4gM7sD5gEax76R5b0vdQQ02" target="_blank" rel="noopener">Wejdź do pokoju — 99 zł</a>
+      </div>
+      <div class="tier holo">
+        <div class="tbadge vi">Z agentem AI</div>
+        <img class="humanimg mini" src="img/human.png" alt="AUREU agent">
+        <div class="tnm">VIP + Hologram AUREU</div>
+        <div class="tpr vi">499 zł<span>/mc</span></div>
+        <div class="tsub">Agent-człowiek + <b>wybrane usługi</b></div>
+        <ul class="tl"><li>Agent-hologram prowadzi Cię 24/7</li><li>AI Copilot</li><li>Natychmiastowe alerty</li><li>Nielimitowane okazje</li><li>Symulator ROI + Concierge</li></ul>
+        <a class="tbtn vi" href="https://buy.stripe.com/bJebITfVi9t35N1c4zdQQ0g" target="_blank" rel="noopener">Wybierz z hologramem — 499 zł</a>
+      </div>
     </div>
-    <!-- VIP CENTER -->
-    <div class="vippanel">
-      <button class="x" onclick="closeVip()">×</button>
-      <div class="crown">♛</div>
-      <h2>VIP <small>ELITE</small></h2>
-      <div class="price">499 zł <span>/ miesiąc</span></div>
-      <div class="lead">Pełen dostęp do mocy AUREU. Wszystkie funkcje. Wszystkie dane. Bez ograniczeń.</div>
-      <div class="vipfeat" id="vipfeat"></div>
-      <a class="vipbtn" href="https://buy.stripe.com/8x2aEPgZm9t3b7ld8DdQQ0d" target="_blank" rel="noopener">Aktywuj VIP Elite 💎</a>
-      <div class="promo-note">Pierwsze 100 osób: <b>2 miesiące w cenie jednego</b> — kod <b>AUREU100</b></div>
-    </div>
-    <!-- RIGHT SIDE PANEL: 5 osobnych funkcji (różne od środka) -->
-    <div class="sidep rail5">
-      <div class="pc"><span class="pi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg></span><h5>LIVE SCAN</h5><p>132 nowe okazje · skan rynku 24/7.</p></div>
-      <div class="pc"><span class="pi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8 2 5 5 5 9c0 5 7 13 7 13s7-8 7-13c0-4-3-7-7-7z"/></svg></span><h5>HEATMAPA</h5><p>Mapa okazji — gdzie robi się gorąco.</p></div>
-      <div class="pc"><span class="pi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M7 14l3-3 4 4 4-6"/></svg></span><h5>SYMULATOR ROI</h5><p>Policz realny zysk przed zakupem.</p></div>
-      <div class="pc"><span class="pi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M8 8h8M8 12h8M8 16h5"/></svg></span><h5>AI NEWS</h5><p>Wpływ wydarzeń na rynek — skrót.</p></div>
-      <div class="pc"><span class="pi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a5 5 0 015 5v3a5 5 0 01-10 0V7a5 5 0 015-5z"/><path d="M5 20a7 7 0 0114 0"/></svg></span><h5>CONCIERGE</h5><p>„Zrób to za mnie" — AI działa za Ciebie.</p></div>
-    </div>
+    <a class="komplet" href="https://buy.stripe.com/4gMfZ9dNa0WxfnB3y3dQQ0h" target="_blank" rel="noopener">
+      <span class="kt">KOMPLET — pełne usługi <b>+</b> hologram AUREU</span>
+      <span class="kp">998 zł<small>/mc</small></span>
+    </a>
+    <div class="promo-note">Pierwsze 100 osób: 2 miesiące w cenie jednego — kod <b>AUREU100</b></div>
   </div>
 </div>
 
@@ -570,10 +612,9 @@ const vf=[
  ['Dostęp do API','Integruj AUREU z systemami','<path d="M8 3H5a2 2 0 00-2 2v3m8-5h3a2 2 0 012 2v3"/>'],
  ['Intelligence Network','Zamknięta sieć inwestorów','<path d="M12 2v4m0 12v4M2 12h4m12 0h4"/><circle cx="12" cy="12" r="4"/>'],
 ];
-document.getElementById('vipfeat').innerHTML=vf.map(f=>`
- <div class="vf"><span class="vi2">${I(f[2])}</span><div><div class="vt">${f[0]}</div><div class="vd">${f[1]}</div></div></div>`).join('');
+/* vipfeat inline w overlay */
 
-function scaleOv(){const w=document.getElementById('ovwrap');const s=Math.min(1,(innerWidth-40)/900,(innerHeight-40)/440);w.style.setProperty('--ovs',s);}
+function scaleOv(){const w=document.getElementById('ovwrap');const s=Math.min(1,(innerWidth-24)/960,(innerHeight-24)/620);w.style.setProperty('--ovs',s);}
 function openVip(){document.getElementById('ov').classList.add('open');scaleOv();}
 function closeVip(){document.getElementById('ov').classList.remove('open');}
 document.getElementById('ov').addEventListener('click',e=>{if(e.target.id==='ov')closeVip();});
