@@ -229,6 +229,45 @@ h1,h2,h3,.f{font-family:'Sora'}
 .room .bars i{flex:1;background:linear-gradient(180deg,var(--cyan),rgba(34,211,238,.25));border-radius:2px 2px 0 0}
 .radar{width:76px;height:76px}
 
+
+/* ===== MOBILE APP DASHBOARD (portrait phones) ===== */
+@media(max-width:900px){
+  html,body{height:auto;overflow:auto}
+  .fit{display:none}
+  .viewport{position:static;display:block;min-height:100%;place-items:initial}
+  .stage{width:100%!important;height:auto!important;transform:none!important;padding:12px;gap:12px;flex-direction:column}
+  .topbar{flex-wrap:wrap;height:auto;gap:9px;position:sticky;top:0;z-index:30;background:rgba(6,7,12,.9);backdrop-filter:blur(10px);padding:8px 2px}
+  .logo b{font-size:17px}
+  .search{order:5;flex-basis:100%;max-width:none;font-size:13px}
+  .ic-btn{width:34px;height:34px}
+  .livescan{order:4;margin-left:auto;padding:7px 11px;min-width:0}
+  .main{grid-template-columns:1fr;height:auto;gap:12px}
+  .side{order:2}
+  .side .nav{display:grid;grid-template-columns:repeat(2,1fr);gap:4px}
+  .center{order:1}
+  .hero{grid-template-columns:1fr}
+  .hero h1{font-size:24px}
+  .mapbox{height:260px}
+  .kpis{grid-template-columns:1fr 1fr}
+  .kpi .v{font-size:26px}
+  .lowrow{grid-template-columns:1fr;height:auto}
+  .deal .body{grid-template-columns:74px 1fr;gap:10px}
+  .deal .body>div:last-child{grid-column:1/-1;display:flex;justify-content:space-between;align-items:center}
+  .upgrades,.prem{order:3;height:auto}
+  .garrow{display:none}
+  .rooms{grid-template-columns:1fr;height:auto}
+  .room{height:auto;min-height:150px}
+  .roomstitle{margin-top:4px}
+  .footbar{flex-wrap:wrap;gap:12px}
+  .footbar .plans{margin-left:0;flex-basis:100%;justify-content:space-between}
+  .holoBtn{right:10px;bottom:10px}
+}
+@media(max-width:520px){
+  .kpis{grid-template-columns:1fr 1fr}
+  .side .nav{grid-template-columns:1fr 1fr}
+  .topbar .ic-btn:nth-child(4){display:none}
+}
+
 @media(prefers-reduced-motion:reduce){*{animation:none!important}}
 </style>
 </head>
@@ -426,7 +465,10 @@ h1,h2,h3,.f{font-family:'Sora'}
 <script>
 /* fit-to-screen */
 const stage=document.getElementById('stage');
-function fitScale(){const s=Math.min(innerWidth/1440,innerHeight/1010);stage.style.transform='scale('+s+')';}
+function fitScale(){
+  if(innerWidth<=900){stage.style.transform='none';return;} /* telefon -> responsywny układ */
+  const s=Math.min(innerWidth/1440,innerHeight/1010);stage.style.transform='scale('+s+')';
+}
 function setMode(m){
   document.getElementById('fitBtn').classList.toggle('on',m==='fit');
   document.getElementById('scrollBtn').classList.toggle('on',m==='scroll');
