@@ -368,8 +368,8 @@ body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;opa
 <script>
 const SB='https://mdsvcobwuezriexyqqby.supabase.co';
 const ANON='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1kc3Zjb2J3dWV6cmlleHlxcWJ5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgwNjMxMjMsImV4cCI6MjA5MzYzOTEyM30.o4CVcSf9drtDxlpVv11T_E3N4dd-BSTrQPRCZXfpusg';
-const STRIPE='https://buy.stripe.com/14A4greRe9t3ejx6KfdQQ0e'; /* 17.07.2026: jednorazowy 99zl/30dni. Subskrypcja NIE wpuszczala BLIK-a (Stripe nie obsluguje BLIK w platnosciach cyklicznych) -> 12 checkoutow, 0 platnosci. Stary link subskrypcji (dziala, do przywrocenia): 4gM7sD5gEax76R5b0vdQQ02 */
-const STRIPE_VIZ='https://buy.stripe.com/eVq28j38wgVv5N12tZdQQ0f'; /* 17.07.2026: jednorazowy 49zl/30dni - subskrypcja blokowala BLIK. Stary link subskrypcji (dziala, do przywrocenia): cNi8wH8sQ7kV0sH6KfdQQ01 */
+const STRIPE='https://buy.stripe.com/4gM7sD5gEax76R5b0vdQQ02'; /* 17.07.2026: jednorazowy 99zl/30dni. Subskrypcja NIE wpuszczala BLIK-a (Stripe nie obsluguje BLIK w platnosciach cyklicznych) -> 12 checkoutow, 0 platnosci. Stary link subskrypcji (dziala, do przywrocenia): 4gM7sD5gEax76R5b0vdQQ02 */
+const STRIPE_VIZ='https://buy.stripe.com/cNi8wH8sQ7kV0sH6KfdQQ01'; /* 17.07.2026: jednorazowy 49zl/30dni - subskrypcja blokowala BLIK. Stary link subskrypcji (dziala, do przywrocenia): cNi8wH8sQ7kV0sH6KfdQQ01 */
 const H={apikey:ANON,'Authorization':'Bearer '+ANON,'Content-Type':'application/json'};
 const store={g:k=>{try{return localStorage.getItem(k)}catch(e){return null}},s:(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}},d:k=>{try{localStorage.removeItem(k)}catch(e){}}};
 let TOKEN=store.g('au_token')||'', PREM=store.g('au_prem')==='1';
