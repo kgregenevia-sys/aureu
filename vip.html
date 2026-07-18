@@ -167,7 +167,7 @@ h1,h2,h3{font-family:'Sora';font-weight:700;letter-spacing:-.01em;line-height:1.
 .maphead{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
 .maphead .t{font-family:'Sora';font-weight:700;font-size:15px;letter-spacing:.02em}
 .maphead .live{display:inline-flex;align-items:center;gap:7px;font-size:12px;color:var(--cyan)}
-.mapbox{position:relative;width:100%;aspect-ratio:1/1.02;max-width:440px;margin:0 auto}
+.mapbox{position:relative;width:100%;aspect-ratio:400/381;max-width:460px;margin:0 auto}
 .mapbox svg{width:100%;height:100%;overflow:visible}
 .poland{fill:rgba(34,211,238,.05);stroke:rgba(34,211,238,.55);stroke-width:1.4;filter:drop-shadow(0 0 12px rgba(34,211,238,.3))}
 .mesh{stroke:rgba(139,92,246,.35);stroke-width:.8;fill:none}
@@ -175,7 +175,7 @@ h1,h2,h3{font-family:'Sora';font-weight:700;letter-spacing:-.01em;line-height:1.
 .hub circle.core{fill:#fff}
 .hub circle.halo{fill:none;stroke-width:1.5;animation:ripple 3s ease-out infinite}
 @keyframes ripple{0%{r:4;opacity:.9}100%{r:22;opacity:0}}
-.hub .lbl{font:600 10px 'Sora';fill:var(--txt);letter-spacing:.04em}
+.hub .lbl{font:600 10px 'Sora';fill:#EAECF2;letter-spacing:.03em;paint-order:stroke;stroke:rgba(6,7,12,.85);stroke-width:2.4px}
 .legend{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:14px;font-size:11px;color:var(--mut)}
 .legend span{display:inline-flex;align-items:center;gap:6px}
 .legend i{width:9px;height:9px;border-radius:50%;display:inline-block}
@@ -307,6 +307,37 @@ footer .fine{font-size:12px;color:var(--mut2);line-height:1.6}
   .modal .sheet{border-radius:22px}
   .nav-holo .mini{width:76px;height:76px}
 }
+/* ---------- VIP HUMAN HOLOGRAM + TRANSFORM ---------- */
+.holo-human{position:absolute;width:62%;height:88%;z-index:2;opacity:0;transform:scale(.9);
+  transition:opacity .9s ease,transform .9s ease;pointer-events:none}
+.holo-human svg{width:100%;height:100%;overflow:visible;filter:drop-shadow(0 0 18px rgba(34,211,238,.5)) drop-shadow(0 0 30px rgba(139,92,246,.4))}
+.holo-human .body{fill:rgba(34,211,238,.06);stroke:url(#hg);stroke-width:1.5}
+.holo-human .mesh2{stroke:rgba(139,92,246,.5);stroke-width:.7;fill:none}
+.holo-human .torso{transform-box:fill-box;transform-origin:center;animation:breathe 4s ease-in-out infinite}
+@keyframes breathe{50%{transform:scale(1.02)}}
+.holo-human .chest{fill:#fff;animation:pulse 2.4s ease-in-out infinite}
+.holo-human .feetring{fill:none;stroke:var(--gold);stroke-width:1.4;opacity:.7;animation:spinZ 20s linear infinite}
+.holo-stage.vip .holo-A{opacity:0;transform:scale(.4) rotate(20deg);transition:.7s}
+.holo-stage.vip .holo-human{opacity:1;transform:scale(1)}
+.holo-stage.vip .ring.r3{border-color:rgba(245,196,81,.6);box-shadow:0 0 30px rgba(245,196,81,.25)}
+.holo-stage.vip .holo-core{background:radial-gradient(circle,rgba(255,255,255,.95),rgba(245,196,81,.5) 40%,transparent 70%)}
+.burst{position:absolute;inset:0;z-index:4;pointer-events:none}
+.burst i{position:absolute;left:50%;top:50%;width:5px;height:5px;border-radius:50%;
+  background:var(--cyan);box-shadow:0 0 8px var(--cyan);opacity:0}
+.holo-stage.bursting .burst i{animation:burst .9s ease-out forwards}
+@keyframes burst{0%{opacity:1;transform:translate(-50%,-50%) scale(1)}100%{opacity:0;transform:translate(var(--bx),var(--by)) scale(.2)}}
+.vip-flag{display:none;align-items:center;gap:7px;justify-content:center;margin-top:8px;
+  font:600 11px/1 'Sora';letter-spacing:.18em;text-transform:uppercase;color:var(--gold)}
+.vip-flag.on{display:inline-flex}
+.vip-flag .g{width:7px;height:7px;border-radius:50%;background:var(--gold);box-shadow:0 0 9px var(--gold)}
+
+/* personalization chips grid inside console */
+.opts{display:flex;flex-wrap:wrap;gap:7px;padding:2px 14px 8px}
+.opt{font:600 12px 'Sora';color:var(--txt);background:rgba(255,255,255,.04);border:1px solid var(--line2);
+  border-radius:999px;padding:8px 12px;cursor:pointer;transition:.15s}
+.opt:hover{border-color:var(--gold);color:var(--gold)}
+.opt.sel{background:rgba(245,196,81,.12);border-color:var(--gold);color:var(--gold)}
+
 @media(prefers-reduced-motion:reduce){
   *{animation:none!important}
 }
@@ -347,8 +378,26 @@ footer .fine{font-size:12px;color:var(--mut2);line-height:1.6}
       <div class="holo-A">A</div>
       <div class="holo-scan"></div>
       <div class="holo-base"></div>
+      <div class="holo-human">
+        <svg viewBox="0 0 120 180" aria-hidden="true">
+          <defs><linearGradient id="hg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#22D3EE"/><stop offset="1" stop-color="#8B5CF6"/></linearGradient></defs>
+          <ellipse class="feetring" cx="60" cy="168" rx="40" ry="9"/>
+          <g class="torso">
+            <circle class="body" cx="60" cy="30" r="17"/>
+            <path class="body" d="M60 48 C40 50 30 66 30 92 L34 150 L46 150 L48 104 L52 150 L68 150 L72 104 L74 150 L86 150 L90 92 C90 66 80 50 60 48 Z"/>
+            <circle class="chest" cx="60" cy="86" r="5" style="filter:drop-shadow(0 0 8px #F5C451)"/>
+          </g>
+          <g class="mesh2">
+            <line x1="60" y1="18" x2="60" y2="150"/><line x1="42" y1="70" x2="78" y2="70"/>
+            <line x1="38" y1="100" x2="82" y2="100"/><line x1="44" y1="126" x2="76" y2="126"/>
+            <line x1="48" y1="24" x2="72" y2="36"/><line x1="72" y1="24" x2="48" y2="36"/>
+          </g>
+        </svg>
+      </div>
+      <div class="burst" id="burst"></div>
     </div>
-    <div class="holo-tag">AUREU AI NAVIGATOR</div>
+    <div class="holo-tag" id="holoTag">AUREU AI NAVIGATOR</div>
+    <div class="vip-flag" id="vipFlag"><span class="g"></span> VIP ELITE ACTIVE</div>
     <div class="holo-status"><span class="dot"></span> ONLINE 24/7 · pracuje dla Ciebie</div>
 
     <h1>Luksus <span class="grad-gold">w cenie okazji.</span></h1>
@@ -406,14 +455,24 @@ footer .fine{font-size:12px;color:var(--mut2);line-height:1.6}
         <span class="live"><span class="dot"></span> 132 nowe okazje / 24h</span>
       </div>
       <div class="mapbox">
-        <svg viewBox="0 0 400 408" role="img" aria-label="Mapa Polski z węzłami okazji">
-          <path class="poland" d="M92 96 L60 120 L46 150 L60 168 L52 196 L70 214 L64 250 L90 286 L86 320 L120 344 L164 356 L210 350 L238 366 L286 352 L318 322 L352 300 L360 262 L338 232 L352 200 L332 168 L346 138 L318 110 L276 98 L246 74 L206 66 L168 78 L128 70 Z"/>
-          <g class="mesh">
-            <line x1="120" y1="120" x2="215" y2="150"/><line x1="215" y1="150" x2="300" y2="130"/>
-            <line x1="120" y1="120" x2="160" y2="235"/><line x1="215" y1="150" x2="250" y2="270"/>
-            <line x1="160" y1="235" x2="250" y2="270"/><line x1="300" y1="130" x2="315" y2="255"/>
-            <line x1="250" y1="270" x2="315" y2="255"/><line x1="160" y1="235" x2="130" y2="300"/>
+        <svg viewBox="0 0 400 381" role="img" aria-label="Mapa Polski z węzłami okazji">
+          <defs>
+            <clipPath id="plclip"><path d="M170.7 14.0 L153.3 15.1 L125.6 21.8 L118.9 27.9 L102.8 31.2 L91.2 44.8 L84.6 48.7 L58.5 55.2 L31.8 65.2 L23.9 70.4 L18.4 69.3 L16.4 70.7 L17.2 70.8 L17.3 73.6 L20.0 79.1 L19.5 80.3 L20.1 84.5 L19.6 85.6 L21.3 88.4 L20.9 92.4 L23.4 98.8 L25.0 108.7 L26.4 109.4 L23.7 113.4 L23.3 116.0 L23.9 117.0 L22.5 122.1 L18.7 125.8 L14.8 127.7 L15.5 133.1 L14.0 135.8 L18.0 136.8 L20.3 139.7 L22.7 140.3 L26.4 145.4 L31.7 148.9 L33.4 151.3 L32.0 153.9 L33.1 155.7 L30.0 159.8 L29.6 162.2 L30.9 168.7 L35.8 170.5 L35.9 172.7 L35.1 173.9 L35.7 175.8 L34.6 177.6 L35.4 179.6 L37.5 181.1 L37.2 183.9 L35.6 187.5 L36.3 188.7 L33.8 193.6 L31.9 194.9 L31.8 196.5 L33.5 198.4 L34.2 201.7 L37.2 205.5 L38.1 209.6 L36.1 211.7 L36.6 213.7 L45.3 218.2 L45.6 224.5 L47.8 228.3 L48.0 230.7 L46.0 240.9 L42.2 250.3 L40.1 253.8 L46.7 253.9 L47.0 251.5 L46.3 250.7 L47.4 247.8 L45.5 246.6 L46.1 245.3 L48.9 244.6 L50.6 245.4 L50.5 246.3 L52.0 246.4 L51.9 245.2 L53.1 244.8 L53.1 246.6 L53.8 247.0 L55.6 246.2 L57.0 247.3 L57.5 248.7 L56.6 250.2 L57.2 252.9 L59.7 254.9 L60.5 259.2 L63.1 257.5 L66.2 259.3 L69.5 259.6 L72.4 261.6 L77.0 260.7 L78.6 265.5 L83.4 265.0 L84.5 268.2 L83.3 269.1 L84.6 270.1 L87.5 266.2 L90.8 268.4 L91.8 268.0 L92.5 265.7 L96.4 266.3 L100.3 271.2 L98.8 271.9 L99.0 273.2 L98.1 273.5 L98.7 274.3 L97.0 276.1 L95.5 275.6 L91.0 280.2 L94.2 284.0 L97.2 283.4 L97.1 285.0 L98.6 286.9 L99.7 286.6 L104.4 292.9 L104.5 296.0 L105.4 297.6 L109.9 300.3 L115.2 293.7 L116.6 294.1 L116.7 293.1 L119.2 292.8 L120.0 291.4 L120.9 293.0 L121.9 292.3 L121.0 290.7 L121.6 289.7 L121.1 288.3 L119.1 287.3 L117.5 282.7 L115.7 281.6 L116.9 279.4 L125.0 281.8 L126.2 283.3 L128.4 283.0 L128.5 284.4 L131.3 286.9 L133.8 286.4 L133.8 290.3 L134.4 289.2 L136.5 289.5 L137.6 290.9 L138.9 289.6 L143.3 290.1 L146.2 288.2 L146.4 286.5 L147.6 286.9 L148.7 288.2 L147.8 290.7 L149.3 292.0 L149.1 293.7 L143.0 296.7 L145.2 299.6 L148.0 300.4 L149.6 304.8 L152.0 306.1 L151.6 306.7 L153.1 307.8 L158.0 305.0 L159.6 305.8 L159.7 304.0 L158.6 304.3 L158.1 302.8 L159.1 302.1 L161.2 303.5 L162.4 306.4 L164.0 307.1 L165.9 306.4 L166.0 307.9 L168.2 308.3 L168.9 310.4 L173.9 309.8 L174.1 310.7 L177.6 312.0 L178.0 310.7 L179.3 310.9 L179.1 313.7 L180.3 314.3 L179.3 316.0 L181.3 321.3 L181.2 322.9 L184.3 324.0 L184.8 325.3 L187.9 325.5 L189.8 333.3 L189.3 335.1 L192.9 335.1 L194.1 336.1 L193.6 338.9 L194.7 340.4 L193.9 341.5 L194.3 342.6 L197.8 341.2 L199.1 342.1 L202.1 341.7 L202.0 340.2 L203.5 338.9 L203.7 335.6 L204.8 334.4 L208.6 334.1 L208.9 332.2 L212.4 329.4 L212.9 331.0 L214.8 331.9 L214.8 334.0 L216.7 338.9 L218.9 338.8 L219.2 340.2 L218.5 341.8 L221.8 343.0 L224.4 341.6 L225.0 347.0 L224.5 348.5 L225.6 349.7 L224.5 350.2 L223.3 353.9 L226.3 354.7 L229.3 352.2 L231.5 352.5 L235.4 355.8 L235.9 351.3 L237.8 347.1 L238.1 348.0 L238.7 347.4 L238.4 346.7 L240.5 345.2 L243.9 345.7 L244.2 342.1 L248.3 342.5 L248.2 341.2 L253.5 343.7 L255.1 341.2 L256.3 342.1 L259.7 341.3 L260.4 343.9 L262.4 344.8 L261.8 345.7 L264.2 345.4 L265.0 346.3 L264.6 347.1 L265.6 346.9 L266.5 348.5 L269.0 347.6 L269.0 346.6 L271.0 344.4 L273.1 343.7 L271.0 341.1 L273.9 340.1 L277.1 342.1 L279.5 338.7 L285.4 341.5 L292.7 339.5 L293.8 341.3 L296.2 341.5 L298.6 345.0 L299.2 343.4 L300.5 342.8 L302.9 345.3 L305.1 345.4 L305.7 347.5 L307.7 349.7 L307.6 352.8 L313.5 355.8 L314.9 355.3 L314.8 357.1 L318.3 358.2 L320.1 357.6 L322.0 360.4 L324.9 361.2 L328.0 360.5 L331.8 364.0 L334.8 363.2 L337.4 364.8 L337.9 366.2 L339.5 365.9 L338.5 362.4 L339.8 360.9 L337.5 359.7 L336.0 357.0 L334.5 357.0 L334.3 355.6 L333.0 356.2 L334.0 353.8 L333.1 352.4 L334.3 345.8 L332.3 337.7 L330.5 334.4 L336.2 324.9 L356.6 297.6 L372.4 282.1 L380.7 281.3 L382.2 279.0 L383.9 273.4 L384.0 267.0 L383.2 265.2 L383.5 263.1 L381.5 262.7 L381.3 259.8 L380.2 260.0 L379.1 258.3 L380.1 255.9 L385.1 255.4 L386.0 253.9 L382.6 252.4 L379.6 249.0 L379.5 247.3 L377.6 245.5 L377.2 241.5 L376.1 241.2 L375.1 238.2 L375.8 238.1 L375.6 236.7 L371.1 233.0 L369.8 229.2 L367.7 228.6 L367.2 226.4 L369.6 221.6 L368.7 220.0 L369.0 219.3 L367.7 219.1 L368.5 217.6 L368.0 216.5 L366.6 216.1 L366.2 214.2 L364.6 213.8 L364.9 212.4 L363.6 210.0 L364.1 203.4 L363.2 202.4 L363.2 201.2 L366.8 199.1 L367.3 197.4 L366.0 196.0 L366.1 193.1 L366.7 193.3 L367.0 191.9 L366.2 190.9 L369.0 186.4 L368.0 184.8 L367.6 180.9 L365.6 178.5 L364.1 179.3 L361.5 176.5 L362.3 175.3 L358.6 175.1 L358.3 173.8 L351.0 172.0 L351.0 169.1 L350.3 168.7 L357.0 157.0 L360.1 153.4 L364.9 150.1 L371.3 148.9 L378.3 143.0 L378.4 137.0 L377.5 129.4 L378.5 128.2 L377.8 124.3 L376.0 120.4 L377.6 115.9 L373.9 111.1 L368.3 95.1 L365.0 81.2 L363.8 79.4 L363.7 74.2 L363.0 73.9 L362.6 68.1 L361.4 65.5 L363.1 63.5 L363.2 61.4 L361.6 56.2 L359.3 54.7 L356.2 50.3 L352.2 49.7 L348.8 46.4 L347.1 47.5 L345.1 46.4 L345.9 44.9 L343.3 43.6 L343.9 42.4 L339.4 40.8 L337.5 41.0 L335.9 43.5 L318.6 45.1 L288.5 45.8 L256.1 43.3 L218.7 37.9 L202.9 42.7 L195.3 42.5 L187.0 40.6 L181.3 36.9 L178.2 26.4 L174.7 21.1 L181.1 24.1 L187.8 31.0 L189.8 29.5 L188.0 25.8 L183.1 21.4 L177.0 16.9 L170.7 14.0 Z"/></clipPath>
+            <pattern id="dots" width="13" height="13" patternUnits="userSpaceOnUse">
+              <circle cx="2" cy="2" r="1" fill="rgba(120,190,255,.22)"/>
+            </pattern>
+            <radialGradient id="plglow" cx="50%" cy="42%" r="65%">
+              <stop offset="0" stop-color="rgba(34,211,238,.16)"/>
+              <stop offset="60%" stop-color="rgba(139,92,246,.08)"/>
+              <stop offset="100%" stop-color="transparent"/>
+            </radialGradient>
+          </defs>
+          <g clip-path="url(#plclip)">
+            <rect x="0" y="0" width="400" height="381" fill="url(#plglow)"/>
+            <rect x="0" y="0" width="400" height="381" fill="url(#dots)"/>
           </g>
+          <path class="poland" d="M170.7 14.0 L153.3 15.1 L125.6 21.8 L118.9 27.9 L102.8 31.2 L91.2 44.8 L84.6 48.7 L58.5 55.2 L31.8 65.2 L23.9 70.4 L18.4 69.3 L16.4 70.7 L17.2 70.8 L17.3 73.6 L20.0 79.1 L19.5 80.3 L20.1 84.5 L19.6 85.6 L21.3 88.4 L20.9 92.4 L23.4 98.8 L25.0 108.7 L26.4 109.4 L23.7 113.4 L23.3 116.0 L23.9 117.0 L22.5 122.1 L18.7 125.8 L14.8 127.7 L15.5 133.1 L14.0 135.8 L18.0 136.8 L20.3 139.7 L22.7 140.3 L26.4 145.4 L31.7 148.9 L33.4 151.3 L32.0 153.9 L33.1 155.7 L30.0 159.8 L29.6 162.2 L30.9 168.7 L35.8 170.5 L35.9 172.7 L35.1 173.9 L35.7 175.8 L34.6 177.6 L35.4 179.6 L37.5 181.1 L37.2 183.9 L35.6 187.5 L36.3 188.7 L33.8 193.6 L31.9 194.9 L31.8 196.5 L33.5 198.4 L34.2 201.7 L37.2 205.5 L38.1 209.6 L36.1 211.7 L36.6 213.7 L45.3 218.2 L45.6 224.5 L47.8 228.3 L48.0 230.7 L46.0 240.9 L42.2 250.3 L40.1 253.8 L46.7 253.9 L47.0 251.5 L46.3 250.7 L47.4 247.8 L45.5 246.6 L46.1 245.3 L48.9 244.6 L50.6 245.4 L50.5 246.3 L52.0 246.4 L51.9 245.2 L53.1 244.8 L53.1 246.6 L53.8 247.0 L55.6 246.2 L57.0 247.3 L57.5 248.7 L56.6 250.2 L57.2 252.9 L59.7 254.9 L60.5 259.2 L63.1 257.5 L66.2 259.3 L69.5 259.6 L72.4 261.6 L77.0 260.7 L78.6 265.5 L83.4 265.0 L84.5 268.2 L83.3 269.1 L84.6 270.1 L87.5 266.2 L90.8 268.4 L91.8 268.0 L92.5 265.7 L96.4 266.3 L100.3 271.2 L98.8 271.9 L99.0 273.2 L98.1 273.5 L98.7 274.3 L97.0 276.1 L95.5 275.6 L91.0 280.2 L94.2 284.0 L97.2 283.4 L97.1 285.0 L98.6 286.9 L99.7 286.6 L104.4 292.9 L104.5 296.0 L105.4 297.6 L109.9 300.3 L115.2 293.7 L116.6 294.1 L116.7 293.1 L119.2 292.8 L120.0 291.4 L120.9 293.0 L121.9 292.3 L121.0 290.7 L121.6 289.7 L121.1 288.3 L119.1 287.3 L117.5 282.7 L115.7 281.6 L116.9 279.4 L125.0 281.8 L126.2 283.3 L128.4 283.0 L128.5 284.4 L131.3 286.9 L133.8 286.4 L133.8 290.3 L134.4 289.2 L136.5 289.5 L137.6 290.9 L138.9 289.6 L143.3 290.1 L146.2 288.2 L146.4 286.5 L147.6 286.9 L148.7 288.2 L147.8 290.7 L149.3 292.0 L149.1 293.7 L143.0 296.7 L145.2 299.6 L148.0 300.4 L149.6 304.8 L152.0 306.1 L151.6 306.7 L153.1 307.8 L158.0 305.0 L159.6 305.8 L159.7 304.0 L158.6 304.3 L158.1 302.8 L159.1 302.1 L161.2 303.5 L162.4 306.4 L164.0 307.1 L165.9 306.4 L166.0 307.9 L168.2 308.3 L168.9 310.4 L173.9 309.8 L174.1 310.7 L177.6 312.0 L178.0 310.7 L179.3 310.9 L179.1 313.7 L180.3 314.3 L179.3 316.0 L181.3 321.3 L181.2 322.9 L184.3 324.0 L184.8 325.3 L187.9 325.5 L189.8 333.3 L189.3 335.1 L192.9 335.1 L194.1 336.1 L193.6 338.9 L194.7 340.4 L193.9 341.5 L194.3 342.6 L197.8 341.2 L199.1 342.1 L202.1 341.7 L202.0 340.2 L203.5 338.9 L203.7 335.6 L204.8 334.4 L208.6 334.1 L208.9 332.2 L212.4 329.4 L212.9 331.0 L214.8 331.9 L214.8 334.0 L216.7 338.9 L218.9 338.8 L219.2 340.2 L218.5 341.8 L221.8 343.0 L224.4 341.6 L225.0 347.0 L224.5 348.5 L225.6 349.7 L224.5 350.2 L223.3 353.9 L226.3 354.7 L229.3 352.2 L231.5 352.5 L235.4 355.8 L235.9 351.3 L237.8 347.1 L238.1 348.0 L238.7 347.4 L238.4 346.7 L240.5 345.2 L243.9 345.7 L244.2 342.1 L248.3 342.5 L248.2 341.2 L253.5 343.7 L255.1 341.2 L256.3 342.1 L259.7 341.3 L260.4 343.9 L262.4 344.8 L261.8 345.7 L264.2 345.4 L265.0 346.3 L264.6 347.1 L265.6 346.9 L266.5 348.5 L269.0 347.6 L269.0 346.6 L271.0 344.4 L273.1 343.7 L271.0 341.1 L273.9 340.1 L277.1 342.1 L279.5 338.7 L285.4 341.5 L292.7 339.5 L293.8 341.3 L296.2 341.5 L298.6 345.0 L299.2 343.4 L300.5 342.8 L302.9 345.3 L305.1 345.4 L305.7 347.5 L307.7 349.7 L307.6 352.8 L313.5 355.8 L314.9 355.3 L314.8 357.1 L318.3 358.2 L320.1 357.6 L322.0 360.4 L324.9 361.2 L328.0 360.5 L331.8 364.0 L334.8 363.2 L337.4 364.8 L337.9 366.2 L339.5 365.9 L338.5 362.4 L339.8 360.9 L337.5 359.7 L336.0 357.0 L334.5 357.0 L334.3 355.6 L333.0 356.2 L334.0 353.8 L333.1 352.4 L334.3 345.8 L332.3 337.7 L330.5 334.4 L336.2 324.9 L356.6 297.6 L372.4 282.1 L380.7 281.3 L382.2 279.0 L383.9 273.4 L384.0 267.0 L383.2 265.2 L383.5 263.1 L381.5 262.7 L381.3 259.8 L380.2 260.0 L379.1 258.3 L380.1 255.9 L385.1 255.4 L386.0 253.9 L382.6 252.4 L379.6 249.0 L379.5 247.3 L377.6 245.5 L377.2 241.5 L376.1 241.2 L375.1 238.2 L375.8 238.1 L375.6 236.7 L371.1 233.0 L369.8 229.2 L367.7 228.6 L367.2 226.4 L369.6 221.6 L368.7 220.0 L369.0 219.3 L367.7 219.1 L368.5 217.6 L368.0 216.5 L366.6 216.1 L366.2 214.2 L364.6 213.8 L364.9 212.4 L363.6 210.0 L364.1 203.4 L363.2 202.4 L363.2 201.2 L366.8 199.1 L367.3 197.4 L366.0 196.0 L366.1 193.1 L366.7 193.3 L367.0 191.9 L366.2 190.9 L369.0 186.4 L368.0 184.8 L367.6 180.9 L365.6 178.5 L364.1 179.3 L361.5 176.5 L362.3 175.3 L358.6 175.1 L358.3 173.8 L351.0 172.0 L351.0 169.1 L350.3 168.7 L357.0 157.0 L360.1 153.4 L364.9 150.1 L371.3 148.9 L378.3 143.0 L378.4 137.0 L377.5 129.4 L378.5 128.2 L377.8 124.3 L376.0 120.4 L377.6 115.9 L373.9 111.1 L368.3 95.1 L365.0 81.2 L363.8 79.4 L363.7 74.2 L363.0 73.9 L362.6 68.1 L361.4 65.5 L363.1 63.5 L363.2 61.4 L361.6 56.2 L359.3 54.7 L356.2 50.3 L352.2 49.7 L348.8 46.4 L347.1 47.5 L345.1 46.4 L345.9 44.9 L343.3 43.6 L343.9 42.4 L339.4 40.8 L337.5 41.0 L335.9 43.5 L318.6 45.1 L288.5 45.8 L256.1 43.3 L218.7 37.9 L202.9 42.7 L195.3 42.5 L187.0 40.6 L181.3 36.9 L178.2 26.4 L174.7 21.1 L181.1 24.1 L187.8 31.0 L189.8 29.5 L188.0 25.8 L183.1 21.4 L177.0 16.9 L170.7 14.0 Z"/>
+          <g class="mesh"><line x1="182.1" y1="44.4" x2="118.3" y2="161.1"/><line x1="182.1" y1="44.4" x2="269.7" y2="171.9"/><line x1="30.0" y1="99.7" x2="118.3" y2="161.1"/><line x1="118.3" y1="161.1" x2="269.7" y2="171.9"/><line x1="118.3" y1="161.1" x2="122.4" y2="239.4"/><line x1="269.7" y1="171.9" x2="327.6" y2="230.9"/><line x1="269.7" y1="171.9" x2="212.2" y2="200.2"/><line x1="212.2" y1="200.2" x2="230.0" y2="302.5"/><line x1="122.4" y1="239.4" x2="230.0" y2="302.5"/><line x1="230.0" y1="302.5" x2="306.4" y2="303.7"/><line x1="327.6" y1="230.9" x2="306.4" y2="303.7"/></g>
           <g id="hubs"></g>
         </svg>
       </div>
@@ -636,14 +695,20 @@ document.getElementById('capgrid').innerHTML=caps.map(c=>`
 
 /* ---------- MAP HUBS ---------- */
 const hubs=[
- ['Gdańsk',150,96,'#F5C451'],['Szczecin',66,132,'#22D3EE'],['Poznań',120,196,'#8B5CF6'],
- ['Warszawa',248,180,'#8B5CF6'],['Łódź',186,214,'#22D3EE'],['Wrocław',132,252,'#22D3EE'],
- ['Kraków',214,286,'#F5C451'],['Lublin',300,236,'#22D3EE'],['Rzeszów',300,300,'#8B5CF6'],
+ ['Gdańsk',182.1,44.4,'#F5C451',8,-6,'start'],
+ ['Szczecin',30.0,99.7,'#22D3EE',-6,-9,'end'],
+ ['Poznań',118.3,161.1,'#8B5CF6',-8,-6,'end'],
+ ['Warszawa',269.7,171.9,'#8B5CF6',8,4,'start'],
+ ['Łódź',212.2,200.2,'#22D3EE',8,-6,'start'],
+ ['Wrocław',122.4,239.4,'#22D3EE',-8,4,'end'],
+ ['Kraków',230.0,302.5,'#F5C451',8,4,'start'],
+ ['Lublin',327.6,230.9,'#22D3EE',8,4,'start'],
+ ['Rzeszów',306.4,303.7,'#8B5CF6',8,4,'start'],
 ];
 document.getElementById('hubs').innerHTML=hubs.map(h=>`
  <g class="hub"><circle class="halo" cx="${h[1]}" cy="${h[2]}" r="4" stroke="${h[3]}"/>
-  <circle class="core" cx="${h[1]}" cy="${h[2]}" r="3.4" style="filter:drop-shadow(0 0 6px ${h[3]})"/>
-  <text class="lbl" x="${h[1]+8}" y="${h[2]+3}">${h[0]}</text></g>`).join('');
+  <circle class="core" cx="${h[1]}" cy="${h[2]}" r="3.2" style="filter:drop-shadow(0 0 7px ${h[3]})"/>
+  <text class="lbl" x="${h[1]+h[4]}" y="${h[2]+h[5]}" text-anchor="${h[6]}">${h[0]}</text></g>`).join('');
 
 /* ---------- MODALS ---------- */
 function openModal(id){document.getElementById(id).classList.add('open');document.body.style.overflow='hidden';}
@@ -678,8 +743,8 @@ function greet(){
   ]);
 }
 const KB={
- vip:["<b>VIP Elite — 499 zł / miesiąc.</b> Odblokowuje wcześniejsze alerty, pełne analizy AI, Due Diligence, zaawansowane filtry, Portfolio Pro, raporty, pokoje premium, API i priorytetowe wsparcie.",
-      [['Zobacz wszystkie korzyści',"goto('funkcje')"],['Porównaj plany',"goto('cennik')"],['Aktywuj VIP Elite',"window.open('https://buy.stripe.com/8x2aEPgZm9t3b7ld8DdQQ0d','_blank')",'gold']]],
+ vip:["<b>VIP Elite — 499 zł / miesiąc.</b> Odblokowuje wcześniejsze alerty, pełne analizy AI, Due Diligence, zaawansowane filtry, Portfolio Pro, raporty, pokoje premium, API i priorytetowe wsparcie. Po aktywacji nawigator <b>A</b> przekształca się w Twojego osobistego agenta.",
+      [['▶ Zobacz podgląd trybu VIP',"vipPreview()",'gold'],['Porównaj plany',"goto('cennik')"],['Aktywuj VIP Elite',"window.open('https://buy.stripe.com/8x2aEPgZm9t3b7ld8DdQQ0d','_blank')",'gold']]],
  okazje:["AUREU skanuje licytacje komornicze, przetargi i oferty off-market z całej Polski. Publiczne okazje zobaczysz od razu — <b>pełny dostęp bez limitu</b> jest w planach płatnych.",
       [['Otwórz mapę',"goto('mapa')"],['Pokoje premium',"goto('pokoje')"],['Cennik',"goto('cennik')"]]],
  score:["<b>AI Score (0–100)</b> ocenia okazję w pięciu wymiarach: runda licytacji, konkurencja, czas reakcji, próg wejścia i pewność danych. Im wyżej, tym lepszy stosunek okazji do ryzyka.",
@@ -698,6 +763,63 @@ const KB={
 function answer(key){bubble(bubbleUserLabel(key),'u');analyzing(()=>{const k=KB[key];bubble(k[0],'a');setChips(k[1]);});}
 function bubbleUserLabel(key){return {vip:'Poznaj VIP Elite',okazje:'Pokaż okazje',score:'Czym jest AI Score?',dd:'Czym jest Due Diligence?',alerty:'Jak działają alerty?',start:'Chcę zacząć',promo:'Jaka jest promocja?',kontakt:'Kontakt'}[key]||key;}
 
+/* ---------- VIP TRANSFORM + ONBOARDING + PERSONALIZATION ---------- */
+let vipActive=false;
+const agentProfile={presence:'neutral',style:'executive',tone:'analityczny',detail:'standard',category:null,region:null,risk:null};
+// particle burst dots
+(function(){const b=document.getElementById('burst');let h='';for(let i=0;i<26;i++){const a=Math.random()*6.28,d=60+Math.random()*90;h+=`<i style="--bx:${Math.cos(a)*d}px;--by:${Math.sin(a)*d}px;background:${['#22D3EE','#8B5CF6','#F5C451'][i%3]};animation-delay:${Math.random()*.3}s"></i>`;}b.innerHTML=h;})();
+
+function transformToHuman(){
+  const st=document.querySelector('.holo-stage');
+  st.classList.add('bursting');
+  setTimeout(()=>{st.classList.add('vip');},450);
+  setTimeout(()=>{st.classList.remove('bursting');},1400);
+  document.getElementById('holoTag').textContent='TWÓJ OSOBISTY AGENT AUREU';
+  document.getElementById('vipFlag').classList.add('on');
+  vipActive=true;
+}
+function vipPreview(){
+  bubble('Zobacz podgląd trybu VIP','u');
+  status('AKTYWUJĘ TRYB VIP…');
+  transformToHuman();
+  setTimeout(()=>{
+    status('VIP ELITE ACTIVE');
+    bubble("Uruchamiam <b>podgląd trybu VIP</b>. Litera A przekształca się w Twojego osobistego agenta AUREU. To podgląd — pełny dostęp odblokowuje subskrypcja 499 zł/mc.",'a');
+    setTimeout(obStart,700);
+  },1300);
+}
+/* 4-step onboarding */
+function obStart(){
+  bubble("Dostrójmy mnie do Ciebie w 4 krokach. <b>Jakie aktywa najbardziej Cię interesują?</b>",'a');
+  setChips([['Nieruchomości',"ob1('nieruchomości')"],['Grunty',"ob1('grunty')"],['Pojazdy i maszyny',"ob1('pojazdy i maszyny')"],['Aktywa luksusowe',"ob1('aktywa luksusowe')"]]);
+}
+function ob1(v){agentProfile.category=v;bubble(v,'u');analyzing(()=>{
+  bubble("Które regiony mam monitorować w pierwszej kolejności?",'a');
+  setChips([['Pomorskie',"ob2('pomorskim')"],['Mazowieckie',"ob2('mazowieckim')"],['Małopolskie',"ob2('małopolskim')"],['Cała Polska',"ob2('całej Polsce')"]]);});}
+function ob2(v){agentProfile.region=v;bubble(v,'u');analyzing(()=>{
+  bubble("Jaki poziom ryzyka preferujesz?",'a');
+  setChips([['Ostrożny',"ob3('ostrożny')"],['Zrównoważony',"ob3('zrównoważony')"],['Ofensywny',"ob3('ofensywny')"]]);});}
+function ob3(v){agentProfile.risk=v;bubble(v,'u');analyzing(()=>{
+  bubble("Wolisz krótkie rekomendacje czy pełne analizy?",'a');
+  setChips([['Skrót',"ob4('skrót')"],['Standard',"ob4('standard')"],['Pełna analiza',"ob4('pełna analiza')"]]);});}
+function ob4(v){agentProfile.detail=v;bubble(v,'u');analyzing(()=>{
+  bubble("Gotowe. Dostosowałem alerty, mapę i rekomendacje do Twojego profilu. Ustawienia zmienisz w każdej chwili.",'a');
+  setTimeout(()=>{bubble(adaptedLine(),'a');
+    setChips([['Zmień prezencję',"presenceMenu()"],['Aktywuj VIP Elite',"window.open('https://buy.stripe.com/8x2aEPgZm9t3b7ld8DdQQ0d','_blank')",'gold'],['Mapa',"goto('mapa')"]]);},650);});}
+function adaptedLine(){
+  const p=agentProfile;
+  const reg=p.region==='całej Polsce'?'w całej Polsce':'w województwie '+p.region;
+  if(p.risk==='ostrożny')
+    return `Profil <b>ostrożny</b>: najpierw pokażę oferty (${p.category}) ${reg} z kompletnymi danymi i niższym poziomem ryzyka.`;
+  if(p.risk==='ofensywny')
+    return `Profil <b>ofensywny</b>: w nowych aukcjach (${p.category}) ${reg} pokażę aktywa z wyższym potencjałem, ale i większą zmiennością — z analizą ryzyka i ROI.`;
+  return `Profil <b>zrównoważony</b>: pokażę zrównoważony ranking ofert (${p.category}) ${reg} — potencjał zestawiony z ryzykiem.`;
+}
+function presenceMenu(){bubble("Jak ma prezentować się Twój agent?",'a');
+  setChips([['Kobieca',"setPresence('kobieca')"],['Męska',"setPresence('męska')"],['Neutralna',"setPresence('neutralna')"]]);}
+function setPresence(v){agentProfile.presence=v;bubble(v,'u');analyzing(()=>{
+  bubble(`Ustawione. Prezencja: <b>${v}</b>. Wygląd agenta i styl komunikacji dopasuję do wybranego wariantu.`,'a');
+  setChips([['Aktywuj VIP Elite',"window.open('https://buy.stripe.com/8x2aEPgZm9t3b7ld8DdQQ0d','_blank')",'gold'],['Cennik',"goto('cennik')"]]);});}
 function sendMsg(){
   const inp=document.getElementById('cInput');const t=(inp.value||'').trim();if(!t)return;
   bubble(t,'u');inp.value='';
