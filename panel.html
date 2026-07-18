@@ -316,6 +316,15 @@ h1,h2,h3,.f{font-family:'Sora'}
 .humbubble b{color:var(--cyan)}
 @media(max-width:900px){.humanwrap{display:none}}
 
+
+.sidep.rail5{width:196px;gap:8px}
+.sidep.rail5 .pc{padding:9px 10px;gap:3px}
+.sidep.rail5 .pc .pi{width:28px;height:28px}
+.sidep.rail5 .pc .pi svg{width:15px;height:15px}
+.sidep.rail5 .pc h5{font-size:11px}
+.sidep.rail5 .pc p{font-size:9.5px}
+@media(max-width:900px){.sidep.rail5{width:100%;flex-direction:row;flex-wrap:wrap}.sidep.rail5 .pc{flex:1 1 45%}}
+
 @media(prefers-reduced-motion:reduce){*{animation:none!important;left:auto!important;bottom:14px!important;right:14px!important;top:auto!important}}
 </style>
 </head>
@@ -496,10 +505,13 @@ h1,h2,h3,.f{font-family:'Sora'}
       <a class="vipbtn" href="https://buy.stripe.com/8x2aEPgZm9t3b7ld8DdQQ0d" target="_blank" rel="noopener">Aktywuj VIP Elite 💎</a>
       <div class="promo-note">Pierwsze 100 osób: <b>2 miesiące w cenie jednego</b> — kod <b>AUREU100</b></div>
     </div>
-    <!-- RIGHT SIDE PANEL -->
-    <div class="sidep">
+    <!-- RIGHT SIDE PANEL: 5 osobnych funkcji (różne od środka) -->
+    <div class="sidep rail5">
+      <div class="pc"><span class="pi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg></span><h5>LIVE SCAN</h5><p>132 nowe okazje · skan rynku 24/7.</p></div>
       <div class="pc"><span class="pi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8 2 5 5 5 9c0 5 7 13 7 13s7-8 7-13c0-4-3-7-7-7z"/></svg></span><h5>HEATMAPA</h5><p>Mapa okazji — gdzie robi się gorąco.</p></div>
       <div class="pc"><span class="pi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M7 14l3-3 4 4 4-6"/></svg></span><h5>SYMULATOR ROI</h5><p>Policz realny zysk przed zakupem.</p></div>
+      <div class="pc"><span class="pi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M8 8h8M8 12h8M8 16h5"/></svg></span><h5>AI NEWS</h5><p>Wpływ wydarzeń na rynek — skrót.</p></div>
+      <div class="pc"><span class="pi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a5 5 0 015 5v3a5 5 0 01-10 0V7a5 5 0 015-5z"/><path d="M5 20a7 7 0 0114 0"/></svg></span><h5>CONCIERGE</h5><p>„Zrób to za mnie" — AI działa za Ciebie.</p></div>
     </div>
   </div>
 </div>
@@ -547,14 +559,16 @@ document.getElementById('upgrades').innerHTML='<h3>10 MOŻLIWYCH ULEPSZEŃ</h3>'
 /* vip feature grid */
 const I=(p)=>`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${p}</svg>`;
 const vf=[
- ['AI Copilot 24/7','Osobisty doradca AI','<path d="M12 2a5 5 0 015 5v3a5 5 0 01-10 0V7a5 5 0 015-5z"/><path d="M5 20a7 7 0 0114 0"/>'],
- ['AI Due Diligence','Analiza prawna i finansowa','<path d="M9 12l2 2 4-4"/><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/>'],
- ['Natychmiastowe alerty','W czasie rzeczywistym','<path d="M18 8a6 6 0 00-12 0c0 7-3 9-3 9h18s-3-2-3-9"/>'],
- ['Nielimitowane okazje','Pełny dostęp','<path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/>'],
- ['Zaawansowane filtry','Jak profesjonalista','<path d="M3 5h18l-7 8v6l-4-2v-4z"/>'],
- ['Eksporty i raporty','PDF, Excel, API','<path d="M4 4h16v16H4z"/><path d="M8 12h8M8 8h8"/>'],
- ['Portfolio Pro','Wiele inwestycji','<path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/>'],
- ['Dostęp do API','Integruj systemy','<path d="M8 3H5a2 2 0 00-2 2v3m8-5h3a2 2 0 012 2v3"/>'],
+ ['AI Copilot 24/7','Osobisty doradca inwestycyjny AI','<path d="M12 2a5 5 0 015 5v3a5 5 0 01-10 0V7a5 5 0 015-5z"/><path d="M5 20a7 7 0 0114 0"/>'],
+ ['AI Due Diligence','Analiza prawna, finansowa, techniczna','<path d="M9 12l2 2 4-4"/><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/>'],
+ ['Natychmiastowe alerty','Powiadomienia w czasie rzeczywistym','<path d="M18 8a6 6 0 00-12 0c0 7-3 9-3 9h18s-3-2-3-9"/>'],
+ ['Nielimitowane okazje','Pełny dostęp do wszystkich ofert','<path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/>'],
+ ['Zaawansowane filtry AI','Filtruj okazje jak profesjonalista','<path d="M3 5h18l-7 8v6l-4-2v-4z"/>'],
+ ['Eksporty i raporty','PDF, Excel, API, własne raporty AI','<path d="M4 4h16v16H4z"/><path d="M8 12h8M8 8h8"/>'],
+ ['Portfolio Pro','Zarządzaj wieloma inwestycjami','<path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/>'],
+ ['Priorytetowe wsparcie','Opiekun VIP, szybkie odpowiedzi','<path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>'],
+ ['Dostęp do API','Integruj AUREU z systemami','<path d="M8 3H5a2 2 0 00-2 2v3m8-5h3a2 2 0 012 2v3"/>'],
+ ['Intelligence Network','Zamknięta sieć inwestorów','<path d="M12 2v4m0 12v4M2 12h4m12 0h4"/><circle cx="12" cy="12" r="4"/>'],
 ];
 document.getElementById('vipfeat').innerHTML=vf.map(f=>`
  <div class="vf"><span class="vi2">${I(f[2])}</span><div><div class="vt">${f[0]}</div><div class="vd">${f[1]}</div></div></div>`).join('');
