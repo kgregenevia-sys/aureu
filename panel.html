@@ -366,6 +366,55 @@ h1,h2,h3,.f{font-family:'Sora'}
 .offer .obtn{font:700 12px 'Sora';color:var(--cyan)}
 .offers-load{color:var(--mut);font-size:13px;padding:8px 0}
 
+
+/* sliding VIP panels */
+.ov{position:fixed;inset:0;z-index:60;background:rgba(2,3,7,.72);backdrop-filter:blur(4px);opacity:0;pointer-events:none;transition:opacity .3s;display:block}
+.ov.open{opacity:1;pointer-events:auto}
+.ovx2{position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:63;background:rgba(255,255,255,.08);border:1px solid var(--line2);color:var(--txt);width:36px;height:36px;border-radius:50%;cursor:pointer;font-size:20px}
+.vpanel{position:fixed;top:0;bottom:0;width:min(360px,88vw);z-index:61;padding:20px 16px;overflow-y:auto;
+  background:linear-gradient(180deg,rgba(14,17,25,.98),rgba(8,10,17,.99));border:1px solid var(--line2);
+  display:flex;flex-direction:column;gap:10px;transition:transform .42s cubic-bezier(.4,0,.2,1)}
+.vpanel.p1{left:0;border-radius:0 18px 18px 0;transform:translateX(-102%);border-color:rgba(245,196,81,.4);
+  box-shadow:0 0 50px rgba(245,196,81,.12)}
+.vpanel.p2{right:0;border-radius:18px 0 0 18px;transform:translateX(102%);border-color:rgba(139,92,246,.4);
+  box-shadow:0 0 50px rgba(139,92,246,.12)}
+.ov.open .vpanel.p1,.ov.open .vpanel.p2{transform:translateX(0)}
+.vph{font:700 13px 'Sora';letter-spacing:.04em;color:var(--txt)}.vph .crowng{color:var(--gold)}
+.vpanel .humanimg{width:180px;max-height:230px;margin:0 auto;filter:drop-shadow(0 0 24px rgba(34,120,255,.5))}
+.vpt{font:700 12px 'Sora';color:var(--gold);margin-top:6px;letter-spacing:.04em}
+.vpl{list-style:none;display:flex;flex-direction:column;gap:6px}
+.vpl li{font-size:12.5px;color:var(--mut);display:flex;gap:8px}.vpl li::before{content:"✓";color:var(--green);font-weight:700}
+.vprice{font:800 30px 'Sora';color:var(--gold);margin-top:4px}.vprice span{font-size:13px;color:var(--mut);font-weight:500}
+.vbtn{display:block;text-align:center;font:700 14px 'Sora';padding:13px;border-radius:12px;text-decoration:none;margin-top:auto}
+.vbtn.gold{color:#0b0b0b;background:linear-gradient(100deg,var(--gold-hi),var(--gold-d));box-shadow:0 0 26px rgba(245,196,81,.3)}
+.vgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.vc{border:1px solid rgba(34,211,238,.25);border-radius:11px;padding:10px;background:rgba(34,211,238,.06);display:flex;flex-direction:column;gap:2px}
+.vc b{font:700 11px 'Sora';color:var(--cyan)}.vc span{font-size:10px;color:var(--mut)}
+.vrooms{display:flex;flex-direction:column;gap:6px}
+.vrooms a{display:flex;justify-content:space-between;align-items:center;font:600 12.5px 'Sora';color:var(--txt);
+  border:1px solid var(--line2);border-radius:10px;padding:9px 12px;text-decoration:none}
+.vrooms a:hover{border-color:var(--cyan);color:var(--cyan)}
+.vrooms a::after{content:"Wejdź ›";font-size:10px;color:var(--cyan)}
+/* KLUB full-screen panel */
+.klub{position:fixed;inset:0;z-index:58;background:var(--bg);transform:translateY(100%);transition:transform .45s cubic-bezier(.4,0,.2,1);overflow-y:auto;padding:14px}
+.klub.open{transform:translateY(0)}
+.klubhead{display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:rgba(6,7,12,.92);backdrop-filter:blur(8px);padding:12px 4px;z-index:2;border-bottom:1px solid var(--line)}
+.kbt{font:800 15px 'Sora';letter-spacing:.03em}.kbt em{color:var(--gold);font-style:normal;font-weight:600;font-size:12px}
+.kx{background:rgba(255,255,255,.06);border:1px solid var(--line2);color:var(--txt);width:34px;height:34px;border-radius:50%;cursor:pointer;font-size:18px}
+.klubgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;margin-top:12px}
+.klc{border:1px solid var(--line);border-radius:14px;padding:14px;background:var(--panel);display:flex;flex-direction:column;gap:6px;text-decoration:none}
+.klc:hover{border-color:var(--cyan);box-shadow:0 0 20px rgba(34,211,238,.15)}
+.klc .knb{font:700 8.5px 'Sora';letter-spacing:.1em;text-transform:uppercase;color:var(--cyan)}
+.klc .kt2{font:600 13px 'Sora';color:var(--txt);line-height:1.3}
+.klc .kad{font-size:11px;color:var(--mut)}
+.klc .kpr{display:flex;justify-content:space-between;align-items:baseline;margin-top:2px}
+.klc .kop{font:800 17px 'Sora';color:var(--gold)}.klc .kes{font-size:10px;color:var(--mut)}
+.klc .kd{font:700 10px 'Sora';color:var(--green);border:1px solid rgba(52,211,153,.3);border-radius:999px;padding:3px 7px;align-self:flex-start}
+.klc .kdate{font-size:10.5px;color:var(--mut)}
+.klublock{grid-column:1/-1;text-align:center;border:1px dashed rgba(245,196,81,.5);border-radius:16px;padding:22px;background:radial-gradient(120% 80% at 50% 0,rgba(245,196,81,.1),transparent 60%)}
+.klublock b{font:800 18px 'Sora';color:var(--gold)}.klublock p{font-size:13px;color:var(--mut);margin:6px 0 12px}
+.klublock a{display:inline-block;font:700 13px 'Sora';color:#0b0b0b;background:linear-gradient(100deg,var(--gold-hi),var(--gold-d));padding:12px 22px;border-radius:11px;text-decoration:none}
+
 @media(prefers-reduced-motion:reduce){*{animation:none!important;left:auto!important;bottom:14px!important;right:14px!important;top:auto!important}}
 </style>
 </head>
@@ -400,7 +449,7 @@ h1,h2,h3,.f{font-family:'Sora'}
     <div class="side card" style="padding:11px">
       <nav class="nav">
         <a class="on" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>Dashboard</a>
-        <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3h18v4H3zM3 10h12v4H3zM3 17h18v4H3z"/></svg>Okazje</a>
+        <a href="#" onclick="openKlub();return false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3h18v4H3zM3 10h12v4H3zM3 17h18v4H3z"/></svg>Okazje Live</a>
         <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3 7 7 .5-5.5 4.5L18 21l-6-4-6 4 1.5-7L2 9.5 9 9z"/></svg>Moje alerty</a>
         <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>Obserwowane</a>
         <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M7 14l4-4 3 3 5-6"/></svg>Analizy AI</a>
@@ -535,45 +584,43 @@ h1,h2,h3,.f{font-family:'Sora'}
 </div>
 
 <!-- VIP OVERLAY -->
-<div class="ov" id="ov">
-  <div class="ovwrap" id="ovwrap">
-    <button class="ovx" onclick="closeVip()" aria-label="Zamknij">×</button>
-    <div class="ovhead"><span class="crown">♛</span> <b>Wybierz swój dostęp do AUREU</b></div>
-    <div class="ladder">
-      <div class="tier full">
-        <div class="tbadge">Najwięcej funkcji</div>
-        <div class="tnm">VIP · Pełne usługi</div>
-        <div class="tpr gold">499 zł<span>/mc</span></div>
-        <div class="tsub">Wszystkie funkcje — <b>bez hologramu</b></div>
-        <ul class="tl"><li>AI Copilot 24/7</li><li>AI Due Diligence</li><li>Natychmiastowe alerty</li><li>Nielimitowane okazje</li><li>Zaawansowane filtry AI</li><li>Eksporty i raporty</li><li>Portfolio Pro</li><li>Priorytetowe wsparcie</li><li>Dostęp do API</li><li>Intelligence Network</li></ul>
-        <a class="tbtn gold" href="https://buy.stripe.com/8x2aEPgZm9t3b7ld8DdQQ0d" target="_blank" rel="noopener">Wybierz — 499 zł</a>
-      </div>
-      <div class="tier free">
-        <div class="tnm">Podgląd FREE</div>
-        <div class="tpr">0 zł</div>
-        <div class="tsub">Oglądasz okazje, mapę i AI Score</div>
-        <div class="tor">— lub —</div>
-        <div class="tnm">Wejście do pokoju</div>
-        <div class="tpr cy">99 zł<span>/mc</span></div>
-        <div class="tsub">Dostęp do jednego pokoju premium</div>
-        <a class="tbtn cy" href="https://buy.stripe.com/4gM7sD5gEax76R5b0vdQQ02" target="_blank" rel="noopener">Wejdź do pokoju — 99 zł</a>
-      </div>
-      <div class="tier holo">
-        <div class="tbadge vi">Z agentem AI</div>
-        <img class="humanimg mini" src="img/human.png" alt="AUREU agent">
-        <div class="tnm">VIP + Hologram AUREU</div>
-        <div class="tpr vi">499 zł<span>/mc</span></div>
-        <div class="tsub">Agent-człowiek + <b>wybrane usługi</b></div>
-        <ul class="tl"><li>Agent-hologram prowadzi Cię 24/7</li><li>AI Copilot</li><li>Natychmiastowe alerty</li><li>Nielimitowane okazje</li><li>Symulator ROI + Concierge</li></ul>
-        <a class="tbtn vi" href="https://buy.stripe.com/bJebITfVi9t35N1c4zdQQ0g" target="_blank" rel="noopener">Wybierz z hologramem — 499 zł</a>
-      </div>
+<div class="ov" id="ov" onclick="if(event.target.id==='ov')closeVip()">
+  <button class="ovx2" onclick="closeVip()" aria-label="Zamknij">×</button>
+  <aside class="vpanel p1">
+    <div class="vph"><span class="crowng">♛</span> VIP · Panel 1 — Agent</div>
+    <img class="humanimg" src="img/human.png" alt="AUREU agent">
+    <div class="vpt">Agent AUREU + rdzeń usług</div>
+    <ul class="vpl"><li>AI Copilot 24/7</li><li>AI Due Diligence</li><li>Natychmiastowe alerty</li><li>Nielimitowane okazje</li><li>Zaawansowane filtry AI</li></ul>
+    <div class="vprice">499 zł<span>/mc</span></div>
+    <a class="vbtn gold" href="https://buy.stripe.com/8x2aEPgZm9t3b7ld8DdQQ0d" target="_blank" rel="noopener">Aktywuj VIP Elite</a>
+  </aside>
+  <aside class="vpanel p2">
+    <div class="vph">VIP · Panel 2 — Narzędzia</div>
+    <div class="vgrid">
+      <div class="vc"><b>LIVE SCAN</b><span>132 nowe okazje · 24/7</span></div>
+      <div class="vc"><b>HEATMAPA</b><span>mapa okazji</span></div>
+      <div class="vc"><b>SYMULATOR ROI</b><span>policz zysk</span></div>
+      <div class="vc"><b>AI NEWS</b><span>wpływ na rynek</span></div>
+      <div class="vc"><b>CONCIERGE</b><span>zrób to za mnie</span></div>
     </div>
-    <a class="komplet" href="https://buy.stripe.com/4gMfZ9dNa0WxfnB3y3dQQ0h" target="_blank" rel="noopener">
-      <span class="kt">KOMPLET — pełne usługi <b>+</b> hologram AUREU</span>
-      <span class="kp">998 zł<small>/mc</small></span>
-    </a>
-    <div class="promo-note">Pierwsze 100 osób: 2 miesiące w cenie jednego — kod <b>AUREU100</b></div>
+    <div class="vpt">Pokoje — 99 zł/mc każdy</div>
+    <div class="vrooms">
+      <a href="https://buy.stripe.com/4gM7sD5gEax76R5b0vdQQ02" target="_blank" rel="noopener">Wizjoner · 99/mc</a>
+      <a href="https://buy.stripe.com/4gM7sD5gEax76R5b0vdQQ02" target="_blank" rel="noopener">Flipper · 99/mc</a>
+      <a href="https://buy.stripe.com/4gM7sD5gEax76R5b0vdQQ02" target="_blank" rel="noopener">Wynajem+ · 99/mc</a>
+      <a href="https://buy.stripe.com/4gM7sD5gEax76R5b0vdQQ02" target="_blank" rel="noopener">Grunty · 99/mc</a>
+      <a href="https://buy.stripe.com/4gM7sD5gEax76R5b0vdQQ02" target="_blank" rel="noopener">Komercja · 99/mc</a>
+    </div>
+  </aside>
+</div>
+
+<!-- KLUB LICYTACJI KOMORNICZYCH -->
+<div class="klub" id="klub">
+  <div class="klubhead">
+    <span class="kbt">KLUB LICYTACJI KOMORNICZYCH <em id="klubn"></em></span>
+    <button class="kx" onclick="closeKlub()" aria-label="Zamknij">×</button>
   </div>
+  <div class="klubgrid" id="klubGrid"><div class="offers-load">Wczytywanie licytacji…</div></div>
 </div>
 
 <!-- BOT -->
@@ -632,7 +679,7 @@ const vf=[
 ];
 /* vipfeat inline w overlay */
 
-function scaleOv(){const w=document.getElementById('ovwrap');const s=Math.min(1,(innerWidth-24)/960,(innerHeight-24)/620);w.style.setProperty('--ovs',s);}
+function scaleOv(){}
 function openVip(){document.getElementById('ov').classList.add('open');scaleOv();}
 function closeVip(){document.getElementById('ov').classList.remove('open');}
 document.getElementById('ov').addEventListener('click',e=>{if(e.target.id==='ov')closeVip();});
@@ -708,7 +755,7 @@ function openBot(){roam=false;agent.style.display='none';csl.classList.add('open
 function closeBot(){csl.classList.remove('open');agent.style.display='flex';roam=true;moveAgent();}
 function greetC(){
   bub("Witaj w <b>AUREU</b>. Jestem holograficznym nawigatorem platformy. Powiem Ci, czym jest AUREU, co zyskujesz, jakie mamy produkty i pokoje — i przeprowadzę Cię przez panel. Od czego zaczynamy?",'a');
-  chips([['Czym jest AUREU?',"answerC('what')"],['Oferty / ceny',"toSec('#offersSec')"],['Produkty i pokoje',"answerC('products')"],['VIP Elite',"answerC('vip')",'gold']]);
+  chips([['Klub licytacji',"closeBot();openKlub()"],['Oferty / ceny',"toSec('#offersSec')"],['Pokoje 99/mc',"toSec('.rooms')"],['VIP Elite',"answerC('vip')",'gold']]);
 }
 const KBC={
  vip:["<b>VIP Elite — 499 zł/mc.</b> Wcześniejsze alerty, pełne analizy AI, Due Diligence, Portfolio Pro, raporty, pokoje premium, API i priorytetowe wsparcie.",
@@ -772,6 +819,47 @@ async function loadOffers(){
   }catch(e){box.innerHTML='<div class="offers-load">Nie udało się wczytać ofert.</div>';}
 }
 loadOffers();
+
+/* pokoje 99/mc – dopnij CTA do każdej karty */
+document.querySelectorAll('.rooms .room').forEach(r=>{
+  const a=document.createElement('a');a.href='https://buy.stripe.com/4gM7sD5gEax76R5b0vdQQ02';a.target='_blank';a.rel='noopener';
+  a.style.cssText='margin-top:6px;text-align:center;font:700 11px Sora;color:#03121a;background:linear-gradient(100deg,var(--cyan),var(--cyan-d));padding:8px;border-radius:9px;text-decoration:none';
+  a.textContent='Wejdź do pokoju — 99 zł/mc';
+  r.appendChild(a);
+});
+/* KLUB licytacji komorniczych */
+function openKlub(){document.getElementById('klub').classList.add('open');loadKlub();}
+function closeKlub(){document.getElementById('klub').classList.remove('open');}
+let klubLoaded=false;
+async function loadKlub(){
+  if(klubLoaded)return; const box=document.getElementById('klubGrid');
+  try{
+    const r=await fetch(SB_URL+'/rest/v1/klub_public?select=title,address,region,niche_code,opening_price,estimate,discount_pct,auction_date,link,area_m2,rooms&order=auction_date.asc.nullslast',{headers:{apikey:SB_KEY,Authorization:'Bearer '+SB_KEY}});
+    const d=await r.json();
+    document.getElementById('klubn').textContent='· '+d.length+' licytacji';
+    const FREE=12;
+    let html=d.slice(0,FREE).map(cardKlub).join('');
+    if(d.length>FREE){
+      html+='<div class="klublock"><b>+'+(d.length-FREE)+' kolejnych licytacji</b><p>Pełny dostęp do wszystkich licytacji komorniczych, alertów i AI Score.</p><a href="https://buy.stripe.com/4gM7sD5gEax76R5b0vdQQ02" target="_blank" rel="noopener">Odblokuj Klub — 99 zł/mc</a></div>';
+    }
+    box.innerHTML=html; klubLoaded=true;
+  }catch(e){box.innerHTML='<div class="offers-load">Nie udało się wczytać licytacji.</div>';}
+}
+function cardKlub(l){
+  const op=l.opening_price, es=l.estimate;
+  const disc=l.discount_pct?Math.round(l.discount_pct)+'% poniżej':'';
+  const pr=op?Number(op).toLocaleString('pl-PL')+' zł':'—';
+  const est=es?'oszac. '+Number(es).toLocaleString('pl-PL')+' zł':'';
+  const dt=l.auction_date?('Licytacja: '+l.auction_date):'';
+  const area=l.area_m2?(' · '+l.area_m2+' m²'):'';
+  return '<a class="klc" href="'+(l.link||'#')+'" target="_blank" rel="noopener">'
+    +'<span class="knb">'+(l.niche_code||'okazja')+(l.region?' · '+l.region:'')+'</span>'
+    +'<span class="kt2">'+((l.title||'Licytacja komornicza').slice(0,64))+'</span>'
+    +'<span class="kad">'+((l.address||'').slice(0,50))+area+'</span>'
+    +(disc?'<span class="kd">'+disc+'</span>':'')
+    +'<span class="kpr"><span class="kop">'+pr+'</span><span class="kes">'+est+'</span></span>'
+    +'<span class="kdate">'+dt+'</span></a>';
+}
 </script>
 </body>
 </html>
