@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>AUREU — VIP ELITE · luksus w cenie okazji</title>
+<meta name="description" content="AUREU — klub inteligentnych okazji z licytacji i przetargów. AI Score, alerty, mapa okazji, Due Diligence i holograficzny nawigator AUREU. VIP Elite 499 zł/mc.">
+<meta name="theme-color" content="#06070C">
+<meta property="og:title" content="AUREU — VIP ELITE">
+<meta property="og:description" content="Luksus w cenie okazji. AI pracuje dla Ciebie 24/7.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=Inter:wght@400;500;600&family=Cormorant+Garamond:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#06070C; --bg2:#0A0C13; --panel:#0E1119; --panel2:#12151F;
+  --line:rgba(255,255,255,.08); --line2:rgba(255,255,255,.14);
+  --txt:#EAECF2; --mut:#9AA3B2; --mut2:#6B7280;
+  --gold:#F5C451; --gold-d:#E0A32E; --gold-hi:#FFE9A8;
+  --violet:#8B5CF6; --violet-d:#6D28D9; --cyan:#22D3EE; --cyan-d:#0891B2;
+  --green:#34D399;
+  --r:18px; --rs:12px;
+  --maxw:1100px;
+  --glow-cyan:0 0 30px rgba(34,211,238,.35);
+  --glow-violet:0 0 30px rgba(139,92,246,.35);
+  --glow-gold:0 0 40px rgba(245,196,81,.35);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  background:var(--bg); color:var(--txt);
+  font-family:'Inter',system-ui,sans-serif; line-height:1.55;
+  overflow-x:hidden; -webkit-font-smoothing:antialiased;
+}
+body::before{
+  content:""; position:fixed; inset:0; z-index:-2; pointer-events:none;
+  background:
+    radial-gradient(900px 500px at 78% -8%, rgba(245,196,81,.10), transparent 60%),
+    radial-gradient(800px 600px at 8% 12%, rgba(139,92,246,.14), transparent 60%),
+    radial-gradient(700px 500px at 92% 55%, rgba(34,211,238,.10), transparent 60%),
+    var(--bg);
+}
+body::after{
+  content:""; position:fixed; inset:0; z-index:-1; pointer-events:none; opacity:.5;
+  background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
+  background-size:44px 44px; mask-image:radial-gradient(ellipse at 50% 0%,#000,transparent 75%);
+}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+.wrap{width:100%;max-width:var(--maxw);margin:0 auto;padding:0 18px}
+.eyebrow{font:600 12px/1 'Sora';letter-spacing:.22em;text-transform:uppercase;color:var(--mut)}
+h1,h2,h3{font-family:'Sora';font-weight:700;letter-spacing:-.01em;line-height:1.1}
+.gold{color:var(--gold)}
+.grad-gold{background:linear-gradient(100deg,var(--gold-hi),var(--gold) 45%,var(--gold-d));-webkit-background-clip:text;background-clip:text;color:transparent}
+.grad-neon{background:linear-gradient(100deg,var(--cyan),var(--violet));-webkit-background-clip:text;background-clip:text;color:transparent}
+
+/* ---------- PROMO BAR ---------- */
+.promo{position:sticky;top:0;z-index:60;background:linear-gradient(90deg,rgba(109,40,217,.5),rgba(224,163,46,.5));
+  border-bottom:1px solid var(--line2);backdrop-filter:blur(10px)}
+.promo .wrap{display:flex;align-items:center;gap:10px;padding:9px 18px;font-size:13px}
+.promo b{color:#fff}
+.promo .code{font:700 12px/1 'Sora';letter-spacing:.08em;background:#000;border:1px dashed var(--gold);color:var(--gold);
+  padding:5px 9px;border-radius:8px;white-space:nowrap}
+.promo .x{margin-left:auto;background:none;border:0;color:#fff;opacity:.7;font-size:20px;line-height:1;cursor:pointer;padding:2px 6px}
+.promo .x:hover{opacity:1}
+
+/* ---------- NAV ---------- */
+.nav{position:sticky;top:38px;z-index:55;backdrop-filter:blur(12px);
+  background:rgba(6,7,12,.66);border-bottom:1px solid var(--line)}
+.nav .wrap{display:flex;align-items:center;gap:14px;padding:12px 18px}
+.brand{display:flex;align-items:center;gap:11px;font-family:'Sora';font-weight:800;font-size:20px;letter-spacing:.02em}
+.mark{width:30px;height:30px;flex:0 0 30px;position:relative;transform-style:preserve-3d;animation:spin 9s linear infinite}
+.mark svg{width:100%;height:100%;filter:drop-shadow(0 0 8px rgba(139,92,246,.7))}
+@keyframes spin{to{transform:rotateY(360deg)}}
+.nav .sp{margin-left:auto}
+.pill{font:600 11px/1 'Sora';letter-spacing:.12em;text-transform:uppercase;color:var(--gold);
+  border:1px solid rgba(245,196,81,.4);border-radius:999px;padding:7px 12px;background:rgba(245,196,81,.06)}
+.nav-cta{font:600 13px/1 'Sora';color:#0b0b0b;background:linear-gradient(100deg,var(--gold-hi),var(--gold-d));
+  padding:9px 15px;border-radius:999px;box-shadow:var(--glow-gold)}
+
+/* ---------- BUTTONS ---------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;font-family:'Sora';font-weight:600;
+  border-radius:999px;padding:15px 26px;cursor:pointer;border:1px solid transparent;font-size:15px;transition:.18s transform,.18s box-shadow}
+.btn:active{transform:translateY(1px)}
+.btn-gold{color:#0b0b0b;background:linear-gradient(100deg,var(--gold-hi),var(--gold) 50%,var(--gold-d));box-shadow:var(--glow-gold)}
+.btn-gold:hover{box-shadow:0 0 60px rgba(245,196,81,.55)}
+.btn-ghost{color:var(--txt);border-color:var(--line2);background:rgba(255,255,255,.03)}
+.btn-ghost:hover{border-color:var(--violet);box-shadow:var(--glow-violet)}
+.btn-full{width:100%}
+
+/* ---------- HERO ---------- */
+.hero{padding:44px 0 20px;text-align:center;position:relative}
+.holo-stage{position:relative;width:min(340px,86vw);margin:6px auto 26px;aspect-ratio:1/1;display:grid;place-items:center}
+.ring{position:absolute;border-radius:50%;border:1px solid;inset:0;opacity:.55}
+.ring.r1{border-color:rgba(34,211,238,.5);animation:spinZ 14s linear infinite}
+.ring.r2{inset:14%;border-color:rgba(139,92,246,.5);border-style:dashed;animation:spinZ 22s linear infinite reverse}
+.ring.r3{inset:28%;border-color:rgba(245,196,81,.35);animation:spinZ 30s linear infinite}
+@keyframes spinZ{to{transform:rotate(360deg)}}
+.holo-A{font-family:'Sora';font-weight:800;font-size:clamp(120px,34vw,190px);line-height:1;
+  background:linear-gradient(180deg,#dff6ff,var(--cyan) 40%,var(--violet) 90%);-webkit-background-clip:text;background-clip:text;color:transparent;
+  filter:drop-shadow(0 0 22px rgba(34,211,238,.55)) drop-shadow(0 0 40px rgba(139,92,246,.4));
+  position:relative;z-index:2;animation:float 5s ease-in-out infinite}
+@keyframes float{50%{transform:translateY(-10px)}}
+.holo-core{position:absolute;width:60px;height:60px;border-radius:50%;z-index:1;
+  background:radial-gradient(circle,rgba(255,255,255,.9),rgba(34,211,238,.5) 40%,transparent 70%);
+  filter:blur(4px);animation:pulse 2.6s ease-in-out infinite}
+@keyframes pulse{50%{transform:scale(1.35);opacity:.85}}
+.holo-base{position:absolute;bottom:6%;width:70%;height:34px;border-radius:50%;
+  background:radial-gradient(ellipse,rgba(139,92,246,.55),transparent 70%);filter:blur(6px)}
+.holo-scan{position:absolute;inset:0;z-index:3;pointer-events:none;overflow:hidden;border-radius:50%}
+.holo-scan::before{content:"";position:absolute;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,rgba(34,211,238,.8),transparent);animation:scan 3.4s linear infinite}
+@keyframes scan{0%{top:8%}100%{top:92%}}
+.holo-tag{font:600 11px/1 'Sora';letter-spacing:.24em;text-transform:uppercase;color:var(--cyan);margin-top:2px}
+.holo-status{display:inline-flex;align-items:center;gap:7px;font-size:12px;color:var(--mut);margin-top:8px}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 10px var(--green);animation:blink 2s infinite}
+@keyframes blink{50%{opacity:.4}}
+
+.hero h1{font-size:clamp(30px,7.4vw,52px);margin:6px 0 12px}
+.hero p.lead{color:var(--mut);font-size:clamp(15px,4vw,18px);max-width:560px;margin:0 auto 22px}
+.price{display:inline-flex;align-items:baseline;gap:8px;margin-bottom:22px}
+.price .amt{font-family:'Sora';font-weight:800;font-size:clamp(40px,10vw,60px);line-height:1}
+.price .per{color:var(--mut);font-size:15px}
+.hero-cta{display:flex;flex-direction:column;gap:12px;max-width:420px;margin:0 auto}
+
+/* ---------- STATS STRIP ---------- */
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:30px auto 8px}
+.stat{border:1px solid var(--line);background:linear-gradient(180deg,var(--panel),transparent);border-radius:var(--rs);padding:16px 14px;text-align:center}
+.stat .v{font-family:'Sora';font-weight:800;font-size:26px}
+.stat .l{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--mut);margin-top:3px}
+
+/* ---------- SECTION ---------- */
+.sec{padding:52px 0}
+.sec-head{text-align:center;max-width:620px;margin:0 auto 30px}
+.sec-head h2{font-size:clamp(24px,6vw,36px);margin:10px 0 10px}
+.sec-head p{color:var(--mut);font-size:15px}
+
+/* ---------- FEATURE GRID ---------- */
+.feat{display:grid;grid-template-columns:1fr;gap:12px}
+.fcard{display:flex;gap:14px;border:1px solid var(--line);border-radius:var(--r);padding:16px;
+  background:linear-gradient(180deg,rgba(255,255,255,.02),transparent);transition:.18s}
+.fcard:hover{border-color:var(--violet);box-shadow:var(--glow-violet);transform:translateY(-2px)}
+.fic{flex:0 0 44px;height:44px;border-radius:12px;display:grid;place-items:center;
+  background:rgba(139,92,246,.12);border:1px solid rgba(139,92,246,.3);color:var(--violet)}
+.fic svg{width:22px;height:22px}
+.fcard h3{font-size:16px;margin-bottom:3px}
+.fcard .ben{font-size:13.5px;color:var(--mut)}
+.fcard .ben b{color:var(--gold);font-weight:600}
+
+/* ---------- CAPABILITY CARDS ---------- */
+.caps{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.cap{border:1px solid var(--line);border-radius:var(--r);padding:18px;position:relative;overflow:hidden;
+  background:radial-gradient(120% 120% at 100% 0,rgba(34,211,238,.10),transparent 55%),var(--panel)}
+.cap h3{font-size:15px;margin-bottom:4px}
+.cap p{font-size:12.5px;color:var(--mut)}
+.cap .tag{position:absolute;top:12px;right:12px;font:600 10px/1 'Sora';letter-spacing:.1em;text-transform:uppercase;
+  color:var(--cyan);border:1px solid rgba(34,211,238,.3);border-radius:999px;padding:4px 8px}
+.cap .cic{width:38px;height:38px;border-radius:10px;display:grid;place-items:center;margin-bottom:12px;
+  background:rgba(34,211,238,.1);border:1px solid rgba(34,211,238,.3);color:var(--cyan)}
+.cap .cic svg{width:20px;height:20px}
+
+/* ---------- POLAND MAP ---------- */
+.mapwrap{border:1px solid var(--line);border-radius:22px;padding:18px;background:
+  radial-gradient(140% 120% at 50% -20%,rgba(139,92,246,.10),transparent 60%),var(--panel)}
+.maphead{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.maphead .t{font-family:'Sora';font-weight:700;font-size:15px;letter-spacing:.02em}
+.maphead .live{display:inline-flex;align-items:center;gap:7px;font-size:12px;color:var(--cyan)}
+.mapbox{position:relative;width:100%;aspect-ratio:1/1.02;max-width:440px;margin:0 auto}
+.mapbox svg{width:100%;height:100%;overflow:visible}
+.poland{fill:rgba(34,211,238,.05);stroke:rgba(34,211,238,.55);stroke-width:1.4;filter:drop-shadow(0 0 12px rgba(34,211,238,.3))}
+.mesh{stroke:rgba(139,92,246,.35);stroke-width:.8;fill:none}
+.hub{transform-box:fill-box;transform-origin:center}
+.hub circle.core{fill:#fff}
+.hub circle.halo{fill:none;stroke-width:1.5;animation:ripple 3s ease-out infinite}
+@keyframes ripple{0%{r:4;opacity:.9}100%{r:22;opacity:0}}
+.hub .lbl{font:600 10px 'Sora';fill:var(--txt);letter-spacing:.04em}
+.legend{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:14px;font-size:11px;color:var(--mut)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:9px;height:9px;border-radius:50%;display:inline-block}
+
+/* ---------- ROOMS ---------- */
+.rooms{display:grid;grid-template-columns:1fr;gap:14px}
+.room{border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:var(--panel)}
+.room .top{padding:16px 16px 12px;display:flex;align-items:center;gap:12px;
+  background:linear-gradient(100deg,rgba(139,92,246,.12),transparent)}
+.room.r-flip .top{background:linear-gradient(100deg,rgba(139,92,246,.16),transparent)}
+.room.r-rent .top{background:linear-gradient(100deg,rgba(34,211,238,.16),transparent)}
+.room.r-land .top{background:linear-gradient(100deg,rgba(52,211,153,.16),transparent)}
+.room .ic{width:40px;height:40px;border-radius:11px;display:grid;place-items:center;color:#fff;
+  background:rgba(255,255,255,.06);border:1px solid var(--line2)}
+.room .ic svg{width:20px;height:20px}
+.room h3{font-size:16px}
+.room .rt{font:600 10px/1 'Sora';letter-spacing:.14em;text-transform:uppercase;color:var(--mut)}
+.room .body{padding:14px 16px 18px}
+.room .desc{font-size:13px;color:var(--mut);margin-bottom:12px}
+.room .rows{display:flex;flex-direction:column;gap:8px}
+.room .rw{display:flex;justify-content:space-between;font-size:13px;border-top:1px solid var(--line);padding-top:8px}
+.room .rw:first-child{border-top:0;padding-top:0}
+.room .roi{color:var(--green);font-weight:600}
+
+/* ---------- PRICING ---------- */
+.plans{display:grid;grid-template-columns:1fr;gap:14px}
+.plan{border:1px solid var(--line);border-radius:var(--r);padding:22px;background:var(--panel);position:relative}
+.plan.elite{border-color:rgba(245,196,81,.55);background:
+  radial-gradient(120% 120% at 50% 0,rgba(245,196,81,.12),transparent 60%),var(--panel);box-shadow:var(--glow-gold)}
+.plan .nm{font-family:'Sora';font-weight:700;font-size:15px;letter-spacing:.1em;text-transform:uppercase}
+.plan.elite .nm{color:var(--gold)}
+.plan .pr{font-family:'Sora';font-weight:800;font-size:34px;margin:8px 0 2px}
+.plan .pr small{font-size:14px;color:var(--mut);font-weight:500}
+.plan ul{list-style:none;margin:14px 0 18px;display:flex;flex-direction:column;gap:8px}
+.plan li{font-size:13.5px;color:var(--mut);display:flex;gap:9px;align-items:flex-start}
+.plan li::before{content:"";width:16px;height:16px;flex:0 0 16px;margin-top:2px;border-radius:50%;
+  background:rgba(52,211,153,.15) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2334D399' stroke-width='3'%3E%3Cpath d='M20 6L9 17l-5-5'/%3E%3C/svg%3E") center/10px no-repeat}
+.plan .badge{position:absolute;top:-11px;left:22px;font:700 10px/1 'Sora';letter-spacing:.12em;text-transform:uppercase;
+  color:#0b0b0b;background:linear-gradient(100deg,var(--gold-hi),var(--gold-d));padding:6px 11px;border-radius:999px}
+
+/* ---------- TRUST / COMPANY ---------- */
+.trust{border:1px solid var(--line);border-radius:22px;padding:26px;text-align:center;background:var(--panel)}
+.trust .k{font-family:'Sora';font-weight:700;font-size:18px;margin-bottom:4px}
+.trust .row{display:flex;flex-wrap:wrap;gap:8px 22px;justify-content:center;margin-top:14px;font-size:14px;color:var(--mut)}
+.trust a{color:var(--cyan)}
+
+/* ---------- FOOTER ---------- */
+footer{border-top:1px solid var(--line);margin-top:40px;padding:30px 0 130px;font-size:13px;color:var(--mut)}
+footer .wrap{display:flex;flex-direction:column;gap:16px}
+footer .links{display:flex;flex-wrap:wrap;gap:14px}
+footer .links button{background:none;border:0;color:var(--mut);font:inherit;cursor:pointer;padding:0}
+footer .links button:hover{color:var(--gold)}
+footer .fine{font-size:12px;color:var(--mut2);line-height:1.6}
+
+/* ---------- MODALS ---------- */
+.modal{position:fixed;inset:0;z-index:90;display:none;align-items:flex-end;justify-content:center;
+  background:rgba(2,3,7,.72);backdrop-filter:blur(6px)}
+.modal.open{display:flex}
+.modal .sheet{width:100%;max-width:640px;max-height:86vh;overflow:auto;background:var(--panel2);
+  border:1px solid var(--line2);border-radius:22px 22px 0 0;padding:24px 20px 30px}
+.modal .sheet h2{font-size:20px;margin-bottom:4px}
+.modal .sheet .sub{font-size:12px;color:var(--mut2);margin-bottom:16px}
+.modal .sheet h4{font-family:'Sora';font-size:14px;margin:16px 0 6px;color:var(--gold)}
+.modal .sheet p,.modal .sheet li{font-size:13.5px;color:var(--mut);margin-bottom:8px}
+.modal .sheet ul{padding-left:18px}
+.modal .close{position:sticky;top:0;float:right;background:rgba(255,255,255,.06);border:1px solid var(--line2);
+  color:var(--txt);width:34px;height:34px;border-radius:50%;font-size:18px;cursor:pointer;line-height:1}
+
+/* ---------- HOLOGRAM NAVIGATOR (BOT) ---------- */
+.nav-holo{position:fixed;right:16px;bottom:18px;z-index:80;display:flex;flex-direction:column;align-items:center;
+  gap:4px;cursor:pointer;background:none;border:0}
+.nav-holo .mini{position:relative;width:64px;height:64px;display:grid;place-items:center}
+.nav-holo .mini .mring{position:absolute;inset:0;border-radius:50%;border:1px solid rgba(34,211,238,.5);animation:spinZ 8s linear infinite}
+.nav-holo .mini .mring.b{inset:9px;border-color:rgba(139,92,246,.5);border-style:dashed;animation:spinZ 12s linear infinite reverse}
+.nav-holo .mini .mA{font-family:'Sora';font-weight:800;font-size:30px;line-height:1;
+  background:linear-gradient(180deg,#dff6ff,var(--cyan),var(--violet));-webkit-background-clip:text;background-clip:text;color:transparent;
+  filter:drop-shadow(0 0 8px rgba(34,211,238,.7));animation:float 4s ease-in-out infinite}
+.nav-holo .mini .mbase{position:absolute;bottom:2px;width:70%;height:12px;border-radius:50%;
+  background:radial-gradient(ellipse,rgba(139,92,246,.6),transparent 70%);filter:blur(3px)}
+.nav-holo .cap-t{font:600 9px/1 'Sora';letter-spacing:.12em;text-transform:uppercase;color:var(--cyan);
+  background:rgba(6,7,12,.7);padding:3px 7px;border-radius:999px;border:1px solid rgba(34,211,238,.25)}
+.nav-holo:hover .mA{filter:drop-shadow(0 0 14px rgba(34,211,238,.9))}
+
+/* console */
+.console{position:fixed;right:14px;bottom:16px;z-index:85;width:min(380px,calc(100vw - 28px));
+  max-height:min(76vh,620px);display:none;flex-direction:column;
+  background:linear-gradient(180deg,rgba(14,17,25,.96),rgba(10,12,19,.98));
+  border:1px solid rgba(34,211,238,.35);border-radius:20px;overflow:hidden;
+  box-shadow:0 30px 70px rgba(0,0,0,.6),0 0 50px rgba(34,211,238,.12);
+  transform-origin:bottom right;animation:grow .28s ease}
+.console.open{display:flex}
+@keyframes grow{from{transform:scale(.4) translateY(30px);opacity:0}to{transform:scale(1);opacity:1}}
+.c-head{display:flex;align-items:center;gap:11px;padding:13px 14px;border-bottom:1px solid var(--line);
+  background:radial-gradient(120% 200% at 0 0,rgba(34,211,238,.14),transparent 60%)}
+.c-head .cA{position:relative;width:40px;height:40px;display:grid;place-items:center;flex:0 0 40px}
+.c-head .cA .r{position:absolute;inset:0;border-radius:50%;border:1px solid rgba(34,211,238,.5);animation:spinZ 7s linear infinite}
+.c-head .cA span{font-family:'Sora';font-weight:800;font-size:20px;
+  background:linear-gradient(180deg,#dff6ff,var(--cyan),var(--violet));-webkit-background-clip:text;background-clip:text;color:transparent;
+  filter:drop-shadow(0 0 6px rgba(34,211,238,.7))}
+.c-head .nm{font-family:'Sora';font-weight:700;font-size:15px;letter-spacing:.06em}
+.c-head .st{font-size:11px;color:var(--cyan);display:flex;align-items:center;gap:6px}
+.c-head .st .d{width:7px;height:7px;border-radius:50%;background:var(--cyan);box-shadow:0 0 8px var(--cyan);animation:blink 2s infinite}
+.c-head .min{margin-left:auto;background:rgba(255,255,255,.05);border:1px solid var(--line2);color:var(--txt);
+  width:30px;height:30px;border-radius:9px;cursor:pointer;font-size:16px;line-height:1}
+.c-body{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px}
+.msg{max-width:88%;font-size:13.5px;padding:11px 13px;border-radius:14px;line-height:1.5}
+.msg.a{align-self:flex-start;background:rgba(34,211,238,.08);border:1px solid rgba(34,211,238,.22);border-bottom-left-radius:4px}
+.msg.u{align-self:flex-end;background:rgba(139,92,246,.16);border:1px solid rgba(139,92,246,.3);border-bottom-right-radius:4px}
+.msg b{color:var(--gold)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;padding:0 14px 6px}
+.chip{font:600 12px 'Sora';color:var(--cyan);background:rgba(34,211,238,.08);border:1px solid rgba(34,211,238,.28);
+  border-radius:999px;padding:8px 12px;cursor:pointer;transition:.15s}
+.chip:hover{background:rgba(34,211,238,.18)}
+.chip.gold{color:var(--gold);background:rgba(245,196,81,.08);border-color:rgba(245,196,81,.35)}
+.c-foot{display:flex;gap:8px;padding:12px 14px;border-top:1px solid var(--line)}
+.c-foot input{flex:1;background:rgba(255,255,255,.04);border:1px solid var(--line2);border-radius:12px;
+  padding:11px 13px;color:var(--txt);font:inherit;font-size:14px}
+.c-foot input:focus{outline:0;border-color:var(--cyan)}
+.c-foot .send{background:linear-gradient(100deg,var(--cyan),var(--violet));border:0;color:#03121a;
+  width:44px;border-radius:12px;cursor:pointer;font-size:18px}
+
+@media(min-width:720px){
+  .stats{grid-template-columns:repeat(5,1fr)}
+  .feat{grid-template-columns:1fr 1fr}
+  .caps{grid-template-columns:repeat(3,1fr)}
+  .rooms{grid-template-columns:repeat(3,1fr)}
+  .plans{grid-template-columns:repeat(4,1fr)}
+  .modal{align-items:center}
+  .modal .sheet{border-radius:22px}
+  .nav-holo .mini{width:76px;height:76px}
+}
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important}
+}
+</style>
+</head>
+<body>
+
+<!-- PROMO -->
+<div class="promo" id="promo">
+  <div class="wrap">
+    <span>🔥 <b>Pierwsze 100 osób</b> — 2 miesiące VIP w cenie jednego.</span>
+    <span class="code">KOD: AUREU100</span>
+    <button class="x" onclick="document.getElementById('promo').remove()" aria-label="Zamknij">×</button>
+  </div>
+</div>
+
+<!-- NAV -->
+<div class="nav">
+  <div class="wrap">
+    <div class="brand">
+      <span class="mark">
+        <svg viewBox="0 0 100 100" aria-hidden="true"><defs><linearGradient id="mg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#22D3EE"/><stop offset="1" stop-color="#8B5CF6"/></linearGradient></defs><path d="M50 8 L86 88 H70 L62 66 H38 L30 88 H14 Z M44 52 H56 L50 34 Z" fill="url(#mg)"/></svg>
+      </span>
+      AUREU
+    </div>
+    <span class="sp"></span>
+    <span class="pill">VIP ELITE</span>
+    <a class="nav-cta" href="https://buy.stripe.com/8x2aEPgZm9t3b7ld8DdQQ0d" target="_blank" rel="noopener">Aktywuj</a>
+  </div>
+</div>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="wrap">
+    <div class="holo-stage" aria-hidden="true">
+      <div class="ring r1"></div><div class="ring r2"></div><div class="ring r3"></div>
+      <div class="holo-core"></div>
+      <div class="holo-A">A</div>
+      <div class="holo-scan"></div>
+      <div class="holo-base"></div>
+    </div>
+    <div class="holo-tag">AUREU AI NAVIGATOR</div>
+    <div class="holo-status"><span class="dot"></span> ONLINE 24/7 · pracuje dla Ciebie</div>
+
+    <h1>Luksus <span class="grad-gold">w cenie okazji.</span></h1>
+    <p class="lead">AUREU analizuje licytacje, przetargi i okazje off-market w całej Polsce, żeby skrócić czas znalezienia wartościowych aktywów z godzin do sekund.</p>
+    <div class="price">
+      <span class="amt grad-gold">499 zł</span><span class="per">/ miesiąc · VIP Elite</span>
+    </div>
+    <div class="hero-cta">
+      <a class="btn btn-gold btn-full" href="https://buy.stripe.com/8x2aEPgZm9t3b7ld8DdQQ0d" target="_blank" rel="noopener">Wejdź do strefy VIP Elite 💎</a>
+      <button class="btn btn-ghost btn-full" onclick="openBot('vip')">Zapytaj nawigatora AUREU</button>
+    </div>
+  </div>
+</header>
+
+<!-- STATS -->
+<div class="wrap">
+  <div class="stats">
+    <div class="stat"><div class="v grad-neon">+27%</div><div class="l">śr. wzrost ROI</div></div>
+    <div class="stat"><div class="v grad-gold">38,7%</div><div class="l">śr. rabat okazji</div></div>
+    <div class="stat"><div class="v">12K+</div><div class="l">okazji dziennie</div></div>
+    <div class="stat"><div class="v">37 s</div><div class="l">śr. czas analizy</div></div>
+    <div class="stat"><div class="v">24/7</div><div class="l">AI pracuje</div></div>
+  </div>
+</div>
+
+<!-- FEATURES -->
+<section class="sec" id="funkcje">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Co dostajesz w VIP Elite</div>
+      <h2>Pełna moc <span class="grad-gold">AUREU</span></h2>
+      <p>Każda funkcja ma jeden cel: więcej okazji, mniej ryzyka, szybsza decyzja.</p>
+    </div>
+    <div class="feat" id="featgrid"></div>
+  </div>
+</section>
+
+<!-- CAPABILITIES -->
+<section class="sec" id="narzedzia" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Narzędzia live</div>
+      <h2>Widzisz rynek <span class="grad-neon">zanim inni</span></h2>
+    </div>
+    <div class="caps" id="capgrid"></div>
+  </div>
+</section>
+
+<!-- MAP -->
+<section class="sec" id="mapa" style="padding-top:0">
+  <div class="wrap">
+    <div class="mapwrap">
+      <div class="maphead">
+        <span class="t">Mapa okazji live</span>
+        <span class="live"><span class="dot"></span> 132 nowe okazje / 24h</span>
+      </div>
+      <div class="mapbox">
+        <svg viewBox="0 0 400 408" role="img" aria-label="Mapa Polski z węzłami okazji">
+          <path class="poland" d="M92 96 L60 120 L46 150 L60 168 L52 196 L70 214 L64 250 L90 286 L86 320 L120 344 L164 356 L210 350 L238 366 L286 352 L318 322 L352 300 L360 262 L338 232 L352 200 L332 168 L346 138 L318 110 L276 98 L246 74 L206 66 L168 78 L128 70 Z"/>
+          <g class="mesh">
+            <line x1="120" y1="120" x2="215" y2="150"/><line x1="215" y1="150" x2="300" y2="130"/>
+            <line x1="120" y1="120" x2="160" y2="235"/><line x1="215" y1="150" x2="250" y2="270"/>
+            <line x1="160" y1="235" x2="250" y2="270"/><line x1="300" y1="130" x2="315" y2="255"/>
+            <line x1="250" y1="270" x2="315" y2="255"/><line x1="160" y1="235" x2="130" y2="300"/>
+          </g>
+          <g id="hubs"></g>
+        </svg>
+      </div>
+      <div class="legend">
+        <span><i style="background:#8B5CF6;box-shadow:0 0 8px #8B5CF6"></i>Bardzo wysoki potencjał</span>
+        <span><i style="background:#22D3EE;box-shadow:0 0 8px #22D3EE"></i>Wysoki</span>
+        <span><i style="background:#F5C451;box-shadow:0 0 8px #F5C451"></i>Gorący region</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ROOMS -->
+<section class="sec" id="pokoje" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Pokoje premium</div>
+      <h2>Wejdź tam, gdzie <span class="grad-gold">jest zysk</span></h2>
+    </div>
+    <div class="rooms">
+      <div class="room r-flip">
+        <div class="top"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h7l-1 8 10-12h-7z"/></svg></span><div><div class="rt">Premium room</div><h3>FLIPPER</h3></div></div>
+        <div class="body">
+          <p class="desc">Szybkie okazje pod sprzedaż. Niskie nakłady, wysoka marża, szybki cash.</p>
+          <div class="rows">
+            <div class="rw"><span>M. Reja 8/12 · Gdańsk</span><span class="roi">ROI 41%</span></div>
+            <div class="rw"><span>Słoneczna 6/4 · Sopot</span><span class="roi">ROI 38%</span></div>
+            <div class="rw"><span>Długa 15/3 · Gdynia</span><span class="roi">ROI 45%</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="room r-rent">
+        <div class="top"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg></span><div><div class="rt">Premium room</div><h3>WYNAJEM+</h3></div></div>
+        <div class="body">
+          <p class="desc">Okazje pod najem długoterminowy. Cashflow, ROI, analiza lokatorów.</p>
+          <div class="rows">
+            <div class="rw"><span>Cashflow / mc</span><span class="roi">1 850 zł</span></div>
+            <div class="rw"><span>ROI roczne</span><span class="roi">9,7%</span></div>
+            <div class="rw"><span>Cena zakupu</span><span>210 000 zł</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="room r-land">
+        <div class="top"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 20l6-12 5 8 3-5 4 9z"/></svg></span><div><div class="rt">Premium room</div><h3>GRUNTY & DZIAŁKI</h3></div></div>
+        <div class="body">
+          <p class="desc">Grunty inwestycyjne i rolne. MPZP, uzbrojenie, potencjał rozwoju.</p>
+          <div class="rows">
+            <div class="rw"><span>Działka 123/7</span><span>2 450 m²</span></div>
+            <div class="rw"><span>MPZP</span><span class="roi">Budowlana</span></div>
+            <div class="rw"><span>Cena / m²</span><span>od 89 zł</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="sec" id="cennik" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Dostęp</div>
+      <h2>Wybierz swój <span class="grad-gold">poziom</span></h2>
+      <p>Kod <b class="gold">AUREU100</b> dla pierwszych 100 osób = 2 miesiące w cenie jednego. Wpisz go przy płatności.</p>
+    </div>
+    <div class="plans">
+      <div class="plan">
+        <div class="nm">Free</div>
+        <div class="pr">0 zł</div>
+        <ul><li>Publiczne okazje</li><li>Mapa Polski</li><li>Nawigator AUREU</li><li>Podgląd AI Score</li></ul>
+        <button class="btn btn-ghost btn-full" onclick="openBot('start')">Zacznij za darmo</button>
+      </div>
+      <div class="plan">
+        <div class="nm">Pro</div>
+        <div class="pr">99 zł <small>/mc</small></div>
+        <ul><li>Klub Licytacji</li><li>Alerty e-mail</li><li>Pełne AI Score</li><li>Filtry podstawowe</li></ul>
+        <a class="btn btn-ghost btn-full" href="https://buy.stripe.com/4gM7sD5gEax76R5b0vdQQ02" target="_blank" rel="noopener">Wybierz Pro</a>
+      </div>
+      <div class="plan">
+        <div class="nm">Elite</div>
+        <div class="pr">299 zł <small>/mc</small></div>
+        <ul><li>Wcześniejsze alerty</li><li>Filtry zaawansowane AI</li><li>Symulator ROI</li><li>Pokoje premium</li></ul>
+        <a class="btn btn-ghost btn-full" href="https://buy.stripe.com/8x2aEPgZm9t3b7ld8DdQQ0d" target="_blank" rel="noopener">Wybierz Elite</a>
+      </div>
+      <div class="plan elite">
+        <span class="badge">Najlepszy wybór</span>
+        <div class="nm">VIP Elite</div>
+        <div class="pr">499 zł <small>/mc</small></div>
+        <ul><li>Wszystko z Elite</li><li>Due Diligence AI</li><li>Portfolio Pro + API</li><li>Concierge „zrób to za mnie”</li><li>Priorytetowe wsparcie</li></ul>
+        <a class="btn btn-gold btn-full" href="https://buy.stripe.com/8x2aEPgZm9t3b7ld8DdQQ0d" target="_blank" rel="noopener">Aktywuj VIP Elite</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST -->
+<section class="sec" style="padding-top:0">
+  <div class="wrap">
+    <div class="trust">
+      <div class="k">AUREU · MV Automation</div>
+      <p style="color:var(--mut);font-size:14px">Platforma prowadzona przez MATANGEL Sp. z o.o. (Gdańsk). Realny kontakt, realne wsparcie.</p>
+      <div class="row">
+        <span>Albestia Kozakowski · Kierownik zespołu</span>
+        <a href="tel:+48453108326">+48 453 108 326</a>
+        <a href="mailto:kg.regenevia@gmail.com">kg.regenevia@gmail.com</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="brand" style="font-size:18px">
+      <span class="mark"><svg viewBox="0 0 100 100" aria-hidden="true"><path d="M50 8 L86 88 H70 L62 66 H38 L30 88 H14 Z M44 52 H56 L50 34 Z" fill="url(#mg)"/></svg></span>AUREU
+    </div>
+    <div class="links">
+      <button onclick="openModal('m-reg')">Regulamin</button>
+      <button onclick="openModal('m-priv')">Prywatność</button>
+      <button onclick="openModal('m-rodo')">RODO</button>
+      <button onclick="openModal('m-cookie')">Cookies</button>
+      <button onclick="openModal('m-zwrot')">Zwroty</button>
+    </div>
+    <p class="fine">MATANGEL Sp. z o.o. · Gdańsk · kontakt: +48 453 108 326 · kg.regenevia@gmail.com<br>
+    AUREU jest narzędziem informacyjno-analitycznym. Nie stanowi doradztwa inwestycyjnego, prawnego ani podatkowego. Decyzje inwestycyjne podejmujesz na własną odpowiedzialność. © 2026 AUREU.</p>
+  </div>
+</footer>
+
+<!-- POLICY MODALS -->
+<div class="modal" id="m-reg"><div class="sheet"><button class="close" onclick="closeModal('m-reg')">×</button>
+  <h2>Regulamin</h2><div class="sub">Ostatnia aktualizacja: 2026</div>
+  <h4>1. Postanowienia ogólne</h4><p>Usługę AUREU świadczy MATANGEL Sp. z o.o. z siedzibą w Gdańsku. Regulamin określa zasady korzystania z platformy oraz pakietów płatnych (Pro, Elite, VIP Elite).</p>
+  <h4>2. Charakter usługi</h4><p>AUREU agreguje i analizuje publiczne dane o licytacjach, przetargach i ofertach. Prezentowane wyniki (m.in. AI Score, szacunki rabatu i ROI) mają charakter poglądowy i nie są rekomendacją inwestycyjną.</p>
+  <h4>3. Konto i dostęp</h4><ul><li>Część funkcji dostępna jest bez logowania.</li><li>Funkcje premium wymagają aktywnej subskrypcji.</li><li>Użytkownik odpowiada za poufność danych logowania.</li></ul>
+  <h4>4. Płatności</h4><p>Subskrypcje rozliczane są miesięcznie przez operatora płatności Stripe. Rozpoczęcie okresu następuje po zaksięgowaniu płatności.</p>
+  <h4>5. Reklamacje</h4><p>Reklamacje przyjmujemy na adres kg.regenevia@gmail.com. Odpowiadamy w terminie do 14 dni.</p>
+</div></div>
+
+<div class="modal" id="m-priv"><div class="sheet"><button class="close" onclick="closeModal('m-priv')">×</button>
+  <h2>Polityka prywatności</h2><div class="sub">Administrator: MATANGEL Sp. z o.o.</div>
+  <h4>Jakie dane zbieramy</h4><ul><li>Dane konta (adres e-mail).</li><li>Preferencje wyszukiwania (kategoria, region, budżet).</li><li>Dane techniczne (logi, urządzenie) w celu bezpieczeństwa.</li></ul>
+  <h4>W jakim celu</h4><p>Świadczenie usługi, obsługa płatności, wysyłka alertów, bezpieczeństwo i kontakt. Nie sprzedajemy Twoich danych.</p>
+  <h4>Kontakt</h4><p>W sprawach prywatności: kg.regenevia@gmail.com.</p>
+</div></div>
+
+<div class="modal" id="m-rodo"><div class="sheet"><button class="close" onclick="closeModal('m-rodo')">×</button>
+  <h2>Klauzula RODO</h2><div class="sub">Zgodnie z RODO (UE) 2016/679</div>
+  <h4>Administrator</h4><p>MATANGEL Sp. z o.o., Gdańsk, kg.regenevia@gmail.com.</p>
+  <h4>Twoje prawa</h4><ul><li>Dostęp do danych i ich kopii.</li><li>Sprostowanie i usunięcie („prawo do bycia zapomnianym”).</li><li>Ograniczenie i sprzeciw wobec przetwarzania.</li><li>Przenoszenie danych.</li><li>Skarga do Prezesa UODO.</li></ul>
+  <h4>Podstawa i okres</h4><p>Przetwarzamy dane na podstawie umowy (art. 6 ust. 1 lit. b) i prawnie uzasadnionego interesu (lit. f), przez okres korzystania z usługi i wymagany prawem.</p>
+</div></div>
+
+<div class="modal" id="m-cookie"><div class="sheet"><button class="close" onclick="closeModal('m-cookie')">×</button>
+  <h2>Polityka cookies</h2>
+  <h4>Do czego używamy</h4><ul><li>Cookies niezbędne — logowanie i bezpieczeństwo.</li><li>Cookies funkcjonalne — zapamiętanie preferencji (region, budżet).</li><li>Cookies analityczne — statystyki ruchu (anonimowo).</li></ul>
+  <h4>Zarządzanie</h4><p>Możesz zmienić ustawienia cookies w swojej przeglądarce w dowolnym momencie.</p>
+</div></div>
+
+<div class="modal" id="m-zwrot"><div class="sheet"><button class="close" onclick="closeModal('m-zwrot')">×</button>
+  <h2>Zwroty i rezygnacja</h2>
+  <h4>Subskrypcja</h4><p>Subskrypcję możesz anulować w dowolnym momencie — dostęp pozostaje aktywny do końca opłaconego okresu, bez automatycznego odnowienia.</p>
+  <h4>Treści cyfrowe</h4><p>Zgodnie z prawem, rozpoczęcie korzystania z treści cyfrowych za wyraźną zgodą oznacza utratę prawa odstąpienia. W razie problemów technicznych rozpatrujemy zwroty indywidualnie: kg.regenevia@gmail.com.</p>
+</div></div>
+
+<!-- HOLOGRAM NAVIGATOR TRIGGER -->
+<button class="nav-holo" id="holoBtn" onclick="openBot()" aria-label="Otwórz nawigatora AUREU">
+  <div class="mini">
+    <div class="mring"></div><div class="mring b"></div>
+    <div class="mA">A</div>
+    <div class="mbase"></div>
+  </div>
+  <span class="cap-t">Zapytaj AUREU</span>
+</button>
+
+<!-- CONSOLE -->
+<div class="console" id="console">
+  <div class="c-head">
+    <div class="cA"><div class="r"></div><span>A</span></div>
+    <div>
+      <div class="nm">AUREU</div>
+      <div class="st" id="cStatus"><span class="d"></span> AUREU ONLINE</div>
+    </div>
+    <button class="min" onclick="closeBot()" aria-label="Zwiń">–</button>
+  </div>
+  <div class="c-body" id="cBody"></div>
+  <div class="chips" id="cChips"></div>
+  <div class="c-foot">
+    <input id="cInput" placeholder="Zapytaj AUREU…" onkeydown="if(event.key==='Enter')sendMsg()">
+    <button class="send" onclick="sendMsg()" aria-label="Wyślij">➤</button>
+  </div>
+</div>
+
+<script>
+/* ---------- FEATURE DATA ---------- */
+const I=(p)=>`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${p}</svg>`;
+const feats=[
+ ['AI Copilot 24/7','<path d="M12 2a5 5 0 015 5v3a5 5 0 01-10 0V7a5 5 0 015-5z"/><path d="M5 20a7 7 0 0114 0"/>','Osobisty doradca AI — <b>odpowiada i analizuje o każdej porze.</b>'],
+ ['Due Diligence AI','<path d="M9 12l2 2 4-4"/><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/>','Pełna analiza prawna, finansowa i techniczna — <b>mniej ukrytych ryzyk.</b>'],
+ ['Natychmiastowe alerty','<path d="M18 8a6 6 0 00-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M10 21a2 2 0 004 0"/>','Powiadomienia w czasie rzeczywistym — <b>jesteś pierwszy przy okazji.</b>'],
+ ['Nielimitowane okazje','<path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/>','Pełny dostęp do wszystkich ofert — <b>bez limitów i blokad.</b>'],
+ ['Zaawansowane filtry AI','<path d="M3 5h18l-7 8v6l-4-2v-4z"/>','Filtruj jak profesjonalista — <b>tylko okazje pod Twoją strategię.</b>'],
+ ['Eksporty i raporty','<path d="M4 4h16v16H4z"/><path d="M8 12h8M8 16h5M8 8h8"/>','PDF, Excel, API, własne raporty AI — <b>dane gotowe do decyzji.</b>'],
+ ['Portfolio Pro','<path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/>','Zarządzaj wieloma inwestycjami — <b>cały majątek w jednym widoku.</b>'],
+ ['Priorytetowe wsparcie','<path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>','Opiekun VIP i szybkie odpowiedzi — <b>nie czekasz w kolejce.</b>'],
+ ['Dostęp do API','<path d="M8 3H5a2 2 0 00-2 2v3m0 8v3a2 2 0 002 2h3m8-16h3a2 2 0 012 2v3m0 8v3a2 2 0 01-2 2h-3"/>','Integruj AUREU z własnymi systemami — <b>automatyzujesz swój flow.</b>'],
+ ['Intelligence Network','<path d="M12 2v4m0 12v4M2 12h4m12 0h4"/><circle cx="12" cy="12" r="4"/>','Dostęp do zamkniętej sieci inwestorów — <b>deale, których nie ma publicznie.</b>'],
+];
+document.getElementById('featgrid').innerHTML=feats.map(f=>`
+ <div class="fcard"><div class="fic">${I(f[1])}</div><div><h3>${f[0]}</h3><div class="ben">${f[2]}</div></div></div>`).join('');
+
+const caps=[
+ ['LIVE SCAN','132 nowe okazje','Skan rynku 24/7 — nowe licytacje trafiają do Ciebie na bieżąco.','<circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/>'],
+ ['HEATMAPA','Mapa okazji','Zobacz, gdzie w Polsce robi się gorąco — regiony z najwyższym potencjałem.','<path d="M12 2C8 2 5 5 5 9c0 5 7 13 7 13s7-8 7-13c0-4-3-7-7-7z"/>'],
+ ['SYMULATOR ROI','Policz zysk','Wpisz cenę i koszty — AI wylicza realny zwrot przed zakupem.','<path d="M3 3v18h18"/><path d="M7 14l3-3 4 4 4-6"/>'],
+ ['AI NEWS','Wpływ na rynek','Skrót wydarzeń, które ruszają ceny — bez czytania 20 portali.','<path d="M4 4h16v16H4z"/><path d="M8 8h8M8 12h8M8 16h5"/>'],
+ ['CONCIERGE','Zrób to za mnie','Zlecasz — AUREU analizuje ofertę i przygotowuje decyzję za Ciebie.','<path d="M12 2a5 5 0 015 5v3a5 5 0 01-10 0V7a5 5 0 015-5z"/><path d="M5 20a7 7 0 0114 0"/>'],
+];
+document.getElementById('capgrid').innerHTML=caps.map(c=>`
+ <div class="cap"><span class="tag">Live</span><div class="cic">${I(c[3])}</div><h3>${c[0]}</h3><p>${c[2]}</p></div>`).join('');
+
+/* ---------- MAP HUBS ---------- */
+const hubs=[
+ ['Gdańsk',150,96,'#F5C451'],['Szczecin',66,132,'#22D3EE'],['Poznań',120,196,'#8B5CF6'],
+ ['Warszawa',248,180,'#8B5CF6'],['Łódź',186,214,'#22D3EE'],['Wrocław',132,252,'#22D3EE'],
+ ['Kraków',214,286,'#F5C451'],['Lublin',300,236,'#22D3EE'],['Rzeszów',300,300,'#8B5CF6'],
+];
+document.getElementById('hubs').innerHTML=hubs.map(h=>`
+ <g class="hub"><circle class="halo" cx="${h[1]}" cy="${h[2]}" r="4" stroke="${h[3]}"/>
+  <circle class="core" cx="${h[1]}" cy="${h[2]}" r="3.4" style="filter:drop-shadow(0 0 6px ${h[3]})"/>
+  <text class="lbl" x="${h[1]+8}" y="${h[2]+3}">${h[0]}</text></g>`).join('');
+
+/* ---------- MODALS ---------- */
+function openModal(id){document.getElementById(id).classList.add('open');document.body.style.overflow='hidden';}
+function closeModal(id){document.getElementById(id).classList.remove('open');document.body.style.overflow='';}
+document.querySelectorAll('.modal').forEach(m=>m.addEventListener('click',e=>{if(e.target===m)closeModal(m.id);}));
+
+/* ---------- BOT / NAVIGATOR ---------- */
+const csl=document.getElementById('console'),cBody=document.getElementById('cBody'),
+ cChips=document.getElementById('cChips'),cStatus=document.getElementById('cStatus');
+let greeted=false;
+function openBot(intent){
+  document.getElementById('holoBtn').style.display='none';
+  csl.classList.add('open');
+  if(!greeted){greet();greeted=true;}
+  if(intent==='vip'){setTimeout(()=>answer('vip'),250);}
+  if(intent==='start'){setTimeout(()=>answer('start'),250);}
+}
+function closeBot(){csl.classList.remove('open');document.getElementById('holoBtn').style.display='flex';}
+function bubble(t,who){const d=document.createElement('div');d.className='msg '+who;d.innerHTML=t;cBody.appendChild(d);cBody.scrollTop=cBody.scrollHeight;}
+function setChips(arr){cChips.innerHTML=arr.map(c=>`<button class="chip ${c[2]||''}" onclick="${c[1]}">${c[0]}</button>`).join('');}
+function status(t){cStatus.innerHTML='<span class="d"></span> '+t;}
+function analyzing(cb){status('ANALIZUJĘ…');setTimeout(()=>{status('AUREU ONLINE');cb();},520);}
+function goto(id){closeBot();document.getElementById(id).scrollIntoView({behavior:'smooth'});}
+
+function greet(){
+  bubble("Witaj w <b>AUREU</b>. Jestem holograficznym nawigatorem platformy. Mogę pokazać Ci okazje, alerty, pokoje inwestycyjne, mapę Polski oraz funkcje VIP Elite. Czego szukasz?",'a');
+  setChips([
+    ['Pokaż okazje',"answer('okazje')"],
+    ['Otwórz mapę',"goto('mapa')"],
+    ['Zobacz pokoje',"goto('pokoje')"],
+    ['Poznaj VIP Elite',"answer('vip')",'gold'],
+  ]);
+}
+const KB={
+ vip:["<b>VIP Elite — 499 zł / miesiąc.</b> Odblokowuje wcześniejsze alerty, pełne analizy AI, Due Diligence, zaawansowane filtry, Portfolio Pro, raporty, pokoje premium, API i priorytetowe wsparcie.",
+      [['Zobacz wszystkie korzyści',"goto('funkcje')"],['Porównaj plany',"goto('cennik')"],['Aktywuj VIP Elite',"window.open('https://buy.stripe.com/8x2aEPgZm9t3b7ld8DdQQ0d','_blank')",'gold']]],
+ okazje:["AUREU skanuje licytacje komornicze, przetargi i oferty off-market z całej Polski. Publiczne okazje zobaczysz od razu — <b>pełny dostęp bez limitu</b> jest w planach płatnych.",
+      [['Otwórz mapę',"goto('mapa')"],['Pokoje premium',"goto('pokoje')"],['Cennik',"goto('cennik')"]]],
+ score:["<b>AI Score (0–100)</b> ocenia okazję w pięciu wymiarach: runda licytacji, konkurencja, czas reakcji, próg wejścia i pewność danych. Im wyżej, tym lepszy stosunek okazji do ryzyka.",
+      [['Zobacz narzędzia',"goto('narzedzia')"],['Poznaj VIP Elite',"answer('vip')",'gold']]],
+ dd:["<b>Due Diligence AI</b> to pełna analiza oferty: stan prawny, obciążenia, finanse i technika — zebrane w jeden czytelny raport. Dostępne w VIP Elite.",
+      [['Zobacz funkcje',"goto('funkcje')"],['Aktywuj VIP Elite',"window.open('https://buy.stripe.com/8x2aEPgZm9t3b7ld8DdQQ0d','_blank')",'gold']]],
+ alerty:["<b>Alerty</b> działają na Twoje kryteria: kategoria, region, budżet. Gdy pojawia się pasująca okazja, dostajesz sygnał w czasie rzeczywistym — zanim zobaczą ją inni.",
+      [['Otwórz mapę',"goto('mapa')"],['Cennik',"goto('cennik')"]]],
+ start:["Świetnie. Powiedz, co Cię interesuje — <b>nieruchomości, grunty, luksus czy licytacje</b> — a pokażę Ci odpowiednią, publiczną sekcję. VIP odblokowuje pełne dane i analizy.",
+      [['Pokoje premium',"goto('pokoje')"],['Mapa okazji',"goto('mapa')"],['Cennik',"goto('cennik')"]]],
+ promo:["<b>Pierwsze 100 osób</b> dostaje 2 miesiące VIP w cenie jednego. Przy płatności wpisz kod <b>AUREU100</b>.",
+      [['Aktywuj z kodem',"window.open('https://buy.stripe.com/8x2aEPgZm9t3b7ld8DdQQ0d','_blank')",'gold'],['Porównaj plany',"goto('cennik')"]]],
+ kontakt:["Realny kontakt: <b>Albestia Kozakowski</b>, MV Automation. Tel. +48 453 108 326, e-mail kg.regenevia@gmail.com.",
+      [['Cennik',"goto('cennik')"]]],
+};
+function answer(key){bubble(bubbleUserLabel(key),'u');analyzing(()=>{const k=KB[key];bubble(k[0],'a');setChips(k[1]);});}
+function bubbleUserLabel(key){return {vip:'Poznaj VIP Elite',okazje:'Pokaż okazje',score:'Czym jest AI Score?',dd:'Czym jest Due Diligence?',alerty:'Jak działają alerty?',start:'Chcę zacząć',promo:'Jaka jest promocja?',kontakt:'Kontakt'}[key]||key;}
+
+function sendMsg(){
+  const inp=document.getElementById('cInput');const t=(inp.value||'').trim();if(!t)return;
+  bubble(t,'u');inp.value='';
+  const s=t.toLowerCase();
+  let key=null;
+  if(/(vip|elite|499|subskryp|abonament|cena|ile kosztuje)/.test(s))key='vip';
+  else if(/(promo|kod|rabat|100|taniej|gratis|zniżk)/.test(s))key='promo';
+  else if(/(score|ocena|punkt)/.test(s))key='score';
+  else if(/(due|diligence|analiz|prawn|ryzyk)/.test(s))key='dd';
+  else if(/(alert|powiadom)/.test(s))key='alerty';
+  else if(/(okazj|licytacj|przetarg|oferty)/.test(s))key='okazje';
+  else if(/(kontakt|telefon|mail|zadzwon|numer)/.test(s))key='kontakt';
+  else if(/(mapa|region|wojew)/.test(s)){analyzing(()=>{bubble("Otwieram mapę okazji live.",'a');goto('mapa');});return;}
+  else if(/(pokoj|flipper|wynajem|grunt)/.test(s)){analyzing(()=>{bubble("Prowadzę Cię do pokojów premium.",'a');goto('pokoje');});return;}
+  if(key){const k=KB[key];analyzing(()=>{bubble(k[0],'a');setChips(k[1]);});}
+  else{analyzing(()=>{bubble("Mogę pokazać okazje, mapę, pokoje, AI Score, Due Diligence, alerty albo plan <b>VIP Elite</b>. Co Cię interesuje?",'a');
+    setChips([['Poznaj VIP Elite',"answer('vip')",'gold'],['Mapa',"goto('mapa')"],['Cennik',"goto('cennik')"]]);});}
+}
+</script>
+</body>
+</html>
