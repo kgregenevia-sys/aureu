@@ -871,5 +871,30 @@ function cardKlub(l){
 })();
 </script>
 
+<script>
+/* AUREU Etap B - logowanie klienta (magic-link/kod -> RPC bramy dostepu aureu_panel_login) */
+(function(){
+  var SB='https://mdsvcobwuezriexyqqby.supabase.co';
+  var KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1kc3Zjb2J3dWV6cmlleHlxcWJ5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgwNjMxMjMsImV4cCI6MjA5MzYzOTEyM30.o4CVcSf9drtDxlpVv11T_E3N4dd-BSTrQPRCZXfpusg';
+  function q(n){return new URLSearchParams(location.search).get(n);}
+  function getTok(){var u=q('t')||q('token');if(u){try{localStorage.setItem('aureu_tok',u);}catch(e){}return u;}try{return localStorage.getItem('aureu_tok');}catch(e){return null;}}
+  window.aureuLogout=function(){try{localStorage.removeItem('aureu_tok');}catch(e){}location.href=location.pathname;};
+  window.aureuLogin=function(){var t=prompt('Podaj swoj kod dostepu AUREU (z e-maila po zakupie):');if(t)location.href=location.pathname+'?t='+encodeURIComponent(t.trim());};
+  function bar(html){var b=document.getElementById('aureuMemberBar');if(!b){b=document.createElement('div');b.id='aureuMemberBar';b.style.cssText='position:fixed;top:0;left:0;right:0;z-index:99998;background:#08211F;border-bottom:1px solid #E8B04B;color:#EAF3F0;font-family:Inter,system-ui,sans-serif;font-size:13px;padding:8px 16px;display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap';document.body.appendChild(b);document.body.style.paddingTop='42px';}b.innerHTML=html;}
+  function apply(m){
+    if(m&&m.ok){
+      bar('&#128275; Zalogowano: <b style="color:#E8B04B">'+m.email+'</b> &middot; Premium aktywne <a href="#" onclick="aureuLogout();return false" style="color:#8fa8a2;margin-left:6px">wyloguj</a>');
+      document.querySelectorAll('span,div,b,strong,p,h1,h2,h3,h4').forEach(function(el){if(el.children.length===0&&/Jan Kowalski/.test(el.textContent)){el.textContent=el.textContent.replace(/Jan Kowalski[^,<]*/,m.email);}});
+      document.body.dataset.aureuMember='1';
+    } else {
+      bar('&#128274; Tryb podgladu &middot; <a href="#" onclick="aureuLogin();return false" style="color:#E8B04B;font-weight:700">Zaloguj sie kodem</a> aby odblokowac konto Premium');
+    }
+  }
+  var tok=getTok();
+  if(!tok){apply(null);return;}
+  fetch(SB+'/rest/v1/rpc/aureu_panel_login',{method:'POST',headers:{apikey:KEY,Authorization:'Bearer '+KEY,'Content-Type':'application/json'},body:JSON.stringify({p_token:tok})}).then(function(r){return r.json();}).then(apply).catch(function(){apply(null);});
+})();
+</script>
+
 </body>
 </html>
