@@ -861,5 +861,15 @@ function cardKlub(l){
     +'<span class="kdate">'+dt+'</span></a>';
 }
 </script>
+<script>
+/* AUREU Etap A - uczciwa obsluga sekcji bez backendu (addytywne, nie rusza dzialajacych akcji) */
+(function(){
+  var SOON={'Moje alerty':1,'Obserwowane':1,'Analizy AI':1,'CRM':1,'Dokumenty':1,'Partnerzy':1,'Dashboard':1};
+  function toast(msg){var t=document.getElementById('aureuToast');if(!t){t=document.createElement('div');t.id='aureuToast';t.style.cssText='position:fixed;left:50%;bottom:28px;transform:translateX(-50%);background:#0F3A36;color:#EAF3F0;border:1px solid #E8B04B;padding:12px 20px;border-radius:12px;font-family:Inter,system-ui,sans-serif;font-size:14px;z-index:99999;box-shadow:0 8px 30px rgba(0,0,0,.45);opacity:0;transition:opacity .2s;max-width:90vw;text-align:center';document.body.appendChild(t);}t.textContent=msg;t.style.opacity='1';clearTimeout(t._h);t._h=setTimeout(function(){t.style.opacity='0';},2800);}
+  function walk(){document.querySelectorAll('a,button,div,span,li').forEach(function(el){var txt=(el.textContent||'').trim();if(!SOON[txt])return;if(el.children.length>2)return;if(el.getAttribute('onclick'))return;if(el.dataset.aureuBound)return;el.dataset.aureuBound='1';el.style.cursor='pointer';el.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();toast('Sekcja "'+txt+'" jest w przygotowaniu - wkrotce dostepna dla czlonkow Premium.');});});}
+  if(document.readyState!=='loading')walk();else document.addEventListener('DOMContentLoaded',walk);
+})();
+</script>
+
 </body>
 </html>
