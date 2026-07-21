@@ -591,8 +591,12 @@ h1,h2,h3,.f{font-family:'Sora'}
     <img class="humanimg" src="img/human.png" alt="AUREU agent">
     <div class="vpt">Agent AUREU + rdzeń usług</div>
     <ul class="vpl"><li>AI Copilot 24/7</li><li>AI Due Diligence</li><li>Natychmiastowe alerty</li><li>Nielimitowane okazje</li><li>Zaawansowane filtry AI</li></ul>
-    <div class="vprice">499 zł<span>/mc</span></div>
-    <a class="vbtn gold" href="https://buy.stripe.com/8x2aEPgZm9t3b7ld8DdQQ0d" target="_blank" rel="noopener">Aktywuj VIP Elite</a>
+    <div class="vpt" style="margin-top:8px">Wybierz pakiet</div>
+    <div style="display:flex;flex-direction:column;gap:8px;margin-top:6px">
+      <a href="https://buy.stripe.com/4gM7sD5gEax76R5b0vdQQ02" target="_blank" rel="noopener" style="display:flex;justify-content:space-between;align-items:center;gap:8px;border:1px solid var(--line2);border-radius:12px;padding:11px 13px;text-decoration:none;color:var(--txt)"><span><b style="font:700 13px Sora">Klub</b><br><span style="font-size:10px;color:var(--mut)">wszystkie pokoje + okazje live</span></span><b style="font:800 17px Sora;color:var(--cyan);white-space:nowrap">99 zł<span style="font-size:10px;color:var(--mut);font-weight:500">/mc</span></b></a>
+      <a href="https://buy.stripe.com/8x2aEPgZm9t3b7ld8DdQQ0d" target="_blank" rel="noopener" style="position:relative;display:flex;justify-content:space-between;align-items:center;gap:8px;border:1px solid var(--gold);border-radius:12px;padding:12px 13px;text-decoration:none;color:var(--txt);background:radial-gradient(120% 90% at 50% 0,rgba(245,196,81,.14),transparent 60%)"><span style="position:absolute;top:-8px;left:11px;font:700 8px Sora;letter-spacing:.08em;background:linear-gradient(100deg,var(--gold),var(--gold-d));color:#0b0b0b;padding:2px 8px;border-radius:999px">NAJPOPULARNIEJSZY</span><span><b style="font:700 13px Sora">VIP Elite</b><br><span style="font-size:10px;color:var(--mut)">pełne usługi + wszystkie narzędzia AI</span></span><b style="font:800 17px Sora;color:var(--gold);white-space:nowrap">499 zł<span style="font-size:10px;color:var(--mut);font-weight:500">/mc</span></b></a>
+      <a href="https://buy.stripe.com/4gMfZ9dNa0WxfnB3y3dQQ0h" target="_blank" rel="noopener" style="display:flex;justify-content:space-between;align-items:center;gap:8px;border:1px solid var(--violet);border-radius:12px;padding:11px 13px;text-decoration:none;color:var(--txt)"><span><b style="font:700 13px Sora">VIP Komplet</b><br><span style="font-size:10px;color:var(--mut)">usługi + Hologram + priorytet</span></span><b style="font:800 17px Sora;color:var(--violet);white-space:nowrap">998 zł<span style="font-size:10px;color:var(--mut);font-weight:500">/mc</span></b></a>
+    </div>
   </aside>
   <aside class="vpanel p2">
     <div class="vph">VIP · Panel 2 — Narzędzia</div>
@@ -603,13 +607,13 @@ h1,h2,h3,.f{font-family:'Sora'}
       <div class="vc" style="cursor:pointer" onclick="closeVip();openBot()"><b>AI NEWS</b><span>wpływ na rynek</span></div>
       <div class="vc" style="cursor:pointer" onclick="closeVip();openBot()"><b>CONCIERGE</b><span>zrób to za mnie</span></div>
     </div>
-    <div class="vpt">Pokoje — 99 zł/mc każdy</div>
+    <div class="vpt">Klub — wszystkie pokoje · 99 zł/mc</div>
     <div class="vrooms">
-      <a href="https://buy.stripe.com/4gM7sD5gEax76R5b0vdQQ02" target="_blank" rel="noopener">Wizjoner · 99/mc</a>
-      <a href="https://buy.stripe.com/4gM7sD5gEax76R5b0vdQQ02" target="_blank" rel="noopener">Flipper · 99/mc</a>
-      <a href="https://buy.stripe.com/4gM7sD5gEax76R5b0vdQQ02" target="_blank" rel="noopener">Wynajem+ · 99/mc</a>
-      <a href="https://buy.stripe.com/4gM7sD5gEax76R5b0vdQQ02" target="_blank" rel="noopener">Grunty · 99/mc</a>
-      <a href="https://buy.stripe.com/4gM7sD5gEax76R5b0vdQQ02" target="_blank" rel="noopener">Komercja · 99/mc</a>
+      <a href="https://buy.stripe.com/4gM7sD5gEax76R5b0vdQQ02" target="_blank" rel="noopener">Wizjoner</a>
+      <a href="https://buy.stripe.com/4gM7sD5gEax76R5b0vdQQ02" target="_blank" rel="noopener">Flipper</a>
+      <a href="https://buy.stripe.com/4gM7sD5gEax76R5b0vdQQ02" target="_blank" rel="noopener">Wynajem+</a>
+      <a href="https://buy.stripe.com/4gM7sD5gEax76R5b0vdQQ02" target="_blank" rel="noopener">Grunty</a>
+      <a href="https://buy.stripe.com/4gM7sD5gEax76R5b0vdQQ02" target="_blank" rel="noopener">Komercja</a>
     </div>
   </aside>
 </div>
@@ -801,7 +805,7 @@ const SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZ
 async function loadOffers(){
   const box=document.getElementById('offersGrid'); if(!box) return;
   try{
-    const r=await fetch(SB_URL+'/rest/v1/funnels_public?select=code,name,cena_pln,recurring,stripe_link,kategoria&order=kategoria,cena_pln',{headers:{apikey:SB_KEY,Authorization:'Bearer '+SB_KEY}});
+    const r=await fetch(SB_URL+'/rest/v1/funnels_public?select=code,name,cena_pln,recurring,stripe_link,kategoria&kategoria=eq.AUREU&order=kategoria,cena_pln',{headers:{apikey:SB_KEY,Authorization:'Bearer '+SB_KEY}});
     const d=await r.json();
     if(!Array.isArray(d)||!d.length){box.innerHTML='<div class="offers-load">Brak ofert.</div>';return;}
     box.innerHTML=d.map(o=>{
@@ -820,7 +824,7 @@ loadOffers();
 document.querySelectorAll('.rooms .room').forEach(r=>{
   const a=document.createElement('a');a.href='https://buy.stripe.com/4gM7sD5gEax76R5b0vdQQ02';a.target='_blank';a.rel='noopener';
   a.style.cssText='margin-top:6px;text-align:center;font:700 11px Sora;color:#03121a;background:linear-gradient(100deg,var(--cyan),var(--cyan-d));padding:8px;border-radius:9px;text-decoration:none';
-  a.textContent='Wejdź do pokoju — 99 zł/mc';
+  a.textContent='Klub — wszystkie pokoje · 99 zł/mc';
   r.appendChild(a);
 });
 /* KLUB licytacji komorniczych */
