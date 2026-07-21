@@ -897,30 +897,31 @@ function cardKlub(l){
 </script>
 
 <style id="aureuMAcss">
-#aureuLaunch{position:fixed;left:16px;bottom:16px;z-index:99997;background:linear-gradient(135deg,#E8B04B,#F6D488);color:#06211d;font:700 13px Inter,system-ui,sans-serif;padding:11px 16px;border-radius:14px;border:none;cursor:pointer;box-shadow:0 8px 30px rgba(0,0,0,.45)}
-#aureuMA{position:fixed;inset:0;z-index:100000;background:rgba(4,14,13,.97);display:none;font-family:Inter,system-ui,sans-serif;color:#EAF3F0;overflow:auto}
+#aureuLaunch{position:fixed;left:16px;bottom:16px;z-index:99997;background:linear-gradient(120deg,#22D3EE,#8B5CF6);color:#03121a;font:800 13px Inter,system-ui,sans-serif;padding:11px 16px;border-radius:14px;border:none;cursor:pointer;box-shadow:0 8px 30px rgba(34,211,238,.35)}
+#aureuMA{position:fixed;inset:0;z-index:100000;background:radial-gradient(1200px 700px at 60% -10%,rgba(139,92,246,.14),transparent 60%),rgba(4,5,11,.98);backdrop-filter:blur(10px);display:none;font-family:Inter,system-ui,sans-serif;color:#E9ECF3;overflow:auto}
 #aureuMA.open{display:block}
-#aureuMA .ma-wrap{max-width:1100px;margin:0 auto;padding:18px}
-#aureuMA .ma-top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;border-bottom:1px solid #1b4b46;padding-bottom:12px}
-#aureuMA .ma-brand{font-family:'Fraunces',serif;font-weight:900;font-size:22px;color:#E8B04B}
-#aureuMA .ma-tabs{display:flex;gap:6px;flex-wrap:wrap;margin:14px 0}
-#aureuMA .ma-tabs button{background:#0F3A36;border:1px solid #1b4b46;color:#EAF3F0;padding:8px 13px;border-radius:10px;cursor:pointer;font-size:13px;font-weight:600}
-#aureuMA .ma-tabs button.on{background:#E8B04B;color:#06211d;border-color:#E8B04B}
-#aureuMA .ma-close{background:#0F3A36;border:1px solid #1b4b46;color:#EAF3F0;border-radius:10px;padding:8px 12px;cursor:pointer}
+#aureuMA .ma-wrap{max-width:1180px;margin:0 auto;padding:20px}
+#aureuMA .ma-top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;border-bottom:1px solid rgba(255,255,255,.09);padding-bottom:14px}
+#aureuMA .ma-brand{font:800 20px Sora,Inter,sans-serif;letter-spacing:.02em;background:linear-gradient(100deg,#22D3EE,#8B5CF6);-webkit-background-clip:text;background-clip:text;color:transparent}
+#aureuMA .ma-tabs{display:flex;gap:7px;flex-wrap:wrap;margin:16px 0}
+#aureuMA .ma-tabs button{background:#0f131e;border:1px solid rgba(255,255,255,.10);color:#98A2B3;padding:9px 14px;border-radius:11px;cursor:pointer;font-size:13px;font-weight:700}
+#aureuMA .ma-tabs button.on{background:rgba(34,211,238,.14);color:#22D3EE;border-color:rgba(34,211,238,.4)}
+#aureuMA .ma-close{background:#0f131e;border:1px solid rgba(255,255,255,.13);color:#E9ECF3;border-radius:10px;padding:8px 13px;cursor:pointer}
 #aureuMA .ma-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
-#aureuMA .ma-kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin:8px 0 18px}
-#aureuMA .ma-kpi{background:#0F3A36;border:1px solid #1b4b46;border-radius:14px;padding:16px}
-#aureuMA .ma-kpi .n{font-family:'IBM Plex Mono',monospace;font-size:26px;color:#E8B04B}
-#aureuMA .ma-kpi .l{font-size:12px;color:#8fa8a2;margin-top:3px}
-#aureuMA .ma-card{background:#0F3A36;border:1px solid #1b4b46;border-radius:14px;padding:15px;display:flex;flex-direction:column;gap:8px}
-#aureuMA .ma-card h4{font-family:'Fraunces',serif;font-size:17px;margin:0}
-#aureuMA .ma-disc{background:#E8B04B;color:#06211d;font-weight:800;border-radius:999px;padding:1px 9px;font-size:12px;width:max-content}
-#aureuMA .ma-b{display:inline-block;text-align:center;padding:8px;border-radius:9px;font-weight:700;font-size:12px;cursor:pointer;border:1px solid #1b4b46;background:#08211F;color:#EAF3F0}
-#aureuMA .ma-b.p{background:#E8B04B;color:#06211d;border-color:#E8B04B}
-#aureuMA input,#aureuMA select{background:#08211F;border:1px solid #1b4b46;color:#EAF3F0;padding:9px;border-radius:9px;font-size:14px}
+#aureuMA .ma-kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:10px 0 18px}
+#aureuMA .ma-kpi{background:linear-gradient(180deg,#11151f,#0b0e16);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:16px;position:relative;overflow:hidden}
+#aureuMA .ma-kpi::after{content:"";position:absolute;left:0;top:0;height:2px;width:100%;background:linear-gradient(90deg,#22D3EE,#8B5CF6)}
+#aureuMA .ma-kpi .n{font:800 26px 'IBM Plex Mono',ui-monospace,monospace;color:#F5C451}
+#aureuMA .ma-kpi .l{font-size:12px;color:#98A2B3;margin-top:3px}
+#aureuMA .ma-card{background:linear-gradient(180deg,#11151f,#0b0e16);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:9px}
+#aureuMA .ma-card h4{font:700 16px Sora,Inter,sans-serif;margin:0}
+#aureuMA .ma-disc{background:linear-gradient(100deg,#F5C451,#E0A32E);color:#0b0b0b;font-weight:800;border-radius:999px;padding:2px 10px;font-size:12px;width:max-content}
+#aureuMA .ma-b{display:inline-block;text-align:center;padding:9px;border-radius:10px;font-weight:800;font-size:12px;cursor:pointer;border:1px solid rgba(255,255,255,.13);background:#0f131e;color:#E9ECF3}
+#aureuMA .ma-b.p{background:linear-gradient(120deg,#22D3EE,#8B5CF6);color:#03121a;border:none}
+#aureuMA input,#aureuMA select{background:#0a0d15;border:1px solid rgba(255,255,255,.13);color:#E9ECF3;padding:10px;border-radius:10px;font-size:14px}
 #aureuMA label{display:block;margin-top:8px}
-#aureuMA .muted{color:#8fa8a2;font-size:13px}
-#aureuMA .score{font-family:'IBM Plex Mono',monospace;font-weight:700}
+#aureuMA .muted{color:#98A2B3;font-size:13px}
+#aureuMA .score{font-family:'IBM Plex Mono',ui-monospace,monospace;font-weight:700}
 </style>
 <script>
 /* AUREU Etap B - PELNY PANEL CZLONKA (obserwowane, alerty+dopasowania, analiza, VIP/hologram) */
