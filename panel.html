@@ -597,11 +597,11 @@ h1,h2,h3,.f{font-family:'Sora'}
   <aside class="vpanel p2">
     <div class="vph">VIP · Panel 2 — Narzędzia</div>
     <div class="vgrid">
-      <div class="vc"><b>LIVE SCAN</b><span>132 nowe okazje · 24/7</span></div>
-      <div class="vc"><b>HEATMAPA</b><span>mapa okazji</span></div>
-      <div class="vc"><b>SYMULATOR ROI</b><span>policz zysk</span></div>
-      <div class="vc"><b>AI NEWS</b><span>wpływ na rynek</span></div>
-      <div class="vc"><b>CONCIERGE</b><span>zrób to za mnie</span></div>
+      <div class="vc" style="cursor:pointer" onclick="closeVip();openKlub()"><b>LIVE SCAN</b><span>okazje na żywo · 24/7</span></div>
+      <div class="vc" style="cursor:pointer" onclick="closeVip();window.aureuOpenPanel&&window.aureuOpenPanel('okazje')"><b>HEATMAPA</b><span>mapa okazji</span></div>
+      <div class="vc" style="cursor:pointer" onclick="closeVip();window.aureuOpenPanel&&window.aureuOpenPanel('analiza')"><b>SYMULATOR ROI</b><span>policz zysk</span></div>
+      <div class="vc" style="cursor:pointer" onclick="closeVip();openBot()"><b>AI NEWS</b><span>wpływ na rynek</span></div>
+      <div class="vc" style="cursor:pointer" onclick="closeVip();openBot()"><b>CONCIERGE</b><span>zrób to za mnie</span></div>
     </div>
     <div class="vpt">Pokoje — 99 zł/mc każdy</div>
     <div class="vrooms">
@@ -860,7 +860,7 @@ function cardKlub(l){
 <script>
 /* AUREU Etap A - uczciwa obsluga sekcji bez backendu (addytywne, nie rusza dzialajacych akcji) */
 (function(){
-  var SOON={'Moje alerty':'alerty','Obserwowane':'obs','Analizy AI':'analiza','CRM':'dash','Dokumenty':'dash','Partnerzy':'dash','Dashboard':'dash','Okazje Live':'okazje','Oferty':'okazje','Subskrypcja':'dash'};
+  var SOON={'Moje alerty':'alerty','Obserwowane':'obs','Analizy AI':'analiza','Kalkulator':'analiza','CRM':'dash','Dokumenty':'dash','Partnerzy':'dash','Dashboard':'dash','Okazje Live':'okazje','Oferty':'okazje','Subskrypcja':'dash'};
   function toast(msg){var t=document.getElementById('aureuToast');if(!t){t=document.createElement('div');t.id='aureuToast';t.style.cssText='position:fixed;left:50%;bottom:28px;transform:translateX(-50%);background:#0F3A36;color:#EAF3F0;border:1px solid #E8B04B;padding:12px 20px;border-radius:12px;font-family:Inter,system-ui,sans-serif;font-size:14px;z-index:99999;box-shadow:0 8px 30px rgba(0,0,0,.45);opacity:0;transition:opacity .2s;max-width:90vw;text-align:center';document.body.appendChild(t);}t.textContent=msg;t.style.opacity='1';clearTimeout(t._h);t._h=setTimeout(function(){t.style.opacity='0';},2800);}
   function walk(){document.querySelectorAll('a,button,div,span,li').forEach(function(el){var txt=(el.textContent||'').trim();if(!SOON[txt])return;if(el.children.length>2)return;if(el.getAttribute('onclick'))return;if(el.dataset.aureuBound)return;el.dataset.aureuBound='1';el.style.cursor='pointer';el.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();if(window.aureuOpenPanel){window.aureuOpenPanel(SOON[txt]);}else{toast('Zaloguj sie kodem, aby wejsc do panelu.');}});});}
   if(document.readyState!=='loading')walk();else document.addEventListener('DOMContentLoaded',walk);
