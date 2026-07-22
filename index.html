@@ -547,7 +547,7 @@ function renderHome(){
     <div class="price">
       <div class="pcard"><div class="tag">Premium</div><h3 class="serif">Klub</h3><div class="amt">99 zł<small>/mc</small></div><ul><li>Bezpośrednie linki do aukcji</li><li>Miejsce przy stole + licytacja</li><li>Alerty, kalkulator, mapa</li><li>Wszystkie pokoje</li></ul><button class="btn btn-gold" onclick="openSub()">Zostań Premium</button></div>
       <div class="pcard" style="border-color:var(--gold)"><span class="badge">★ Popularny dodatek</span><div class="tag">Dodatek</div><h3 class="serif">Wizualizacje 360°</h3><div class="amt">+49 zł<small>/mc</small></div><ul><li>Dossier 360°: galeria, rzuty i podgląd</li><li>Przygotowywane pod lot (do 48h)</li><li>Priorytet w kolejce danych</li></ul><button class="btn btn-gold" onclick="doViz()">Dodaj pakiet</button></div>
-      <div class="pcard best"><span class="badge">Dla poważnych graczy</span><div class="tag">VIP Concierge</div><h3 class="serif">Łowca</h3><div class="amt">od 1 490 zł<small>/mc</small></div><ul><li>Osobisty łowca okazji 1:1</li><li>Dossier due-diligence pod lot</li><li>Priorytet przy stole i alertach</li><li>Reprezentacja na aukcji (do ustalenia)</li></ul><button class="btn btn-gold" onclick="window.open('https://buy.stripe.com/14AfZ9cJ66gRejxecHdQQ1U','_blank','noopener')">Zostań VIP-em — 1 490 zł/mc</button></div>
+      <div class="pcard best"><span class="badge">Dla poważnych graczy</span><div class="tag">VIP Concierge</div><h3 class="serif">Łowca</h3><div class="amt">od 1 490 zł<small>/mc</small></div><ul><li>Osobisty łowca okazji 1:1</li><li>Dossier due-diligence pod lot</li><li>Priorytet przy stole i alertach</li><li>Reprezentacja na aukcji (do ustalenia)</li></ul><button class="btn btn-gold" onclick="openSub('vip')">Zostań VIP-em</button></div>
       <div class="pcard"><div class="tag">Partner</div><h3 class="serif">Ambasador</h3><div class="amt">Prowizja</div><ul><li>Zarabiasz na poleceniach</li><li>Prowizja z abonamentów i VIP</li><li>Materiały i wsparcie</li></ul><button class="btn btn-ghost" onclick="openSub('vip')">Zostań partnerem</button></div>
     </div>
   </div></section>
@@ -756,5 +756,36 @@ boot();
 </script>
 <!-- ==== /GADAJĄCY AGENT ==== -->
 
+
+<!-- AUREU · Doradca VIP hologram (VALERIA/AUREON) — wpiety 2026-07-22 -->
+<style id="holovip-css">
+#holoVipBtn{position:fixed;right:16px;bottom:16px;z-index:9998;display:flex;align-items:center;gap:8px;
+ background:linear-gradient(135deg,#3fe0ff,#9b6bff);color:#04121a;font:800 14px Inter,system-ui,sans-serif;
+ border:none;border-radius:999px;padding:12px 18px;cursor:pointer;box-shadow:0 10px 30px -8px rgba(63,224,255,.6);
+ animation:holoVipPulse 2.6s ease-in-out infinite}
+#holoVipBtn .dot{width:9px;height:9px;border-radius:50%;background:#0affc0;box-shadow:0 0 0 0 rgba(10,255,192,.6);animation:holoVipBeat 1.8s infinite}
+@keyframes holoVipPulse{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+@keyframes holoVipBeat{0%{box-shadow:0 0 0 0 rgba(10,255,192,.6)}70%{box-shadow:0 0 0 8px rgba(10,255,192,0)}}
+#holoVipOv{display:none;position:fixed;inset:0;z-index:9999;background:rgba(2,6,12,.86);backdrop-filter:blur(6px)}
+#holoVipOv.on{display:block}
+#holoVipFrameWrap{position:absolute;inset:0;max-width:480px;margin:0 auto;background:#02080e;box-shadow:0 0 60px rgba(0,0,0,.7)}
+#holoVipFrame{width:100%;height:100%;border:0;display:block}
+#holoVipClose{position:absolute;top:10px;right:12px;z-index:2;width:40px;height:40px;border-radius:50%;
+ background:rgba(10,20,30,.8);color:#eaf6fa;border:1px solid #24506a;font-size:20px;cursor:pointer}
+</style>
+<button id="holoVipBtn" onclick="holoVipOpen()"><span class="dot"></span>Doradca VIP</button>
+<div id="holoVipOv"><div id="holoVipFrameWrap"><button id="holoVipClose" onclick="holoVipClose()" aria-label="Zamknij">&times;</button><iframe id="holoVipFrame" allow="microphone" title="AUREU Doradca VIP"></iframe></div></div>
+<script id="holovip-js">
+(function(){
+  function tok(){try{return localStorage.getItem('aureu_tok')||new URLSearchParams(location.search).get('t')||''}catch(e){return ''}}
+  window.holoVipOpen=function(){
+    var f=document.getElementById('holoVipFrame');
+    if(!f.src){var t=tok();f.src='https://mdsvcobwuezriexyqqby.supabase.co/functions/v1/vip-hologram'+(t?('?t='+encodeURIComponent(t)):'');}
+    document.getElementById('holoVipOv').classList.add('on');
+  };
+  window.holoVipClose=function(){document.getElementById('holoVipOv').classList.remove('on');};
+  document.getElementById('holoVipOv').addEventListener('click',function(e){if(e.target.id==='holoVipOv')holoVipClose();});
+})();
+</script>
 </body>
 </html>
