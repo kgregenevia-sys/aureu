@@ -629,7 +629,7 @@ h1,h2,h3,.f{font-family:'Sora'}
 
 <!-- BOT -->
 <button class="holoBtn" id="agent" onclick="openBot()" aria-label="AUREU AI Navigator">
-  <svg class="aimg" viewBox="0 0 100 120" aria-label="AUREU AI"><defs><linearGradient id="hgc" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#bff3ff"/><stop offset=".5" stop-color="#22D3EE"/><stop offset="1" stop-color="#8B5CF6"/></linearGradient></defs><path d="M50 20 C68 20 78 33 78 48 C78 68 70 84 50 92 C30 84 22 68 22 48 C22 33 32 20 50 20Z" fill="none" stroke="url(#hgc)" stroke-width="1.6"/><g fill="#eaf9ff"><circle cx="40" cy="40" r="1.6"/><circle cx="60" cy="40" r="1.6"/><circle cx="50" cy="32" r="1.6"/><circle cx="44" cy="54" r="1.6"/><circle cx="56" cy="54" r="1.6"/></g><g stroke="rgba(191,243,255,.55)" stroke-width=".5"><line x1="40" y1="40" x2="50" y2="32"/><line x1="50" y1="32" x2="60" y2="40"/><line x1="44" y1="54" x2="56" y2="54"/></g><ellipse cx="42" cy="56" rx="6" ry="3.4" fill="none" stroke="url(#hgc)" stroke-width="1.2"/><ellipse cx="58" cy="56" rx="6" ry="3.4" fill="none" stroke="url(#hgc)" stroke-width="1.2"/><circle cx="42" cy="56" r="1.7" fill="#eaf9ff"/><circle cx="58" cy="56" r="1.7" fill="#eaf9ff"/><path d="M50 44 L55 58 H52 L50 54 L48 58 H45Z" fill="url(#hgc)"/><path d="M42 70 C46 74 54 74 58 70" fill="none" stroke="url(#hgc)" stroke-width="1.3"/></svg>
+  <img class="aimg" src="img/aholo.png" alt="AUREU AI">
   <span class="cap">AUREU AI</span>
 </button>
 <div class="console" id="console">
@@ -741,10 +741,13 @@ const agent=document.getElementById('agent'),csl=document.getElementById('consol
 let roam=true, greeted=false;
 function moveAgent(){
   if(!roam) return;
-  agent.style.left='auto'; agent.style.top='42%';
-  agent.style.right='14px'; agent.style.bottom='auto';
+  const m=90, capH=110;
+  const x=m+Math.random()*Math.max(40,innerWidth-2*m-70);
+  const y=m+Math.random()*Math.max(40,innerHeight-m-capH-40);
+  agent.style.left=x+'px'; agent.style.top=y+'px';
+  agent.style.right='auto'; agent.style.bottom='auto';
 }
-setTimeout(moveAgent,400); setInterval(moveAgent,9000);
+setTimeout(moveAgent,400); setInterval(moveAgent,4200);
 addEventListener('resize',()=>{if(roam)moveAgent();});
 
 function bub(t,w){const d=document.createElement('div');d.className='msg '+w;d.innerHTML=t;cBody.appendChild(d);cBody.scrollTop=cBody.scrollHeight;}
@@ -1078,7 +1081,7 @@ else{
 paint();
 add('holo','Witaj! Jestem Twoim doradca AUREU. O co chcesz zapytac?',true);
 }
- window.aureuOpenPanel=function(tab){if(M){openMA(tab||'dash');}else{try{if(typeof openBot==='function')openBot();}catch(e){}}};var t=tok();if(!t)return;rpc('aureu_panel_login',{p_token:t}).then(function(m){if(m&&m.ok){M=m;launcher();if(M.holo){var _im=document.querySelector('#agent .aimg');if(_im){_im.src='img/human.png';_im.alt='Doradca VIP AUREU';_im.style.objectFit='cover';_im.style.objectPosition='center 22%';_im.style.borderRadius='50%';}var _cap=document.querySelector('#agent .cap');if(_cap)_cap.textContent='Doradca VIP';}}});
+ window.aureuOpenPanel=function(tab){if(M){openMA(tab||'dash');}else{try{if(typeof openBot==='function')openBot();}catch(e){}}};var t=tok();if(!t)return;rpc('aureu_panel_login',{p_token:t}).then(function(m){if(m&&m.ok){M=m;launcher();}});
 })();
 </script>
 
