@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>AUREU — Panel Inwestora</title>
+<title>AUREU — Centrum Dowodzenia</title>
 <meta name="theme-color" content="#04050a">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -594,7 +594,7 @@ h1,h2,h3,.f{font-family:'Sora'}
     <div class="vpt" style="margin-top:8px">Wybierz pakiet</div>
     <div style="display:flex;flex-direction:column;gap:8px;margin-top:6px">
       <a href="https://buy.stripe.com/4gM7sD5gEax76R5b0vdQQ02" target="_blank" rel="noopener" style="display:flex;justify-content:space-between;align-items:center;gap:8px;border:1px solid var(--line2);border-radius:12px;padding:11px 13px;text-decoration:none;color:var(--txt)"><span><b style="font:700 13px Sora">Klub</b><br><span style="font-size:10px;color:var(--mut)">wszystkie pokoje + okazje live</span></span><b style="font:800 17px Sora;color:var(--cyan);white-space:nowrap">99 zł<span style="font-size:10px;color:var(--mut);font-weight:500">/mc</span></b></a>
-      <a href="https://buy.stripe.com/bJebITfVi9t35N1c4zdQQ0g" target="_blank" rel="noopener" style="position:relative;display:flex;justify-content:space-between;align-items:center;gap:8px;border:1px solid var(--gold);border-radius:12px;padding:12px 13px;text-decoration:none;color:var(--txt);background:radial-gradient(120% 90% at 50% 0,rgba(245,196,81,.14),transparent 60%)"><span style="position:absolute;top:-8px;left:11px;font:700 8px Sora;letter-spacing:.08em;background:linear-gradient(100deg,var(--gold),var(--gold-d));color:#0b0b0b;padding:2px 8px;border-radius:999px">NAJPOPULARNIEJSZY</span><span><b style="font:700 13px Sora">VIP Elite</b><br><span style="font-size:10px;color:var(--mut)">pełne usługi + wszystkie narzędzia AI</span></span><b style="font:800 17px Sora;color:var(--gold);white-space:nowrap">499 zł<span style="font-size:10px;color:var(--mut);font-weight:500">/mc</span></b></a>
+      <a href="https://buy.stripe.com/8x2aEPgZm9t3b7ld8DdQQ0d" target="_blank" rel="noopener" style="position:relative;display:flex;justify-content:space-between;align-items:center;gap:8px;border:1px solid var(--gold);border-radius:12px;padding:12px 13px;text-decoration:none;color:var(--txt);background:radial-gradient(120% 90% at 50% 0,rgba(245,196,81,.14),transparent 60%)"><span style="position:absolute;top:-8px;left:11px;font:700 8px Sora;letter-spacing:.08em;background:linear-gradient(100deg,var(--gold),var(--gold-d));color:#0b0b0b;padding:2px 8px;border-radius:999px">NAJPOPULARNIEJSZY</span><span><b style="font:700 13px Sora">VIP Elite</b><br><span style="font-size:10px;color:var(--mut)">pełne usługi + wszystkie narzędzia AI</span></span><b style="font:800 17px Sora;color:var(--gold);white-space:nowrap">499 zł<span style="font-size:10px;color:var(--mut);font-weight:500">/mc</span></b></a>
       <a href="https://buy.stripe.com/4gMfZ9dNa0WxfnB3y3dQQ0h" target="_blank" rel="noopener" style="display:flex;justify-content:space-between;align-items:center;gap:8px;border:1px solid var(--violet);border-radius:12px;padding:11px 13px;text-decoration:none;color:var(--txt)"><span><b style="font:700 13px Sora">VIP Komplet</b><br><span style="font-size:10px;color:var(--mut)">usługi + Hologram + priorytet</span></span><b style="font:800 17px Sora;color:var(--violet);white-space:nowrap">998 zł<span style="font-size:10px;color:var(--mut);font-weight:500">/mc</span></b></a>
     </div>
   </aside>
@@ -629,7 +629,7 @@ h1,h2,h3,.f{font-family:'Sora'}
 
 <!-- BOT -->
 <button class="holoBtn" id="agent" onclick="openBot()" aria-label="AUREU AI Navigator">
-  <img class="aimg" src="img/aholo.png" alt="AUREU AI">
+  <img class="aimg" src="img/human.png" alt="AUREU AI" style="object-fit:cover;object-position:center 20%">
   <span class="cap">AUREU AI</span>
 </button>
 <div class="console" id="console">
@@ -741,13 +741,10 @@ const agent=document.getElementById('agent'),csl=document.getElementById('consol
 let roam=true, greeted=false;
 function moveAgent(){
   if(!roam) return;
-  const m=90, capH=110;
-  const x=m+Math.random()*Math.max(40,innerWidth-2*m-70);
-  const y=m+Math.random()*Math.max(40,innerHeight-m-capH-40);
-  agent.style.left=x+'px'; agent.style.top=y+'px';
-  agent.style.right='auto'; agent.style.bottom='auto';
+  agent.style.left='auto'; agent.style.top='42%';
+  agent.style.right='14px'; agent.style.bottom='auto';
 }
-setTimeout(moveAgent,400); setInterval(moveAgent,4200);
+setTimeout(moveAgent,400); setInterval(moveAgent,9000);
 addEventListener('resize',()=>{if(roam)moveAgent();});
 
 function bub(t,w){const d=document.createElement('div');d.className='msg '+w;d.innerHTML=t;cBody.appendChild(d);cBody.scrollTop=cBody.scrollHeight;}
@@ -755,20 +752,19 @@ function chips(a){cChips.innerHTML=a.map(c=>`<button class="cchip ${c[2]||''}" o
 function sst(t){cSt.innerHTML='<span class="d2"></span> '+t;}
 function think(cb){sst('ANALIZUJĘ…');setTimeout(()=>{sst('AUREU ONLINE');cb();},480);}
 function toSec(id){closeBot();const e=document.getElementById(id)||document.querySelector(id);if(e)e.scrollIntoView({behavior:'smooth'});}
-function navChips(){chips([['Klub licytacji',"closeBot();openKlub()"],['Oferty / ceny',"toSec('#offersSec')"],['Pokoje 99/mc',"toSec('.rooms')"],['VIP Elite',"answerC('vip')",'gold']]);}
-function openBot(){roam=false;agent.style.display='none';csl.classList.add('open');if(!cBody.children.length){greetC();}else{navChips();}greeted=true;cBody.scrollTop=cBody.scrollHeight;}
+function openBot(){roam=false;agent.style.display='none';csl.classList.add('open');if(!greeted){greetC();greeted=true;}}
 function closeBot(){csl.classList.remove('open');agent.style.display='flex';roam=true;moveAgent();}
 function greetC(){
   bub("Witaj w <b>AUREU</b>. Jestem holograficznym nawigatorem platformy. Powiem Ci, czym jest AUREU, co zyskujesz, jakie mamy produkty i pokoje — i przeprowadzę Cię przez panel. Od czego zaczynamy?",'a');
-  navChips();
+  chips([['Klub licytacji',"closeBot();openKlub()"],['Oferty / ceny',"toSec('#offersSec')"],['Pokoje 99/mc',"toSec('.rooms')"],['VIP Elite',"answerC('vip')",'gold']]);
 }
 const KBC={
  vip:["<b>VIP Elite — 499 zł/mc.</b> Wcześniejsze alerty, pełne analizy AI, Due Diligence, Portfolio Pro, raporty, pokoje premium, API i priorytetowe wsparcie.",
-   [['Zobacz overlay VIP',"closeBot();openVip()"],['Aktywuj (499)',"window.open('https://buy.stripe.com/bJebITfVi9t35N1c4zdQQ0g','_blank')",'gold']]],
+   [['Zobacz overlay VIP',"closeBot();openVip()"],['Aktywuj (499)',"window.open('https://buy.stripe.com/8x2aEPgZm9t3b7ld8DdQQ0d','_blank')",'gold']]],
  score:["<b>AI Score (0–100)</b> ocenia okazję: runda licytacji, konkurencja, czas reakcji, próg wejścia i pewność danych. Im wyżej — tym lepszy stosunek okazji do ryzyka.",
    [['Najlepsza okazja',"toSec('.deal')"],['VIP Elite',"answerC('vip')",'gold']]],
  dd:["<b>Due Diligence AI</b> — pełna analiza oferty: stan prawny, obciążenia, finanse, technika — w jednym raporcie. W VIP Elite.",
-   [['Overlay VIP',"closeBot();openVip()"],['Aktywuj (499)',"window.open('https://buy.stripe.com/bJebITfVi9t35N1c4zdQQ0g','_blank')",'gold']]],
+   [['Overlay VIP',"closeBot();openVip()"],['Aktywuj (499)',"window.open('https://buy.stripe.com/8x2aEPgZm9t3b7ld8DdQQ0d','_blank')",'gold']]],
 
  what:["<b>AUREU</b> to pierwsza w Polsce platforma, która <b>gromadzi i udostępnia w jednym miejscu</b> rozproszone okazje: licytacje komornicze, przetargi, sprzedaż syndyków i egzekucje — z rejestru Krajowej Rady Komorniczej i portali publicznych. Do każdej okazji dodajemy wycenę, rabat, <b>AI Score</b>, termin i pozycję na mapie. Zamiast klikać po 20 portalach, masz wszystko gotowe do decyzji.",
    [['Co zyskuję?',"answerC('benefits')"],['Licytacje komornicze',"answerC('komornik')"],['VIP Elite',"answerC('vip')",'gold']]],
@@ -781,7 +777,7 @@ const KBC={
  komornik:["Licytacje komornicze i przetargi są <b>rozproszone</b> po dziesiątkach portali i obwieszczeń. AUREU <b>zbiera je automatycznie</b> (rejestr KRK, e-Zamówienia, portale) i pokazuje w jednym panelu: cena wywoławcza vs wartość rynkowa, rabat, termin, wadium i AI Score. Jesteśmy pierwsi, którzy podają to <b>gotowe do decyzji</b>.",
    [['Najlepsza okazja',"toSec('.deal')"],['Mapa okazji',"toSec('.mapbox')"],['VIP Elite',"answerC('vip')",'gold']]],
  promo:["<b>Pierwsze 100 osób</b>: 2 miesiące VIP w cenie jednego. Przy płatności wpisz kod <b>AUREU100</b>.",
-   [['Aktywuj z kodem',"window.open('https://buy.stripe.com/bJebITfVi9t35N1c4zdQQ0g','_blank')",'gold']]],
+   [['Aktywuj z kodem',"window.open('https://buy.stripe.com/8x2aEPgZm9t3b7ld8DdQQ0d','_blank')",'gold']]],
 };
 function lblC(k){return {vip:'VIP Elite',score:'Czym jest AI Score?',dd:'Czym jest Due Diligence?',promo:'Promocja?',what:'Czym jest AUREU?',benefits:'Co zyskuję?',products:'Produkty i pokoje',wyniki:'Wyniki',komornik:'Licytacje komornicze'}[k]||k;}
 function answerC(k){bub(lblC(k),'u');think(()=>{const x=KBC[k];bub(x[0],'a');chips(x[1]);});}
@@ -798,7 +794,7 @@ function sendC(){
     var cd=acts.map(mapAction).filter(Boolean);if(cd.length)chips(cd);
   }).catch(function(){sst('AUREU - online');bub('Blad polaczenia. Sprobuj ponownie.','a');});
 }
-function mapAction(a){var MM={openKlub:['Wejdz do Klubu',"closeBot();openKlub()",'gold'],openVip:['Zobacz VIP',"closeBot();openVip()",'gold'],buyKlub:['Klub 99 zl',"window.open('https://buy.stripe.com/4gM7sD5gEax76R5b0vdQQ02','_blank')",'gold'],buyVip:['VIP 499 zl',"window.open('https://buy.stripe.com/bJebITfVi9t35N1c4zdQQ0g','_blank')",'gold'],panelOkazje:['Okazje Live',"window.aureuOpenPanel&&window.aureuOpenPanel('okazje')"],panelObs:['Obserwowane',"window.aureuOpenPanel&&window.aureuOpenPanel('obs')"],panelAlerty:['Alerty',"window.aureuOpenPanel&&window.aureuOpenPanel('alerty')"],panelAnaliza:['Analiza',"window.aureuOpenPanel&&window.aureuOpenPanel('analiza')"],panelHolo:['VIP Hologram',"window.aureuOpenPanel&&window.aureuOpenPanel('holo')"]};return MM[a]||null;}
+function mapAction(a){var MM={openKlub:['Wejdz do Klubu',"closeBot();openKlub()",'gold'],openVip:['Zobacz VIP',"closeBot();openVip()",'gold'],buyKlub:['Klub 99 zl',"window.open('https://buy.stripe.com/4gM7sD5gEax76R5b0vdQQ02','_blank')",'gold'],buyVip:['VIP 499 zl',"window.open('https://buy.stripe.com/8x2aEPgZm9t3b7ld8DdQQ0d','_blank')",'gold'],panelOkazje:['Okazje Live',"window.aureuOpenPanel&&window.aureuOpenPanel('okazje')"],panelObs:['Obserwowane',"window.aureuOpenPanel&&window.aureuOpenPanel('obs')"],panelAlerty:['Alerty',"window.aureuOpenPanel&&window.aureuOpenPanel('alerty')"],panelAnaliza:['Analiza',"window.aureuOpenPanel&&window.aureuOpenPanel('analiza')"],panelHolo:['VIP Hologram',"window.aureuOpenPanel&&window.aureuOpenPanel('holo')"]};return MM[a]||null;}
 
 /* ===== OFERTY: auto z katalogu funnels (Supabase) ===== */
 const SB_URL='https://mdsvcobwuezriexyqqby.supabase.co';
@@ -948,178 +944,10 @@ function cardKlub(l){
  function rObs(b){loadWatched().then(function(d){var l=Array.isArray(d)?d:[];if(!l.length){b.innerHTML='<p class="muted">Nie obserwujesz jeszcze zadnej oferty. Wejdz w „Okazje Live” i kliknij ☆.</p>';return;}b.innerHTML='<div class="ma-grid">'+l.map(function(w){return '<div class="ma-card"><h4>'+esc(w.title||'Oferta')+'</h4><div class="muted" style="word-break:break-all">'+esc(w.offer_key)+'</div><div style="display:flex;gap:6px;margin-top:6px"><a class="ma-b p" href="'+w.offer_key+'" target="_blank" rel="noopener">Otworz</a><button class="ma-b" data-un="'+encodeURIComponent(w.offer_key)+'">Usun</button></div></div>';}).join('')+'</div>';document.querySelectorAll('[data-un]').forEach(function(btn){btn.onclick=function(){rpc('aureu_watch_toggle',{p_token:tok(),p_offer_key:decodeURIComponent(btn.dataset.un)}).then(function(){render('obs');});};});});}
  function rAlerty(b){Promise.all([rpc('aureu_alert_list',{p_token:tok()}),loadOffers()]).then(function(r){var cats=Array.from(new Set(OFFERS.map(function(o){return o.niche_code;}).filter(Boolean)));b.innerHTML='<div class="ma-card" style="margin-bottom:16px"><h4>Nowy alert</h4><div style="display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:8px;align-items:end"><div><div class="muted">Kategoria</div><select id="alk"><option value="">Wszystkie</option>'+cats.map(function(c){return '<option>'+c+'</option>';}).join('')+'</select></div><div><div class="muted">Max cena (zl)</div><input id="alp" type="number" placeholder="np. 300000"></div><div><div class="muted">Min rabat (%)</div><input id="ald" type="number" value="30"></div><button class="ma-b p" id="aladd">Dodaj</button></div></div><h4>Twoje alerty</h4><div id="alList" style="margin:8px 0 16px"></div><h4>Dopasowane oferty</h4><div class="ma-grid" id="alMatch" style="margin-top:8px"></div>';function listAlerts(){rpc('aureu_alert_list',{p_token:tok()}).then(function(d){var l=Array.isArray(d)?d:[];document.getElementById('alList').innerHTML=l.length?l.map(function(a){return '<div class="ma-card" style="flex-direction:row;justify-content:space-between;align-items:center;margin-bottom:8px"><div>'+(a.kategoria||'Wszystkie')+' · max '+(a.max_price?PLN(a.max_price):'∞')+' · rabat ≥ '+(a.min_discount||0)+'%</div><button class="ma-b" data-del="'+a.id+'">Usun</button></div>';}).join(''):'<p class="muted">Brak alertow.</p>';document.querySelectorAll('[data-del]').forEach(function(btn){btn.onclick=function(){rpc('aureu_alert_del',{p_token:tok(),p_id:parseInt(btn.dataset.del)}).then(function(){listAlerts();matches();});};});});}function matches(){rpc('aureu_alert_matches',{p_token:tok()}).then(function(d){var l=Array.isArray(d)?d:[];document.getElementById('alMatch').innerHTML=l.length?l.slice(0,60).map(function(o){return '<div class="ma-card"><span class="ma-disc">-'+Math.round(o.discount_pct||0)+'%</span><h4>'+esc(o.title||'Oferta')+'</h4><div class="muted">'+esc(o.region||'')+'</div><div><b style="color:#E8B04B">'+PLN(o.opening_price)+'</b></div><a class="ma-b p" href="'+o.link+'" target="_blank" rel="noopener">Obwieszczenie</a></div>';}).join(''):'<p class="muted">Brak dopasowan - dodaj alert lub poluzuj kryteria.</p>';});}document.getElementById('aladd').onclick=function(){rpc('aureu_alert_add',{p_token:tok(),p_kat:document.getElementById('alk').value,p_max:parseFloat(document.getElementById('alp').value)||null,p_mindisc:parseFloat(document.getElementById('ald').value)||0}).then(function(){listAlerts();matches();});};listAlerts();matches();});}
  function rAnaliza(b){loadOffers().then(function(){var disc=OFFERS.map(function(o){return o.discount_pct||0;}).sort(function(a,c){return a-c;});var med=disc.length?disc[Math.floor(disc.length/2)]:0;b.innerHTML='<div class="ma-card" style="max-width:640px"><h4>Analiza oferty</h4><div class="muted">Marza i ROI liczone z wyceny sadowej. Dyskonto porownane do mediany klubu.</div><label class="muted">Cena wywolawcza (zl)</label><input id="anp" type="number" value="100000"><label class="muted">Wycena sadowa (zl)</label><input id="ane" type="number" value="200000"><label class="muted">Koszty (zl)</label><input id="ank" type="number" value="0"><div id="anOut" style="margin-top:12px"></div></div>';function calc(){var p=+document.getElementById('anp').value||0,e=+document.getElementById('ane').value||0,k=+document.getElementById('ank').value||0;var m=e-p-k;var roi=(p+k)>0?m/(p+k)*100:0;var dd=e>0?(1-p/e)*100:0;var verdict=(dd>=40&&roi>=30)?'Silna okazja':(dd>=25?'Warta uwagi':'Przecietna');document.getElementById('anOut').innerHTML='<div>Marza brutto: <b style="color:#E8B04B">'+PLN(m)+'</b></div><div>ROI: <b style="color:#E8B04B">'+roi.toFixed(1)+'%</b></div><div>Dyskonto: <b>'+dd.toFixed(1)+'%</b> (mediana klubu: '+Math.round(med)+'%)</div><div style="margin-top:6px">Ocena: <b style="color:#E8B04B">'+verdict+'</b></div>';}['anp','ane','ank'].forEach(function(id){document.getElementById(id).addEventListener('input',calc);});calc();});}
- function rHolo(b){
-var CDN='https://mdsvcobwuezriexyqqby.supabase.co/storage/v1/object/public/site/aureu/';
-var P={valeria:{n:'VALERIA',r:'Ekspertka ds. zysku \u00b7 AI',img:CDN+'holo-valeria.webp',pitch:1.15},
-       aureon:{n:'AUREON',r:'Strategiczny doradca \u00b7 AI',img:CDN+'holo-aureon.webp',pitch:0.85}};
-var cur=localStorage.getItem('aureuHoloPersona')||'valeria'; if(!P[cur])cur='valeria';
-var CH=[['\ud83c\udfaf','Ile dajesz?','Ile maksymalnie op\u0142aca si\u0119 da\u0107 na tej licytacji?'],
-        ['\u2696\ufe0f','A czy B?','Por\u00f3wnaj dwie najlepsze okazje z mojej listy.'],
-        ['\ud83e\uddee','Kalkulator ROI','Policz ROI dla okazji dnia.'],
-        ['\u2b50','Ulubione','Poka\u017c moje obserwowane oferty.'],
-        ['\ud83d\udc8e','Okazja dnia','Jaka jest dzi\u015b najlepsza okazja?'],
-        ['\u26a0\ufe0f','Ryzyko','Jakie ryzyka prawne ma ta licytacja?'],
-        ['\ud83d\udcc5','Terminy','Jakie licytacje mam w najbli\u017cszych 7 dniach?']];
-var S='background:#0a1220;border:1px solid rgba(34,211,238,.25);border-radius:14px;overflow:hidden';
-var chips=CH.map(function(c,i){return '<button class="hchip" data-q="'+i+'">'+c[0]+' '+c[1]+'</button>';}).join('');
-b.innerHTML='<style>'
-+'.holoWrap{'+S+'}'
-+'.holoTabs{display:flex;gap:8px;padding:12px 12px 0;align-items:center}'
-+'.holoTabs button{flex:0 0 auto;padding:9px 20px;border-radius:999px;border:1px solid rgba(34,211,238,.35);background:#0d1a2b;color:#9fd6e8;font:700 13px Sora,system-ui;cursor:pointer;letter-spacing:.5px}'
-+'.holoTabs button.on{background:linear-gradient(90deg,#22D3EE,#8B5CF6);color:#04121b;border-color:transparent}'
-+'.holoTabs .spk{margin-left:auto;width:40px;height:40px;border-radius:50%;padding:0;font-size:16px}'
-+'.holoStage{position:relative;text-align:center;padding:6px 0 0;background:radial-gradient(60% 50% at 50% 30%,rgba(34,211,238,.10),transparent 70%)}'
-+'.holoStage .lbl{font:700 11px Sora,system-ui;letter-spacing:4px;color:#6fb9cf;padding:8px 0 2px}'
-+'.holoStage img{height:clamp(180px,30vh,300px);width:auto;object-fit:contain;filter:drop-shadow(0 0 26px rgba(34,211,238,.42))}'
-+'.holoName{font:800 22px Sora,system-ui;color:#22D3EE;letter-spacing:1px;margin-top:4px}'
-+'.holoRole{font-size:12px;color:#7d93a8;margin-bottom:10px}'
-+'.hchips{display:flex;flex-wrap:wrap;gap:8px;padding:0 12px 12px;justify-content:center}'
-+'.hchip{padding:8px 14px;border-radius:999px;border:1px solid rgba(139,92,246,.4);background:#0d1a2b;color:#cfe9f5;font-size:12.5px;cursor:pointer}'
-+'.hchip:hover{border-color:#22D3EE}'
-+'#hlog{padding:0 12px;max-height:38vh;overflow:auto;display:flex;flex-direction:column;gap:8px}'
-+'.hfoot{display:flex;gap:8px;padding:12px;border-top:1px solid rgba(34,211,238,.18)}'
-+'.hfoot input{flex:1;background:#0d1a2b;border:1px solid rgba(34,211,238,.3);color:#e9f6fb;border-radius:999px;padding:11px 16px}'
-+'.hmic{width:44px;border-radius:50%;border:1px solid rgba(34,211,238,.35);background:#0d1a2b;color:#22D3EE;font-size:17px;cursor:pointer}'
-+'.hmic.rec{background:#7f1d1d;border-color:#ef4444;color:#fff}'
-+'.hsay{display:inline-flex;align-items:center;gap:5px;margin-top:6px;background:none;border:0;color:#22D3EE;font-size:12px;cursor:pointer;padding:0}'
-+'</style>'
-+'<div class="holoWrap">'
-+'<div class="holoTabs" id="holoTabs">'
-+'<button data-p="valeria">VALERIA</button><button data-p="aureon">AUREON</button>'
-+'<button class="spk" id="hspk" title="Czytanie odpowiedzi na g\u0142os">\ud83d\udd0a</button></div>'
-+'<div class="holoStage"><div class="lbl">AUREU \u00b7 VIP HOLOGRAM</div>'
-+'<img id="hface" alt=""><div class="holoName" id="hname"></div><div class="holoRole" id="hrole"></div></div>'
-+'<div class="hchips">'+chips+'</div>'
-+'<div id="hlog"></div>'
-+'<div class="hfoot"><button class="hmic" id="hmic" title="M\u00f3w">\ud83c\udfa4</button>'
-+'<input id="hin" placeholder="M\u00f3w lub pisz\u2026"><button class="ma-b p" id="hsend">Wy\u015blij</button></div>'
-+'</div>';
-
-var log=document.getElementById('hlog');
-var speakOn=localStorage.getItem('aureuHoloSpeak')!=='0';
-
-function paint(){
-  var p=P[cur];
-  document.getElementById('hface').src=p.img;
-  document.getElementById('hface').alt=p.n;
-  document.getElementById('hname').textContent=p.n;
-  document.getElementById('hrole').textContent=p.r;
-  document.querySelectorAll('#holoTabs button[data-p]').forEach(function(x){x.classList.toggle('on',x.dataset.p===cur);});
-  document.getElementById('hspk').style.opacity=speakOn?'1':'.42';
-}
-
-function say(txt){
-  if(!speakOn||!('speechSynthesis' in window))return;
-  try{ speechSynthesis.cancel();
-    var u=new SpeechSynthesisUtterance(String(txt).slice(0,600));
-    u.lang='pl-PL'; u.rate=1; u.pitch=P[cur].pitch;
-    var vs=speechSynthesis.getVoices().filter(function(v){return /pl/i.test(v.lang);});
-    if(vs.length)u.voice=vs[0];
-    speechSynthesis.speak(u);
-  }catch(e){}
-}
-
-function add(who,txt,gold){
-  var el=document.createElement('div');
-  el.style.cssText='padding:10px 12px;border-radius:12px;max-width:88%;font-size:14px;line-height:1.45;'
-    +(who==='ty'?'align-self:flex-end;background:#123a52;color:#eaf6fb'
-                :'align-self:flex-start;background:#0b2233;border-left:3px solid #22D3EE;color:#dbeef7');
-  el.innerHTML=(gold?'<b style="color:#22D3EE">'+esc(P[cur].n)+'</b><br>':'')+esc(txt).replace(/\n/g,'<br>');
-  if(gold&&('speechSynthesis' in window)){
-    var s=document.createElement('button'); s.className='hsay'; s.innerHTML='\ud83d\udd0a pos\u0142uchaj';
-    s.onclick=function(){say(txt);}; el.appendChild(document.createElement('br')); el.appendChild(s);
-  }
-  log.appendChild(el); log.scrollTop=log.scrollHeight;
-}
-
-function send(q){
-  var i=document.getElementById('hin');
-  q=(q||i.value||'').trim(); if(!q)return;
-  i.value=''; add('ty',q);
-  var w=document.createElement('div'); w.className='muted'; w.style.padding='4px 12px';
-  w.textContent=P[cur].n+' analizuje\u2026'; log.appendChild(w); log.scrollTop=log.scrollHeight;
-  var msg='['+P[cur].n+' \u2014 '+P[cur].r+'] '+q;
-  rpc('aureu_holo_chat',{p_token:tok(),p_message:msg}).then(function(d){
-    w.remove();
-    var t=(d&&d.ok)?d.reply:'Przepraszam, chwilowo nie moge odpowiedziec (sprobuj ponownie).';
-    add('holo',t,true); say(t);
-  }).catch(function(){w.remove();add('holo','Blad polaczenia. Sprobuj ponownie.',true);});
-}
-
-document.querySelectorAll('#holoTabs button[data-p]').forEach(function(x){
-  x.onclick=function(){
-    cur=x.dataset.p; localStorage.setItem('aureuHoloPersona',cur); paint();
-    log.innerHTML=''; var g='Witaj! Jestem Twoim doradca AUREU. O co chcesz zapytac?';
-    add('holo',g,true);
-  };
-});
-document.getElementById('hspk').onclick=function(){
-  speakOn=!speakOn; localStorage.setItem('aureuHoloSpeak',speakOn?'1':'0');
-  if(!speakOn&&('speechSynthesis' in window))try{speechSynthesis.cancel();}catch(e){}
-  paint();
-};
-document.querySelectorAll('.hchip').forEach(function(c){
-  c.onclick=function(){send(CH[+c.dataset.q][2]);};
-});
-document.getElementById('hsend').onclick=function(){send();};
-document.getElementById('hin').addEventListener('keydown',function(e){if(e.key==='Enter')send();});
-
-var SR=window.SpeechRecognition||window.webkitSpeechRecognition, rec=null;
-var mic=document.getElementById('hmic');
-if(!SR){ mic.style.display='none'; }
-else{
-  mic.onclick=function(){
-    if(rec){try{rec.stop();}catch(e){} return;}
-    rec=new SR(); rec.lang='pl-PL'; rec.interimResults=false; rec.maxAlternatives=1;
-    mic.classList.add('rec');
-    rec.onresult=function(ev){var t=ev.results[0][0].transcript;document.getElementById('hin').value=t;send(t);};
-    rec.onerror=function(){};
-    rec.onend=function(){mic.classList.remove('rec');rec=null;};
-    try{rec.start();}catch(e){mic.classList.remove('rec');rec=null;}
-  };
-}
-
-paint();
-add('holo','Witaj! Jestem Twoim doradca AUREU. O co chcesz zapytac?',true);
-}
- window.aureuOpenPanel=function(tab){if(M){openMA(tab||'dash');}else{try{if(typeof openBot==='function')openBot();}catch(e){}}};var t=tok();if(!t)return;rpc('aureu_panel_login',{p_token:t}).then(function(m){if(m&&m.ok){M=m;launcher();}});
+ function rHolo(b){b.innerHTML='<div class="ma-card"><h4>🔮 VIP Hologram — Twoj osobisty doradca AI</h4><div class="muted">Zna Twoj pakiet, obserwowane oferty i alerty. Pytaj o wycene, marze, ryzyko i strategie licytacji komorniczych.</div><div id="hlog" style="margin:12px 0;max-height:46vh;overflow:auto;display:flex;flex-direction:column;gap:8px"></div><div style="display:flex;gap:8px"><input id="hin" placeholder="Zapytaj o licytacje, wycene, strategie..." style="flex:1"><button class="ma-b p" id="hsend">Wyslij</button></div></div>';var log=document.getElementById("hlog");function add(who,txt,gold){var el=document.createElement("div");el.style.cssText="padding:10px 12px;border-radius:10px;max-width:88%;"+(who==="ty"?"align-self:flex-end;background:#12433E":"align-self:flex-start;background:#0b302c;border:1px solid #1b4b46");el.innerHTML=(gold?"<b style=\"color:#E8B04B\">🔮 Hologram</b><br>":"")+esc(txt).replace(/\n/g,"<br>");log.appendChild(el);log.scrollTop=log.scrollHeight;}add("holo","Witaj! Jestem Twoim holograficznym doradca AUREU. Znam Twoje obserwowane oferty i alerty - zapytaj o dowolna licytacje, wycene albo strategie.",true);function send(){var i=document.getElementById("hin");var q=i.value.trim();if(!q)return;i.value="";add("ty",q);var w=document.createElement("div");w.className="muted";w.textContent="Hologram mysli...";log.appendChild(w);log.scrollTop=log.scrollHeight;rpc("aureu_holo_chat",{p_token:tok(),p_message:q}).then(function(d){w.remove();add("holo",(d&&d.ok)?d.reply:"Przepraszam, chwilowo nie moge odpowiedziec (sprobuj ponownie).",true);}).catch(function(){w.remove();add("holo","Blad polaczenia. Sprobuj ponownie.",true);});}document.getElementById("hsend").onclick=send;document.getElementById("hin").addEventListener("keydown",function(e){if(e.key==="Enter")send();});}
+ window.aureuOpenPanel=function(tab){if(M){openMA(tab||'dash');}else{try{if(typeof openBot==='function')openBot();}catch(e){}}};var t=tok();if(!t)return;rpc('aureu_panel_login',{p_token:t}).then(function(m){if(m&&m.ok){M=m;launcher();if(M.holo){var _im=document.querySelector('#agent .aimg');if(_im){_im.src='img/human.png';_im.alt='Doradca VIP AUREU';_im.style.objectFit='cover';_im.style.objectPosition='center 22%';_im.style.borderRadius='50%';}var _cap=document.querySelector('#agent .cap');if(_cap)_cap.textContent='Doradca VIP';}}});
 })();
 </script>
 
-<script id="cd-btn-koord">(function(){try{var p=new URLSearchParams(location.search);var t=p.get("t")||"";if(t.indexOf("AUREU-OWNER")===0){var a=document.createElement("a");a.href="https://mdsvcobwuezriexyqqby.supabase.co/functions/v1/koord-panel?t="+encodeURIComponent(t);a.textContent="Panel";a.setAttribute("translate","no");a.style.cssText="position:fixed;bottom:18px;right:18px;z-index:99999;background:linear-gradient(90deg,#1d4ed8,#7c3aed);color:#fff;padding:12px 18px;border-radius:999px;font-weight:700;text-decoration:none;font-family:system-ui,sans-serif;font-size:14px;box-shadow:0 4px 20px rgba(29,78,216,.5)";document.body.appendChild(a);}}catch(e){}})();</script><script id="aureu-link-guard">
-/* AUREU LINK GUARD v2 - kazdy link zewnetrzny otwiera sie w NOWYM oknie, zawsze,
-   rowniez linki tworzone dynamicznie teraz i w przyszlosci.
-   Wymuszamy natywne target="_blank" - przegladarka nigdy tego nie blokuje,
-   za kazdym razem powstaje SWIEZE okno (nigdy martwe/puste), a panel
-   nie jest wypychany na inna strone. Linki wewnetrzne i #kotwice nietkniete. */
-(function(){
-  if(window.__aureuLinkGuard) return; window.__aureuLinkGuard=2;
-  function zewnetrzny(a){
-    var href=a.getAttribute('href')||'';
-    if(!/^https?:\/\//i.test(href)) return false;
-    try{ return new URL(href,location.href).host!==location.host; }catch(e){ return false; }
-  }
-  function oznacz(a){ if(zewnetrzny(a)){ a.target='_blank'; a.rel='noopener noreferrer'; } }
-  function skanuj(root){
-    try{ (root.querySelectorAll?root.querySelectorAll('a[href]'):[]).forEach(oznacz); }catch(e){}
-  }
-  document.addEventListener('click',function(e){
-    var a=(e.target&&e.target.closest)?e.target.closest('a[href]'):null;
-    if(a) oznacz(a);
-  },true);
-  if(document.readyState!=='loading') skanuj(document); else
-    document.addEventListener('DOMContentLoaded',function(){skanuj(document);});
-  try{
-    new MutationObserver(function(muts){
-      muts.forEach(function(m){
-        (m.addedNodes||[]).forEach(function(n){
-          if(n.nodeType!==1) return;
-          if(n.tagName==='A') oznacz(n); else skanuj(n);
-        });
-      });
-    }).observe(document.documentElement,{childList:true,subtree:true});
-  }catch(e){}
-})();
-</script>
-</body>
+<script id="cd-btn-koord">(function(){try{var p=new URLSearchParams(location.search);var t=p.get("t")||"";if(t.indexOf("AUREU-OWNER")===0){var a=document.createElement("a");a.href="https://mdsvcobwuezriexyqqby.supabase.co/functions/v1/koord-panel?t="+encodeURIComponent(t);a.textContent="Centrum Dowodzenia";a.setAttribute("translate","no");a.style.cssText="position:fixed;bottom:18px;right:18px;z-index:99999;background:linear-gradient(90deg,#1d4ed8,#7c3aed);color:#fff;padding:12px 18px;border-radius:999px;font-weight:700;text-decoration:none;font-family:system-ui,sans-serif;font-size:14px;box-shadow:0 4px 20px rgba(29,78,216,.5)";document.body.appendChild(a);}}catch(e){}})();</script></body>
 </html>
