@@ -755,11 +755,12 @@ function chips(a){cChips.innerHTML=a.map(c=>`<button class="cchip ${c[2]||''}" o
 function sst(t){cSt.innerHTML='<span class="d2"></span> '+t;}
 function think(cb){sst('ANALIZUJĘ…');setTimeout(()=>{sst('AUREU ONLINE');cb();},480);}
 function toSec(id){closeBot();const e=document.getElementById(id)||document.querySelector(id);if(e)e.scrollIntoView({behavior:'smooth'});}
-function openBot(){roam=false;agent.style.display='none';csl.classList.add('open');if(!greeted){greetC();greeted=true;}}
+function navChips(){chips([['Klub licytacji',"closeBot();openKlub()"],['Oferty / ceny',"toSec('#offersSec')"],['Pokoje 99/mc',"toSec('.rooms')"],['VIP Elite',"answerC('vip')",'gold']]);}
+function openBot(){roam=false;agent.style.display='none';csl.classList.add('open');if(!cBody.children.length){greetC();}else{navChips();}greeted=true;cBody.scrollTop=cBody.scrollHeight;}
 function closeBot(){csl.classList.remove('open');agent.style.display='flex';roam=true;moveAgent();}
 function greetC(){
   bub("Witaj w <b>AUREU</b>. Jestem holograficznym nawigatorem platformy. Powiem Ci, czym jest AUREU, co zyskujesz, jakie mamy produkty i pokoje — i przeprowadzę Cię przez panel. Od czego zaczynamy?",'a');
-  chips([['Klub licytacji',"closeBot();openKlub()"],['Oferty / ceny',"toSec('#offersSec')"],['Pokoje 99/mc',"toSec('.rooms')"],['VIP Elite',"answerC('vip')",'gold']]);
+  navChips();
 }
 const KBC={
  vip:["<b>VIP Elite — 499 zł/mc.</b> Wcześniejsze alerty, pełne analizy AI, Due Diligence, Portfolio Pro, raporty, pokoje premium, API i priorytetowe wsparcie.",
@@ -1085,5 +1086,40 @@ add('holo','Witaj! Jestem Twoim doradca AUREU. O co chcesz zapytac?',true);
 })();
 </script>
 
-<script id="cd-btn-koord">(function(){try{var p=new URLSearchParams(location.search);var t=p.get("t")||"";if(t.indexOf("AUREU-OWNER")===0){var a=document.createElement("a");a.href="https://mdsvcobwuezriexyqqby.supabase.co/functions/v1/koord-panel?t="+encodeURIComponent(t);a.textContent="Centrum Dowodzenia";a.setAttribute("translate","no");a.style.cssText="position:fixed;bottom:18px;right:18px;z-index:99999;background:linear-gradient(90deg,#1d4ed8,#7c3aed);color:#fff;padding:12px 18px;border-radius:999px;font-weight:700;text-decoration:none;font-family:system-ui,sans-serif;font-size:14px;box-shadow:0 4px 20px rgba(29,78,216,.5)";document.body.appendChild(a);}}catch(e){}})();</script></body>
+<script id="cd-btn-koord">(function(){try{var p=new URLSearchParams(location.search);var t=p.get("t")||"";if(t.indexOf("AUREU-OWNER")===0){var a=document.createElement("a");a.href="https://mdsvcobwuezriexyqqby.supabase.co/functions/v1/koord-panel?t="+encodeURIComponent(t);a.textContent="Centrum Dowodzenia";a.setAttribute("translate","no");a.style.cssText="position:fixed;bottom:18px;right:18px;z-index:99999;background:linear-gradient(90deg,#1d4ed8,#7c3aed);color:#fff;padding:12px 18px;border-radius:999px;font-weight:700;text-decoration:none;font-family:system-ui,sans-serif;font-size:14px;box-shadow:0 4px 20px rgba(29,78,216,.5)";document.body.appendChild(a);}}catch(e){}})();</script><script id="aureu-link-guard">
+/* AUREU LINK GUARD v2 - kazdy link zewnetrzny otwiera sie w NOWYM oknie, zawsze,
+   rowniez linki tworzone dynamicznie teraz i w przyszlosci.
+   Wymuszamy natywne target="_blank" - przegladarka nigdy tego nie blokuje,
+   za kazdym razem powstaje SWIEZE okno (nigdy martwe/puste), a panel
+   nie jest wypychany na inna strone. Linki wewnetrzne i #kotwice nietkniete. */
+(function(){
+  if(window.__aureuLinkGuard) return; window.__aureuLinkGuard=2;
+  function zewnetrzny(a){
+    var href=a.getAttribute('href')||'';
+    if(!/^https?:\/\//i.test(href)) return false;
+    try{ return new URL(href,location.href).host!==location.host; }catch(e){ return false; }
+  }
+  function oznacz(a){ if(zewnetrzny(a)){ a.target='_blank'; a.rel='noopener noreferrer'; } }
+  function skanuj(root){
+    try{ (root.querySelectorAll?root.querySelectorAll('a[href]'):[]).forEach(oznacz); }catch(e){}
+  }
+  document.addEventListener('click',function(e){
+    var a=(e.target&&e.target.closest)?e.target.closest('a[href]'):null;
+    if(a) oznacz(a);
+  },true);
+  if(document.readyState!=='loading') skanuj(document); else
+    document.addEventListener('DOMContentLoaded',function(){skanuj(document);});
+  try{
+    new MutationObserver(function(muts){
+      muts.forEach(function(m){
+        (m.addedNodes||[]).forEach(function(n){
+          if(n.nodeType!==1) return;
+          if(n.tagName==='A') oznacz(n); else skanuj(n);
+        });
+      });
+    }).observe(document.documentElement,{childList:true,subtree:true});
+  }catch(e){}
+})();
+</script>
+</body>
 </html>
