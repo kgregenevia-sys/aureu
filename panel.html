@@ -949,5 +949,16 @@ function cardKlub(l){
 })();
 </script>
 
+
+<style id="aureu-noscroll">
+/* Panel Czlonka = sztywny app-shell (nieprzewijalny; przewija sie tylko tresc) */
+#aureuMA{overflow:hidden!important}
+#aureuMA .ma-wrap{height:100dvh!important;max-width:1180px;margin:0 auto!important;padding:10px 14px calc(8px + env(safe-area-inset-bottom))!important;box-sizing:border-box!important;display:flex!important;flex-direction:column!important;min-height:0!important}
+#aureuMA .ma-top{flex:0 0 auto!important}
+#aureuMA .ma-tabs{flex:0 0 auto!important;margin:10px 0!important;overflow-x:auto;flex-wrap:nowrap!important;-webkit-overflow-scrolling:touch}
+#aureuMA #maBody{flex:1 1 auto!important;min-height:0!important;overflow:auto!important;display:flex!important;flex-direction:column!important;gap:10px}
+#aureuMA #maBody>.ma-card{min-height:0}
+#aureuMA #maBody iframe{flex:1 1 auto!important;min-height:58vh!important;height:100%!important}
+</style>
 </body>
 </html>
