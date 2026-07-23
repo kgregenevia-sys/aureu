@@ -1,0 +1,107 @@
+<!DOCTYPE html><html lang="pl"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>AUREU Premium — Klub Okazji Inwestycyjnych</title><meta name="theme-color" content="#08211F">
+<meta name="description" content="AUREU Premium: pełne dane zweryfikowanych okazji z licytacji komorniczych, AUREU Score, alerty i lista obserwowanych. 99 zł/mc.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2308211F'/%3E%3Ctext x='32' y='45' font-family='Georgia' font-size='38' font-weight='700' fill='%23E8B04B' text-anchor='middle'%3EA%3C/text%3E%3C/svg%3E">
+<meta property="og:title" content="AUREU Premium — Klub Okazji Inwestycyjnych">
+<meta property="og:description" content="Zweryfikowane okazje z licytacji i przetargów, AUREU Score, alerty. 99 zł/mc.">
+<meta property="og:type" content="website"><meta name="robots" content="index,follow">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700;9..144,900&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@600&display=swap" rel="stylesheet">
+<style>
+:root{--night:#08211F;--night2:#0C2E2B;--panel:#0F3A36;--gold:#E8B04B;--gold2:#F6D488;--ink:#EAF3F0;--mut:#8fa8a2;--line:#1b4b46}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--night);color:var(--ink);font-family:Inter,system-ui,sans-serif;line-height:1.55}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1120px;margin:0 auto;padding:22px}
+header{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;border-bottom:1px solid var(--line);padding-bottom:16px}
+.brand{font-family:Fraunces,serif;font-weight:900;font-size:26px;color:var(--gold);letter-spacing:.5px}
+.brand small{display:block;font-family:Inter;font-weight:500;font-size:11px;color:var(--mut);letter-spacing:2px;text-transform:uppercase}
+.cta{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#06211d;padding:11px 20px;border-radius:12px;font-weight:800;cursor:pointer;border:none;font-size:15px;display:inline-block;transition:transform .12s ease,box-shadow .12s ease}
+.cta:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(232,176,75,.25)}
+.cta:focus-visible{outline:3px solid var(--gold2);outline-offset:2px}
+.hero{padding:44px 0 20px;text-align:center}
+.hero h1{font-family:Fraunces,serif;font-weight:900;font-size:clamp(30px,6vw,52px);line-height:1.05;letter-spacing:-.5px}
+.hero h1 span{color:var(--gold)}
+.hero p{max-width:680px;margin:16px auto 0;font-size:17px;color:#cfe3dd}
+.hero .cta{margin-top:24px;font-size:16px;padding:14px 28px}
+.hero .sub{margin-top:10px;font-size:13px;color:var(--mut)}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:26px 0}
+.kpi{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px;text-align:center}
+.kpi .n{font-family:IBM Plex Mono,monospace;font-size:26px;font-weight:600;color:var(--gold)}
+.kpi .l{font-size:12px;color:var(--mut);margin-top:4px}
+.sk{background:linear-gradient(90deg,#0e332f 25%,#14413c 37%,#0e332f 63%);background-size:400% 100%;animation:sh 1.4s ease infinite;border-radius:8px;color:transparent!important}
+@keyframes sh{0%{background-position:100% 0}100%{background-position:-100% 0}}
+@media(prefers-reduced-motion:reduce){.sk{animation:none}.cta{transition:none}}
+h2{font-family:Fraunces,serif;font-size:24px;margin:30px 0 14px;color:var(--gold2)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px;display:flex;flex-direction:column;gap:9px;position:relative;overflow:hidden}
+.disc{display:inline-block;background:var(--gold);color:#06211d;font-weight:800;padding:2px 10px;border-radius:999px;font-size:13px;width:max-content}
+.ctitle{font-family:Fraunces,serif;font-size:18px;font-weight:700}
+.caddr{font-size:13px;color:var(--mut)}
+.prices{display:flex;align-items:baseline;gap:10px}
+.pnow{font-family:IBM Plex Mono;font-size:20px;font-weight:600;color:var(--gold)}
+.pest{font-size:13px;color:var(--mut);text-decoration:line-through}
+.lock{margin-top:6px;font-size:12px;color:var(--mut);border-top:1px dashed var(--line);padding-top:8px}
+.lock b{color:var(--gold2)}
+.plan{background:var(--panel);border:1px solid var(--gold);border-radius:18px;padding:26px;max-width:440px;margin:22px auto;text-align:center}
+.plan .pr{font-family:IBM Plex Mono;font-size:40px;color:var(--gold);margin:6px 0}
+.plan ul{list-style:none;text-align:left;margin:16px 0;display:flex;flex-direction:column;gap:9px}
+.plan li{font-size:14px;padding-left:26px;position:relative}
+.plan li::before{content:'\2713';position:absolute;left:0;color:var(--gold);font-weight:800}
+.plan .cta{width:100%;margin-top:8px;padding:14px}
+.guard{text-align:center;font-size:12px;color:var(--mut);margin-top:10px}
+footer{border-top:1px solid var(--line);margin-top:34px;padding-top:16px;font-size:12px;color:var(--mut);text-align:center}
+.empty{padding:30px;text-align:center;color:var(--mut);grid-column:1/-1}
+</style></head>
+<body><div class="wrap">
+<header>
+ <div class="brand">AUREU<small>Klub Okazji Inwestycyjnych</small></div>
+ <a class="cta" href="https://mdsvcobwuezriexyqqby.supabase.co/functions/v1/consent-form">Aktywuj Premium · 99 zł/mc</a>
+</header>
+<section class="hero">
+ <h1>Okazje inwestycyjne <span>wcześniej niż rynek</span></h1>
+ <p>AUREU zbiera, weryfikuje i dostarcza okazje z licytacji komorniczych i przetargów — z ceną wywoławczą, wyceną, rabatem i terminem. Premium odblokowuje pełne dane, AUREU Score i alerty.</p>
+ <a class="cta" href="https://mdsvcobwuezriexyqqby.supabase.co/functions/v1/consent-form">Aktywuj Premium · 99 zł/mc</a>
+ <div class="sub">Dostęp od razu po płatności · możesz zrezygnować w każdej chwili</div>
+</section>
+<div class="kpis" id="kpis" aria-live="polite">
+ <div class="kpi"><div class="n sk">00</div><div class="l">ładowanie…</div></div>
+ <div class="kpi"><div class="n sk">00</div><div class="l">ładowanie…</div></div>
+ <div class="kpi"><div class="n sk">00</div><div class="l">ładowanie…</div></div>
+ <div class="kpi"><div class="n">99 zł</div><div class="l">miesięcznie</div></div>
+</div>
+<h2>Przykładowe okazje z bazy (na żywo)</h2>
+<div class="grid" id="grid"><div class="empty">Ładowanie ofert z bazy…</div></div>
+<div class="plan">
+ <div style="font-family:Fraunces,serif;font-size:22px;font-weight:700">AUREU Premium</div>
+ <div class="pr">99 zł<span style="font-size:15px;color:var(--mut)">/mc</span></div>
+ <ul>
+  <li>Pełne dane każdej okazji + link do obwieszczenia</li>
+  <li>Źródło i data weryfikacji</li>
+  <li>AUREU Score i historia ceny</li>
+  <li>Alerty wg kategorii i lokalizacji</li>
+  <li>Lista obserwowanych okazji</li>
+  <li>Kalkulator marży i rękojmi</li>
+ </ul>
+ <a class="cta" href="https://mdsvcobwuezriexyqqby.supabase.co/functions/v1/consent-form">Aktywuj Premium · 99 zł/mc</a>
+ <div class="guard">Płatność obsługuje Stripe. Dostęp nadawany automatycznie.</div>
+</div>
+<footer>AUREU — serwis informacyjny prezentujący publicznie dostępne obwieszczenia o licytacjach. Dane: licytacje.komornik.pl. Nie prowadzimy licytacji i nie stanowi to doradztwa inwestycyjnego.</footer>
+</div>
+<script>
+var SB='https://mdsvcobwuezriexyqqby.supabase.co',ANON='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1kc3Zjb2J3dWV6cmlleHlxcWJ5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgwNjMxMjMsImV4cCI6MjA5MzYzOTEyM30.o4CVcSf9drtDxlpVv11T_E3N4dd-BSTrQPRCZXfpusg';
+function PLN(v){return v==null?'-':new Intl.NumberFormat('pl-PL',{style:'currency',currency:'PLN',maximumFractionDigits:0}).format(v);}
+fetch(SB+'/rest/v1/auction_listings?select=title,address,region,estimate,opening_price,discount_pct,auction_date&status=eq.active&order=discount_pct.desc&limit=6',{headers:{apikey:ANON,Authorization:'Bearer '+ANON}})
+.then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(d){
+ var l=Array.isArray(d)?d:[];var g=document.getElementById('grid');
+ if(!l.length){g.innerHTML='<div class="empty">Brak aktywnych ofert w tej chwili.</div>';return;}
+ g.innerHTML=l.map(function(o){return '<article class="card"><span class="disc">-'+Math.round(o.discount_pct||0)+'%</span><div class="ctitle">'+(o.title||'Nieruchomość')+'</div><div class="caddr">'+(o.address||o.region||'-')+'</div><div class="prices"><span class="pnow">'+PLN(o.opening_price)+'</span><span class="pest">'+PLN(o.estimate)+'</span></div><div class="lock"><span aria-hidden="true">🔒</span> Termin, link do obwieszczenia i AUREU Score — <b>w Premium</b></div></article>';}).join('');
+}).catch(function(){document.getElementById('grid').innerHTML='<div class="empty">Nie udało się wczytać ofert. Odśwież stronę.</div>';});
+fetch(SB+'/rest/v1/auction_listings?select=discount_pct,auction_date&status=eq.active',{headers:{apikey:ANON,Authorization:'Bearer '+ANON}})
+.then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(d){
+ var l=Array.isArray(d)?d:[];var n=l.length;var dated=l.filter(function(o){return o.auction_date}).length;
+ var ds=l.map(function(o){return o.discount_pct||0}).sort(function(a,b){return a-b});var med=ds.length?Math.round(ds[Math.floor(ds.length/2)]):0;
+ document.getElementById('kpis').innerHTML=[[n,'aktywnych okazji'],[med+'%','mediana rabatu'],[dated,'z terminem'],['99 zł','miesięcznie']].map(function(x){return '<div class="kpi"><div class="n">'+x[0]+'</div><div class="l">'+x[1]+'</div></div>'}).join('');
+}).catch(function(){document.getElementById('kpis').innerHTML=[['—','okazje'],['—','rabat'],['—','z terminem'],['99 zł','miesięcznie']].map(function(x){return '<div class="kpi"><div class="n">'+x[0]+'</div><div class="l">'+x[1]+'</div></div>'}).join('');});
+</script></body></html>
