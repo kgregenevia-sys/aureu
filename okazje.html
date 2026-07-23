@@ -114,21 +114,32 @@ function card(o){
 function load(first){
  if(loading||done)return;loading=true;
  if(first)E('grid').innerHTML=skel(8);
- E('count').textContent='Ładowanie…';
- fetch(url(),{headers:{apikey:ANON,Authorization:'Bearer '+ANON,Prefer:'count=estimated'}}).then(function(r){
-   var total=r.headers.get('content-range');total=total?total.split('/')[1]:null;
-   return r.json().then(function(d){return {d:d,total:total}});
+ E('count').textContent='Ładowanie ofert…';
+ var ctrl=('AbortController'in window)?new AbortController():null;
+ var to=setTimeout(function(){if(ctrl)ctrl.abort();},12000);
+ fetch(url(),{headers:{apikey:ANON,Authorization:'Bearer '+ANON},signal:ctrl?ctrl.signal:undefined}).then(function(r){
+   clearTimeout(to);
+   if(!r.ok&&r.status!==206) throw new Error('HTTP '+r.status);
+   var cr=r.headers.get('content-range');var total=cr&&cr.indexOf('/')>=0?cr.split('/')[1]:null;
+   return r.json().then(function(d){return {d:d,total:total};});
  }).then(function(res){
    var d=Array.isArray(res.d)?res.d:[];
    if(first)E('grid').innerHTML='';
-   if(!d.length&&offset===0){E('grid').innerHTML='<div class="state">Brak ofert dla tego filtra. Zmień kategorię lub wyczyść szukanie.</div>';E('count').textContent='0 ofert';loading=false;done=true;return;}
+   if(!d.length&&offset===0){E('grid').innerHTML='<div class="state">Brak ofert dla tego filtra.<br><button class="cta" style="margin-top:12px" onclick="clearFilters()">Wyczyść filtry</button></div>';E('count').textContent='0 ofert';loading=false;done=true;return;}
    E('grid').insertAdjacentHTML('beforeend',d.map(card).join(''));
    offset+=d.length;
    if(d.length<PAGE){done=true;E('more').style.display='none';}else{E('more').style.display='inline-block';}
-   E('count').textContent=(res.total&&res.total!=='*'?('Zweryfikowanych ofert: '+res.total+' · '):'')+'pokazano '+offset;
+   E('count').textContent=(res.total&&res.total!=='*'?('Zweryfikowanych: '+res.total+' · '):'')+'pokazano '+offset;
    loading=false;
- }).catch(function(){E('grid').innerHTML='<div class="state">Nie udało się wczytać ofert. Odśwież stronę.</div>';E('count').textContent='';loading=false;});
+ }).catch(function(err){
+   clearTimeout(to);loading=false;
+   var msg=(err&&/abort/i.test(String(err.name||err)))?'Przekroczono czas oczekiwania (wolne połączenie).':'Nie udało się wczytać ofert.';
+   E('grid').innerHTML='<div class="state">'+msg+'<br><span style="font-size:11px;opacity:.7">'+esc(String(err&&err.message||err))+'</span><br><button class="cta" style="margin-top:12px" onclick="retry()">Spróbuj ponownie</button></div>';
+   E('count').textContent='';
+ });
 }
+function retry(){loading=false;done=false;offset=0;load(true);}
+function clearFilters(){cat='';q='';E('q').value='';chips();reset();}
 var qt;E('q').addEventListener('input',function(){q=E('q').value.trim();clearTimeout(qt);qt=setTimeout(reset,350)});
 E('sort').addEventListener('change',function(){sort=E('sort').value;reset()});
 E('more').addEventListener('click',function(){load(false)});
