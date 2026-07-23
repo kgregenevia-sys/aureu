@@ -780,7 +780,7 @@ boot();
   function tok(){try{return localStorage.getItem('aureu_tok')||new URLSearchParams(location.search).get('t')||''}catch(e){return ''}}
   window.holoVipOpen=function(){
     var f=document.getElementById('holoVipFrame');
-    if(!f.src){var t=tok();f.src='https://mdsvcobwuezriexyqqby.supabase.co/functions/v1/vip-hologram'+(t?('?t='+encodeURIComponent(t)):'');}
+    if(!f.src){var t=tok();f.src='/holo.html'+(t?('?t='+encodeURIComponent(t)):'');}
     document.getElementById('holoVipOv').classList.add('on');
   };
   window.holoVipClose=function(){document.getElementById('holoVipOv').classList.remove('on');};
