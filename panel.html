@@ -742,10 +742,14 @@ const agent=document.getElementById('agent'),csl=document.getElementById('consol
 let roam=true, greeted=false;
 function moveAgent(){
   if(!roam) return;
-  agent.style.left='auto'; agent.style.top='42%';
-  agent.style.right='14px'; agent.style.bottom='auto';
+  var vw=innerWidth, vh=innerHeight, m=14, w=100, h=160;
+  var spots=[[vw-w-m,vh*0.12],[vw-w-m,vh*0.44],[vw-w-m,vh*0.72],[m,vh*0.34],[m,vh*0.60],[vw*0.5-w/2,m],[vw-w-m,vh-h-m],[m,vh-h-m]];
+  var s=spots[Math.floor(Math.random()*spots.length)];
+  agent.style.left=Math.max(m,Math.min(vw-w-m,s[0]))+'px';
+  agent.style.top=Math.max(m,Math.min(vh-h-m,s[1]))+'px';
+  agent.style.right='auto'; agent.style.bottom='auto';
 }
-setTimeout(moveAgent,400); setInterval(moveAgent,9000);
+setTimeout(moveAgent,600); setInterval(moveAgent,5500);
 addEventListener('resize',()=>{if(roam)moveAgent();});
 
 function bub(t,w){const d=document.createElement('div');d.className='msg '+w;d.innerHTML=t;cBody.appendChild(d);cBody.scrollTop=cBody.scrollHeight;}
