@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" font-family="Georgia, 'Times New Roman', serif">
+<rect width="1200" height="630" fill="#08211F"/>
+<rect width="1200" height="10" fill="#E8B04B"/>
+<text x="70" y="180" font-size="96" font-weight="900" fill="#E8B04B">AUREU</text>
+<text x="78" y="222" font-family="Inter, Arial, sans-serif" font-size="24" letter-spacing="6" fill="#8fa8a2">KLUB OKAZJI INWESTYCYJNYCH</text>
+<text x="70" y="330" font-size="52" font-weight="700" fill="#EAF3F0">Okazje — na żywo z bazy</text>
+<text x="70" y="392" font-family="Inter, Arial, sans-serif" font-size="30" fill="#cfe3dd">Licytacje komornicze · Zegarki · Auta · Torebki</text>
+<g font-family="Inter, Arial, sans-serif">
+<rect x="70" y="450" width="330" height="110" rx="18" fill="#0F3A36" stroke="#1b4b46"/>
+<text x="95" y="512" font-size="40" font-weight="700" fill="#F6D488">2 743</text>
+<text x="95" y="545" font-size="19" fill="#8fa8a2">zweryfikowanych ofert</text>
+<rect x="420" y="450" width="360" height="110" rx="18" fill="#0F3A36" stroke="#1b4b46"/>
+<text x="445" y="512" font-size="40" font-weight="700" fill="#F6D488">AUREU Score</text>
+<text x="445" y="545" font-size="19" fill="#8fa8a2">na każdej ofercie</text>
+<rect x="800" y="450" width="330" height="110" rx="18" fill="#0F3A36" stroke="#1b4b46"/>
+<text x="825" y="512" font-size="40" font-weight="700" fill="#F6D488">źródło</text>
+<text x="825" y="545" font-size="19" fill="#8fa8a2">link na każdej karcie</text>
+</g>
+</svg>
