@@ -1,0 +1,111 @@
+<!DOCTYPE html><html lang="pl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>AUREU · Doradca VIP</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@700;900&family=Inter:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--acc:#3fe0ff}*{box-sizing:border-box;margin:0;padding:0}html,body{height:100%}
+body{background:#02080e;color:#eaf6fa;font-family:Inter,system-ui,sans-serif;display:flex;justify-content:center}
+.app{max-width:460px;width:100%;display:flex;flex-direction:column;height:100vh}
+.top{display:flex;gap:8px;justify-content:center;padding:12px}
+.pill{border:1px solid #1c4a5e;background:#0a2231;color:#8fe0ff;border-radius:999px;padding:8px 16px;font-weight:700;font-size:14px;cursor:pointer}
+.pill.on{background:linear-gradient(135deg,#3fe0ff,#ff8fd6);color:#04202b}
+.stage{position:relative;height:44vh;min-height:300px;background:#030a12;overflow:hidden}
+canvas{position:absolute;inset:0;width:100%;height:100%}
+.tag{position:absolute;top:8px;left:0;right:0;text-align:center;font-size:10px;letter-spacing:3px;color:#8fe0ff;opacity:.8;text-transform:uppercase}
+.fomo{text-align:center;font-size:12px;color:#ffd08a;background:#1a1206;border-top:1px solid #3a2a10;border-bottom:1px solid #3a2a10;padding:6px 10px}
+.who{text-align:center;padding:6px 0 2px;font-family:Fraunces,serif;font-weight:900;font-size:19px}.who span{color:var(--acc)}
+.who small{display:block;font-family:Inter;font-weight:500;font-size:11px;color:#8fa8b6}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:8px 14px}
+.chip{white-space:nowrap;border:1px solid #1c4a5e;background:#0a2231;color:#8fe0ff;border-radius:999px;padding:7px 13px;font-size:13px;cursor:pointer}
+.chip.hot{border-color:#ff8fd6;color:#ffc7e6}
+.msgs{flex:1;overflow-y:auto;padding:6px 14px;display:flex;flex-direction:column;gap:9px}
+.b{max-width:88%;padding:10px 13px;border-radius:14px;font-size:14px;line-height:1.5;white-space:pre-wrap}
+.b.h{align-self:flex-start;background:#0c2836;border:1px solid #16455b;border-left:3px solid var(--acc)}
+.b.u{align-self:flex-end;background:linear-gradient(135deg,#123a4d,#0e2c3b)}
+.sp{margin-top:6px;font-size:12px;color:#8fe0ff;cursor:pointer}
+.dots{color:#8fa8b6;font-size:13px;padding:2px 4px}
+.inp{display:flex;gap:8px;padding:10px 12px calc(12px + env(safe-area-inset-bottom));border-top:1px solid #10303f;background:#03121a}
+.inp input{flex:1;background:#0a2231;border:1px solid #1c4a5e;color:#fff;border-radius:12px;padding:12px 14px;font-size:14px;outline:none}
+.micbtn{background:#0a2231;border:1px solid #1c4a5e;color:#8fe0ff;border-radius:12px;padding:0 13px;font-size:18px;cursor:pointer}
+.micbtn.on{background:linear-gradient(135deg,#ff6b8f,#ff8fd6);color:#fff;animation:pl 1s infinite}
+@keyframes pl{0%,100%{box-shadow:0 0 0 0 rgba(255,107,143,.55)}50%{box-shadow:0 0 0 9px rgba(255,107,143,0)}}
+.inp .snd{background:linear-gradient(135deg,#3fe0ff,#ff8fd6);color:#04202b;border:none;font-weight:800;border-radius:12px;padding:0 15px;cursor:pointer}
+.ov{display:none;position:fixed;inset:0;background:rgba(2,8,14,.82);z-index:50;align-items:flex-end;justify-content:center}
+.sheet{max-width:460px;width:100%;background:#08202c;border-top:2px solid var(--acc);border-radius:18px 18px 0 0;padding:18px 16px calc(18px + env(safe-area-inset-bottom))}
+.wq{font-family:Fraunces,serif;font-weight:900;font-size:17px;margin-bottom:8px}
+.wl{font-size:13px;color:#9fc0cf;margin:8px 0 4px}
+.win{width:100%;background:#0a2231;border:1px solid #1c4a5e;color:#fff;border-radius:12px;padding:12px 14px;font-size:15px;outline:none;margin-bottom:6px}
+.wb{width:100%;background:linear-gradient(135deg,#3fe0ff,#ff8fd6);color:#04202b;border:none;font-weight:800;border-radius:12px;padding:13px;font-size:15px;cursor:pointer;margin-top:6px}
+.abc{background:#0a2231;border:1px solid #1c4a5e;border-radius:12px;padding:11px;font-size:13px;margin:7px 0;cursor:pointer}
+.abc:active{border-color:var(--acc)}
+.x{display:block;width:100%;background:none;border:none;color:#8fa8b6;font-size:13px;margin-top:10px;cursor:pointer}
+.stage canvas{opacity:.5}.holo{position:absolute;left:50%;bottom:0;transform:translateX(-50%);height:99%;width:auto;object-fit:contain;object-position:bottom;filter:drop-shadow(0 0 22px rgba(63,224,255,.55)) saturate(1.12) brightness(1.05) contrast(1.03);opacity:.95;pointer-events:none;z-index:2;-webkit-mask-image:linear-gradient(to top,transparent 0,#000 9%);mask-image:linear-gradient(to top,transparent 0,#000 9%);animation:hfloat 5.5s ease-in-out infinite}@keyframes hfloat{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(-7px)}}.holo.speaking{filter:drop-shadow(0 0 34px rgba(63,224,255,.95)) drop-shadow(0 0 14px rgba(255,143,214,.6)) saturate(1.22) brightness(1.12);animation:hspeak .46s ease-in-out infinite}@keyframes hspeak{0%,100%{transform:translateX(-50%) scale(1)}50%{transform:translateX(-50%) scale(1.02)}}.scan{position:absolute;inset:0;z-index:3;pointer-events:none;opacity:.45;background:repeating-linear-gradient(to bottom,rgba(63,224,255,.06) 0,rgba(63,224,255,.06) 1px,transparent 2px,transparent 4px)}.tag{z-index:4}</style></head><body><div class="app">
+<div class="top"><span id="pv" class="pill on" onclick="setP('valeria')">VALERIA</span><span id="pa" class="pill" onclick="setP('aureon')">AUREON</span><span class="pill" onclick="toggleTts()" id="tt">🔊</span></div>
+<div class="stage"><div class="tag">AUREU · VIP HOLOGRAM</div><canvas id="c"></canvas><img id="holo" class="holo" alt="" crossorigin="anonymous"><div class="scan"></div></div>
+<div class="fomo" id="fomo">Ładowanie okazji…</div>
+<div class="who"><span id="nm">VALERIA</span><small id="ds">Ekspertka ds. zysku · AI</small></div>
+<div class="chips">
+<span class="chip hot" onclick="simulator()">🎯 Ile dajesz?</span>
+<span class="chip hot" onclick="ab()">⚖️ A czy B?</span>
+<span class="chip hot" onclick="calc()">🧮 Kalkulator ROI</span>
+<span class="chip" onclick="micro('obserwuj')">⭐ Obserwuj</span>
+<span class="chip" onclick="micro('alert')">🔔 Włącz alerty</span>
+</div>
+<div class="chips">
+<span class="chip" onclick="ask('Pokaż najlepszą okazję dnia i policz rękojmię.')">💎 Okazja dnia</span>
+<span class="chip" onclick="ask('Analiza ryzyka najlepszej okazji — na co uważać?')">⚠️ Ryzyko</span>
+<span class="chip" onclick="ask('Co dziś obserwuję i czy zbliża się termin?')">📅 Terminy</span>
+</div>
+<div class="msgs" id="m"></div>
+<div class="inp"><button class="micbtn" id="mic" onclick="mic()" title="Mów">🎤</button><input id="q" placeholder="Mów lub pisz…" onkeydown="if(event.key==='Enter')send()"><button class="snd" onclick="send()">Wyślij</button></div>
+</div>
+<div class="ov" id="ov"><div class="sheet"><div id="ovc"></div><button class="x" onclick="closeOv()">Zamknij</button></div></div>
+<script>
+var SB='https://mdsvcobwuezriexyqqby.supabase.co';
+var ANON='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1kc3Zjb2J3dWV6cmlleHlxcWJ5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgwNjMxMjMsImV4cCI6MjA5MzYzOTEyM30.o4CVcSf9drtDxlpVv11T_E3N4dd-BSTrQPRCZXfpusg';
+var EP=SB+'/functions/v1/hologram-chat';
+var TOKEN=new URLSearchParams(location.search).get('t')||'AUREU-OWNER_VIP-22a393e090';
+var doradca='valeria',tts=true,voiceMode=false,REC=null,listening=false,OFF=[];
+var IMG_VAL="https://mdsvcobwuezriexyqqby.supabase.co/storage/v1/object/public/site/aureu/holo-valeria.webp";
+var IMG_AUR="https://mdsvcobwuezriexyqqby.supabase.co/storage/v1/object/public/site/aureu/holo-aureon.webp";
+function setHolo(){var el=E("holo");if(el)el.src=(doradca==="aureon"?IMG_AUR:IMG_VAL);}
+function E(i){return document.getElementById(i)}
+function PLN(v){return v==null?'-':new Intl.NumberFormat('pl-PL',{style:'currency',currency:'PLN',maximumFractionDigits:0}).format(v);}
+function api(bd){return fetch(EP,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(Object.assign({token:TOKEN,doradca:doradca},bd))}).then(function(r){return r.json()});}
+function cap(signals,text){var bd={action:'capture'};if(signals)bd.signals=signals;if(text)bd.text=text;return api(bd);}
+function sbGet(q){return fetch(SB+'/rest/v1/'+q,{headers:{apikey:ANON,Authorization:'Bearer '+ANON}}).then(function(r){return r.json()});}
+function acc(t){t=(t||'').toLowerCase();var c='#3fe0ff';if(/jutro|dziś|dzisiaj|pilne|ostatni|24 ?h/.test(t))c='#ff6b8f';else if(/okazj|rabat|dyskont|zysk|poniżej|marż/.test(t))c='#E8B04B';document.documentElement.style.setProperty('--acc',c);}
+function bub(txt,w){var d=document.createElement('div');d.className='b '+(w==='u'?'u':'h');d.textContent=txt;if(w!=='u'){var s=document.createElement('div');s.className='sp';s.textContent='🔊 posłuchaj';s.onclick=function(){speak(txt)};d.appendChild(s);}E('m').appendChild(d);E('m').scrollTop=E('m').scrollHeight;return d;}
+function dts(){var d=document.createElement('div');d.className='dots';d.textContent='● ● ●';E('m').appendChild(d);E('m').scrollTop=E('m').scrollHeight;return d;}
+function speak(t){try{speechSynthesis.cancel();var u=new SpeechSynthesisUtterance(t);u.lang='pl-PL';u.rate=1.03;var v=speechSynthesis.getVoices().filter(function(x){return x.lang&&x.lang.indexOf('pl')===0});if(v[0])u.voice=v[0];var el=E('holo');u.onstart=function(){if(el)el.classList.add('speaking');};u.onend=function(){if(el)el.classList.remove('speaking');};u.onerror=function(){if(el)el.classList.remove('speaking');};speechSynthesis.speak(u);}catch(e){}}
+function toggleTts(){tts=!tts;E('tt').textContent=tts?'🔊':'🔇';}
+function mic(){var SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR){alert('Ta przeglądarka nie wspiera mowy — użyj Chrome.');return;}if(listening){try{REC.stop()}catch(e){};return;}REC=new SR();REC.lang='pl-PL';REC.interimResults=false;REC.maxAlternatives=1;listening=true;voiceMode=true;E('mic').classList.add('on');try{speechSynthesis.cancel()}catch(e){};REC.onresult=function(e){E('q').value=e.results[0][0].transcript;};REC.onerror=function(){listening=false;E('mic').classList.remove('on');};REC.onend=function(){listening=false;E('mic').classList.remove('on');if(E('q').value.trim())send();};REC.start();}
+function setP(d){doradca=d;E('pv').className='pill'+(d==='valeria'?' on':'');E('pa').className='pill'+(d==='aureon'?' on':'');E('nm').textContent=d==='aureon'?'AUREON':'VALERIA';E('ds').textContent=d==='aureon'?'Strategiczny doradca · AI':'Ekspertka ds. zysku · AI';api({action:'save_advisor',doradca:d});setHolo();E('m').innerHTML='';greet();}
+function greet(){var d=dts();api({action:'greeting'}).then(function(r){d.remove();acc(r.reply);bub(r.reply,'h');if(tts)speak(r.reply);}).catch(function(){d.remove();bub('Witaj! Jestem Twoim doradcą AUREU. O co chcesz zapytać?','h');});}
+function ask(t){voiceMode=false;E('q').value=t;send();}
+function send(){var q=E('q').value.trim();if(!q)return;E('q').value='';bub(q,'u');var d=dts();api({action:'chat',message:q}).then(function(r){d.remove();acc(r.reply);bub(r.reply,'h');if(tts||voiceMode)speak(r.reply);voiceMode=false;}).catch(function(){d.remove();bub('Chwilowo brak połączenia. Spróbuj ponownie.','h');});}
+function openOv(html){E('ovc').innerHTML=html;E('ov').style.display='flex';}
+function closeOv(){E('ov').style.display='none';}
+function loadOff(){return sbGet('auction_listings?select=title,address,region,estimate,opening_price,discount_pct,auction_date&status=eq.active&order=discount_pct.desc.nullslast&limit=8').then(function(d){OFF=Array.isArray(d)?d:[];return OFF;});}
+function fomo(){sbGet('auction_listings?select=auction_date&status=eq.active').then(function(d){var l=Array.isArray(d)?d:[];var n=l.length;var today=new Date();var days=null;l.forEach(function(o){if(o.auction_date){var dd=Math.ceil((new Date(o.auction_date)-today)/86400000);if(dd>=0&&(days===null||dd<days))days=dd;}});if(!n){E('fomo').style.display='none';return;}var t='🔥 '+n+' aktywnych okazji w klubie';if(days!==null)t+=' · najbliższy termin za '+days+' dni';E('fomo').textContent=t;}).catch(function(){E('fomo').style.display='none';});}
+function simulator(){loadOff().then(function(o){if(!o.length){openOv('<div class=wq>Brak aktywnych okazji do symulacji.</div>');return;}var x=o[0];openOv('<div class=wq>🎯 '+(x.title||'Nieruchomość')+'</div><div class=wl>'+(x.address||x.region||'')+'</div><div class=wl>Wycena biegłego: <b>'+PLN(x.estimate)+'</b>, cena wywoławcza: <b>'+PLN(x.opening_price)+'</b></div><div class=wl>Ile byś dał na tę licytację?</div><input id=bid class=win inputmode=numeric placeholder="np. 180000"><button class=wb onclick="subBid()">Sprawdź moją szansę</button>');});}
+function subBid(){var v=parseInt((E('bid').value||'').replace(/D/g,''),10);if(!v)return;var x=OFF[0];cap({budget_max:v,last_intent:'symulator licytacji'}).then(function(){var msg='Zapisane. Twój pułap: '+PLN(v)+'. ';if(x&&x.opening_price){msg+=v>=x.opening_price?'To powyżej ceny wywoławczej '+PLN(x.opening_price)+' — realna szansa na wygraną.':'To poniżej wywoławczej '+PLN(x.opening_price)+' — albo celuj wyżej, albo poszukajmy tańszej okazji.';}closeOv();acc(msg);bub(msg,'h');if(tts)speak(msg);});}
+function ab(){loadOff().then(function(o){if(o.length<2){openOv('<div class=wq>Za mało okazji do porównania w tej chwili.</div>');return;}openOv('<div class=wq>⚖️ Którą wolisz?</div>'+card(o[0],0)+card(o[1],1));});}
+function card(x,i){return '<div class=abc onclick="pick('+i+')"><b>'+(x.title||'Nieruchomość')+'</b><br><small>'+(x.address||x.region||'')+'</small><br>'+PLN(x.opening_price)+' <s>'+PLN(x.estimate)+'</s> (-'+Math.round(x.discount_pct||0)+'%)</div>';}
+function pick(i){var x=OFF[i];var loc=x.region||((x.address||'').split(',').pop()||'').trim();var sig={kategorie:['nieruchomosci'],last_intent:'sonda A/B'};if(loc)sig.lokalizacja=loc;cap(sig).then(function(){closeOv();var msg='Zapamiętałem, że bardziej pociąga Cię ta okazja'+(loc?' w '+loc:'')+'. Dobiorę Ci podobne.';acc(msg);bub(msg,'h');if(tts)speak(msg);});}
+function calc(){openOv('<div class=wq>🧮 Kalkulator marży</div><div class=wl>Cena zakupu (zł)</div><input id=ck class=win inputmode=numeric placeholder="np. 200000"><div class=wl>Wartość rynkowa / po remoncie (zł)</div><input id=cm class=win inputmode=numeric placeholder="np. 320000"><button class=wb onclick="subCalc()">Policz marżę</button>');}
+function subCalc(){var k=parseInt((E('ck').value||'').replace(/D/g,''),10);var m=parseInt((E('cm').value||'').replace(/D/g,''),10);if(!k||!m)return;var marza=m-k;var roi=Math.round(marza/k*100);cap({budget_max:k,oczekiwany_zwrot:roi+'%',last_intent:'kalkulator ROI'}).then(function(){closeOv();var msg='Przy zakupie '+PLN(k)+' i wartości '+PLN(m)+' marża to '+PLN(marza)+' (ROI ~'+roi+'%). Zapisałem Twój cel zwrotu i budżet.';acc(msg);bub(msg,'h');if(tts)speak(msg);});}
+function micro(t){if(t==='obserwuj'){cap({early_access:'tak',last_intent:'obserwuje'}).then(function(){bub('Dodane do obserwowanych ⭐ Będę pilnować podobnych okazji.','h');});}else{cap({kanal_kontaktu:'email',zgoda_marketing:true,last_intent:'wlaczyl alerty'}).then(function(){bub('Alerty włączone ✅ Odezwę się mailem, gdy pojawi się dopasowana okazja.','h');});}}
+var exitShown=false;
+function exitIntent(){if(exitShown)return;exitShown=true;openOv('<div class=wq>Zanim pójdziesz…</div><div class=wl>Co Cię dziś najbardziej powstrzymuje przed inwestycją?</div><input id=exq class=win placeholder="jednym zdaniem"><button class=wb onclick="subExit()">Wyślij</button>');}
+function subExit(){var v=(E('exq').value||'').trim();closeOv();if(v){cap(null,v).then(function(){});var msg='Dzięki — zapamiętam to i będę dobierać okazje bez tego problemu.';bub(msg,'h');if(tts)speak(msg);}}
+document.addEventListener('mouseout',function(e){if(e.clientY<=0&&!e.relatedTarget)exitIntent();});
+try{history.pushState(null,'',location.href);addEventListener('popstate',function(){exitIntent();history.pushState(null,'',location.href);});}catch(e){}
+var cv=document.getElementById('c'),X=cv.getContext('2d'),W,Hh;function rs(){var r=cv.getBoundingClientRect();W=r.width;Hh=r.height;cv.width=W*2;cv.height=Hh*2;X.setTransform(2,0,0,2,0,0);}addEventListener('resize',rs);rs();
+function mix(a,b,t){return [a[0]+(b[0]-a[0])*t,a[1]+(b[1]-a[1])*t,a[2]+(b[2]-a[2])*t];}
+var C1=[40,120,255],C2=[47,240,208],C3=[255,120,210];var SPR=[];
+for(var h=0;h<16;h++){var tt2=h/15;var col=tt2<.5?mix(C1,C2,tt2*2):mix(C2,C3,(tt2-.5)*2);var s=document.createElement('canvas');s.width=s.height=36;var gg=s.getContext('2d');var rg=gg.createRadialGradient(18,18,0,18,18,18);var rc=(col[0]|0)+','+(col[1]|0)+','+(col[2]|0);rg.addColorStop(0,'rgba('+rc+',1)');rg.addColorStop(.35,'rgba('+rc+',.5)');rg.addColorStop(1,'rgba('+rc+',0)');gg.fillStyle=rg;gg.fillRect(0,0,36,36);SPR.push(s);}
+var N=300,G=Math.PI*(3-Math.sqrt(5)),P=[];for(var i=0;i<N;i++){var y=1-i/(N-1)*2,rr=Math.sqrt(1-y*y),th=i*G;P.push([Math.cos(th)*rr,y,Math.sin(th)*rr]);}
+var t=0;function draw(){t+=.012;X.clearRect(0,0,W,Hh);var cx=W/2,cy=Hh*.5,R=Math.min(W,Hh)*.33;X.globalCompositeOperation='lighter';var a=t*.5,b=.34;
+for(var i=0;i<P.length;i++){var p=P[i];var wob=1+.14*Math.sin(t*1.6+p[1]*3.5)+.09*Math.sin(t*2.3+p[0]*4+p[2]*3);var px=p[0]*wob,py=p[1]*wob,pz=p[2]*wob;var Xc=px*Math.cos(a)+pz*Math.sin(a);var Zc=-px*Math.sin(a)+pz*Math.cos(a);var Yc=py*Math.cos(b)-Zc*Math.sin(b);var Z2=py*Math.sin(b)+Zc*Math.cos(b);var pe=2.4/(2.4+Z2);var sx=cx+Xc*R*pe,sy=cy+Yc*R*pe;X.globalAlpha=Math.max(0,(Z2+1.25)/2.5);var hue=Math.floor((py*.5+.5)*15);if(hue<0)hue=0;if(hue>15)hue=15;var sz=(3+5.5*pe);X.drawImage(SPR[hue],sx-sz/2,sy-sz/2,sz,sz);}
+X.globalAlpha=1;X.globalCompositeOperation='source-over';requestAnimationFrame(draw);}draw();
+setHolo();fomo();greet();
+</script></body></html>
