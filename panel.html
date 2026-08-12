@@ -201,7 +201,7 @@ h1,h2,h3,.f{font-family:'Sora'}
 .promo-note b{color:var(--gold)}
 
 /* BOT hologram */
-.holoBtn{position:fixed;right:14px;bottom:14px;z-index:55;background:none;border:0;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px}
+.holoBtn{position:fixed;right:14px;bottom:calc(14px + env(safe-area-inset-bottom));z-index:55;background:none;border:0;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px}
 .holoBtn .mini2{position:relative;width:60px;height:60px;display:grid;place-items:center}
 .holoBtn .r{position:absolute;inset:0;border-radius:50%;border:1px solid rgba(34,211,238,.5);animation:spinZ 8s linear infinite}
 .holoBtn .r.b{inset:8px;border-color:rgba(139,92,246,.5);border-style:dashed;animation:spinZ 12s linear infinite reverse}
@@ -261,7 +261,7 @@ h1,h2,h3,.f{font-family:'Sora'}
   .roomstitle{margin-top:4px}
   .footbar{flex-wrap:wrap;gap:12px}
   .footbar .plans{margin-left:0;flex-basis:100%;justify-content:space-between}
-  .holoBtn{right:10px;bottom:10px}
+  .holoBtn{right:10px;bottom:calc(10px + env(safe-area-inset-bottom))}
 }
 @media(max-width:520px){
   .kpis{grid-template-columns:1fr 1fr}
@@ -280,7 +280,7 @@ h1,h2,h3,.f{font-family:'Sora'}
 .holoBtn .scan2::before{content:"";position:absolute;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,rgba(34,211,238,.8),transparent);animation:scanm 3s linear infinite}
 @keyframes scanm{0%{top:12%}100%{top:88%}}
 /* console */
-.console{position:fixed;right:14px;bottom:16px;z-index:70;width:min(360px,calc(100vw - 28px));max-height:min(74vh,560px);
+.console{position:fixed;right:14px;bottom:calc(100px + env(safe-area-inset-bottom));z-index:70;width:min(360px,calc(100vw - 28px));max-height:min(74vh,560px);
   display:none;flex-direction:column;background:linear-gradient(180deg,rgba(14,17,25,.97),rgba(10,12,19,.98));
   border:1px solid rgba(34,211,238,.35);border-radius:20px;overflow:hidden;box-shadow:0 30px 70px rgba(0,0,0,.6),0 0 50px rgba(34,211,238,.12);animation:grow .28s ease}
 .console.open{display:flex}
@@ -868,7 +868,7 @@ function cardKlub(l){
 /* AUREU Etap A - uczciwa obsluga sekcji bez backendu (addytywne, nie rusza dzialajacych akcji) */
 (function(){
   var SOON={'Moje alerty':'alerty','Obserwowane':'obs','Analizy AI':'analiza','Kalkulator':'analiza','CRM':'dash','Dokumenty':'dash','Partnerzy':'dash','Dashboard':'dash','Okazje Live':'okazje','Oferty':'okazje','Subskrypcja':'dash'};
-  function toast(msg){var t=document.getElementById('aureuToast');if(!t){t=document.createElement('div');t.id='aureuToast';t.style.cssText='position:fixed;left:50%;bottom:28px;transform:translateX(-50%);background:#0F3A36;color:#EAF3F0;border:1px solid #E8B04B;padding:12px 20px;border-radius:12px;font-family:Inter,system-ui,sans-serif;font-size:14px;z-index:99999;box-shadow:0 8px 30px rgba(0,0,0,.45);opacity:0;transition:opacity .2s;max-width:90vw;text-align:center';document.body.appendChild(t);}t.textContent=msg;t.style.opacity='1';clearTimeout(t._h);t._h=setTimeout(function(){t.style.opacity='0';},2800);}
+  function toast(msg){var t=document.getElementById('aureuToast');if(!t){t=document.createElement('div');t.id='aureuToast';t.style.cssText='position:fixed;left:50%;bottom:28px;transform:translateX(-50%);background:#0F3A36;color:#EAF3F0;border:1px solid #E8B04B;padding:12px 20px;border-radius:12px;font-family:Inter,system-ui,sans-serif;font-size:14px;z-index:9800;box-shadow:0 8px 30px rgba(0,0,0,.45);opacity:0;transition:opacity .2s;max-width:90vw;text-align:center';document.body.appendChild(t);}t.textContent=msg;t.style.opacity='1';clearTimeout(t._h);t._h=setTimeout(function(){t.style.opacity='0';},2800);}
   function walk(){document.querySelectorAll('a,button,div,span,li').forEach(function(el){var txt=(el.textContent||'').trim();if(!SOON[txt])return;if(el.children.length>2)return;if(el.getAttribute('onclick'))return;if(el.dataset.aureuBound)return;el.dataset.aureuBound='1';el.style.cursor='pointer';el.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();if(window.aureuOpenPanel){window.aureuOpenPanel(SOON[txt]);}else{toast('Zaloguj sie kodem, aby wejsc do panelu.');}});});}
   if(document.readyState!=='loading')walk();else document.addEventListener('DOMContentLoaded',walk);
 })();
@@ -883,7 +883,7 @@ function cardKlub(l){
   function getTok(){var u=q('t')||q('token');if(u){try{localStorage.setItem('aureu_tok',u);}catch(e){}return u;}try{return localStorage.getItem('aureu_tok');}catch(e){return null;}}
   window.aureuLogout=function(){try{localStorage.removeItem('aureu_tok');}catch(e){}location.href=location.pathname;};
   window.aureuLogin=function(){var t=prompt('Podaj swoj kod dostepu AUREU (z e-maila po zakupie):');if(t)location.href=location.pathname+'?t='+encodeURIComponent(t.trim());};
-  function bar(html){var b=document.getElementById('aureuMemberBar');if(!b){b=document.createElement('div');b.id='aureuMemberBar';b.style.cssText='position:fixed;top:0;left:0;right:0;z-index:99998;background:#08211F;border-bottom:1px solid #E8B04B;color:#EAF3F0;font-family:Inter,system-ui,sans-serif;font-size:13px;padding:8px 16px;display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap';document.body.appendChild(b);document.body.style.paddingTop='42px';}b.innerHTML=html;}
+  function bar(html){var b=document.getElementById('aureuMemberBar');if(!b){b=document.createElement('div');b.id='aureuMemberBar';b.style.cssText='position:fixed;top:0;left:0;right:0;z-index:9750;background:#08211F;border-bottom:1px solid #E8B04B;color:#EAF3F0;font-family:Inter,system-ui,sans-serif;font-size:13px;padding:8px 16px;display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap';document.body.appendChild(b);document.body.style.paddingTop='42px';}b.innerHTML=html;}
   function apply(m){
     if(m&&m.ok){
       var _tl=(m.tier==='komplet')?'VIP Komplet + Hologram':(m.holo?'VIP + Hologram &#128302;':(m.tier==='viz'?'Wizualizacje 360':'Premium Klub'));if(m.holo){document.body.dataset.aureuHolo='1';} bar('&#128275; Zalogowano: <b style="color:#E8B04B">'+m.email+'</b> &middot; '+_tl+' aktywny <a href="#" onclick="aureuLogout();return false" style="color:#8fa8a2;margin-left:6px">wyloguj</a>');
@@ -900,8 +900,8 @@ function cardKlub(l){
 </script>
 
 <style id="aureuMAcss">
-#aureuLaunch{position:fixed;left:16px;bottom:16px;z-index:99997;background:linear-gradient(120deg,#22D3EE,#8B5CF6);color:#03121a;font:800 13px Inter,system-ui,sans-serif;padding:11px 16px;border-radius:14px;border:none;cursor:pointer;box-shadow:0 8px 30px rgba(34,211,238,.35)}
-#aureuMA{position:fixed;inset:0;z-index:100000;background:radial-gradient(1200px 700px at 60% -10%,rgba(139,92,246,.14),transparent 60%),rgba(4,5,11,.98);backdrop-filter:blur(10px);display:none;font-family:Inter,system-ui,sans-serif;color:#E9ECF3;overflow:auto}
+#aureuLaunch{position:fixed;left:16px;bottom:16px;z-index:9700;background:linear-gradient(120deg,#22D3EE,#8B5CF6);color:#03121a;font:800 13px Inter,system-ui,sans-serif;padding:11px 16px;border-radius:14px;border:none;cursor:pointer;box-shadow:0 8px 30px rgba(34,211,238,.35)}
+#aureuMA{position:fixed;inset:0;z-index:9900;background:radial-gradient(1200px 700px at 60% -10%,rgba(139,92,246,.14),transparent 60%),rgba(4,5,11,.98);backdrop-filter:blur(10px);display:none;font-family:Inter,system-ui,sans-serif;color:#E9ECF3;overflow:auto}
 #aureuMA.open{display:block}
 #aureuMA .ma-wrap{max-width:1180px;margin:0 auto;padding:20px}
 #aureuMA .ma-top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;border-bottom:1px solid rgba(255,255,255,.09);padding-bottom:14px}
