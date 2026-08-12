@@ -589,11 +589,16 @@ h1,h2,h3,.f{font-family:'Sora'}
 .pkBtn.note:hover{background:rgba(255,255,255,.11);color:var(--txt)}
 .pkBtn:disabled{cursor:default;opacity:.6}
 .pkWhy{font-size:11px;color:var(--mut2);line-height:1.45}
+.pkTags{display:flex;flex-wrap:wrap;gap:5px}
+.pkTag{font:600 10px/1.3 Inter,system-ui,sans-serif;padding:3px 7px;border-radius:6px;border:1px solid}
+.pkTag.lic{color:#F5C451;background:rgba(245,196,81,.10);border-color:rgba(245,196,81,.30)}
+.pkTag.prz{color:#22D3EE;background:rgba(34,211,238,.10);border-color:rgba(34,211,238,.30)}
+.pkTag.ryn{color:#8B5CF6;background:rgba(139,92,246,.12);border-color:rgba(139,92,246,.32)}
 .pkLoad{padding:26px;text-align:center;color:var(--mut2);font-size:13px}
 @media(max-width:430px){.pkGrid{grid-template-columns:1fr}}
 </style>
 <div class="pkTitle">POKOJE AUREU <b>· 9 KLAS AKTYW&Oacute;W</b></div>
-<div class="pkSub">Kupujesz ten pok&oacute;j, kt&oacute;ry Ci&#281; interesuje &mdash; nie ca&#322;&#261; platform&#281;. 99 z&#322; za pok&oacute;j, dost&#281;p 30 dni.<br>Pok&oacute;j otwieramy dopiero wtedy, gdy ma realn&#261; poda&#380;. Puste pokoje nie s&#261; na sprzeda&#380;.</div>
+<div class="pkSub">Kupujesz ten pok&oacute;j, kt&oacute;ry Ci&#281; interesuje &mdash; nie ca&#322;&#261; platform&#281;. 99 z&#322; za pok&oacute;j, dost&#281;p 30 dni.<br>Pok&oacute;j otwieramy dopiero wtedy, gdy ma realn&#261; poda&#380;. Puste pokoje nie s&#261; na sprzeda&#380;.<br>Ka&#380;da oferta ma oznaczony typ &mdash; <b style="color:#F5C451">licytacja komornicza</b>, <b style="color:#22D3EE">przetarg publiczny</b> albo <b style="color:#8B5CF6">rynek wt&oacute;rny</b>. Wiesz, co kupujesz.</div>
 <div class="pkGrid" id="pkGrid"><div class="pkLoad">&#321;adowanie pokoi&hellip;</div></div>
 <script>
 (function(){
@@ -610,6 +615,11 @@ h1,h2,h3,.f{font-family:'Sora'}
          +   '<div class="pkStat"><b>'+p.aktualne+'</b><span>aktualnych</span></div>'
          +   '<div class="pkStat"><b>'+p.nowe_30d+'</b><span>nowych /30 dni</span></div>'
          + '</div>';
+      var sk = [];
+      if(p.licytacje > 0)    sk.push('<span class="pkTag lic">'+p.licytacje+' licytacji komorniczych</span>');
+      if(p.przetargi > 0)    sk.push('<span class="pkTag prz">'+p.przetargi+' przetarg\u00f3w publicznych</span>');
+      if(p.rynek_wtorny > 0) sk.push('<span class="pkTag ryn">'+p.rynek_wtorny+' z rynku wt\u00f3rnego</span>');
+      if(sk.length) h += '<div class="pkTags">'+sk.join('')+'</div>';
       h += '<div class="pkFoot"><div class="pkPrice">99 z&#322; <i>/30 dni</i></div>'
          +   '<button class="pkBtn buy" data-kup="'+esc(p.code)+'">Wejd&#378; do pokoju</button></div>';
     } else {
