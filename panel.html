@@ -599,6 +599,22 @@ h1,h2,h3,.f{font-family:'Sora'}
 </style>
 <div class="pkTitle">POKOJE AUREU <b>· 9 KLAS AKTYW&Oacute;W</b></div>
 <div class="pkSub">Kupujesz ten pok&oacute;j, kt&oacute;ry Ci&#281; interesuje &mdash; nie ca&#322;&#261; platform&#281;. 99 z&#322; za pok&oacute;j, dost&#281;p 30 dni.<br>Pok&oacute;j otwieramy dopiero wtedy, gdy ma realn&#261; poda&#380;. Puste pokoje nie s&#261; na sprzeda&#380;.<br>Ka&#380;da oferta ma oznaczony typ &mdash; <b style="color:#F5C451">licytacja komornicza</b>, <b style="color:#22D3EE">przetarg publiczny</b> albo <b style="color:#8B5CF6">rynek wt&oacute;rny</b>. Wiesz, co kupujesz.</div>
+<script>
+/* 2026-08-13 NAPRAWA P0: blok POKOJE i nawigator w dymku wolaly rpc() z zakresu globalnego,
+   a rpc jest zadeklarowane wewnatrz IIFE panelu czlonka. Efekt: siatka pokoi wisiala
+   w nieskonczonosc na "Ladowanie pokoi..." — zero przyciskow kupna na panelu.
+   Tu definiujemy rpc raz, globalnie, zanim cokolwiek go potrzebuje. */
+(function(){
+  if(typeof window.rpc === 'function') return;
+  var SB='https://mdsvcobwuezriexyqqby.supabase.co';
+  var KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1kc3Zjb2J3dWV6cmlleHlxcWJ5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgwNjMxMjMsImV4cCI6MjA5MzYzOTEyM30.o4CVcSf9drtDxlpVv11T_E3N4dd-BSTrQPRCZXfpusg';
+  window.rpc=function(fn,b){
+    return fetch(SB+'/rest/v1/rpc/'+fn,{method:'POST',
+      headers:{apikey:KEY,Authorization:'Bearer '+KEY,'Content-Type':'application/json'},
+      body:JSON.stringify(b||{})}).then(function(r){return r.json();});
+  };
+})();
+</script>
 <div class="pkGrid" id="pkGrid"><div class="pkLoad">&#321;adowanie pokoi&hellip;</div></div>
 <script>
 (function(){
@@ -656,8 +672,12 @@ h1,h2,h3,.f{font-family:'Sora'}
       };
     });
   }
+  var prob=0;
   function start(){
-    if(typeof rpc !== 'function'){ return setTimeout(start, 150); }
+    if(typeof rpc !== 'function'){
+      if(++prob > 40){ render(null); return; }   /* 6 s i koniec — lepiej blad niz wieczny spinner */
+      return setTimeout(start, 150);
+    }
     rpc('aureu_pokoje', {}).then(render).catch(function(){ render(null); });
   }
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start); else start();
@@ -862,7 +882,7 @@ function openBot(){roam=false;agent.style.display='none';csl.classList.add('open
 function closeBot(){csl.classList.remove('open');agent.style.display='flex';roam=true;moveAgent();}
 function greetC(){
   bub("Witaj w <b>AUREU</b>. Jestem holograficznym nawigatorem platformy. Powiem Ci, czym jest AUREU, co zyskujesz, jakie mamy produkty i pokoje — i przeprowadzę Cię przez panel. Od czego zaczynamy?",'a');
-  chips([['Klub licytacji',"closeBot();openKlub()"],['Oferty / ceny',"toSec('#offersSec')"],['Pokoje 99/mc',"toSec('.rooms')"],['VIP Elite',"answerC('vip')",'gold']]);
+  chips([['\u2190 Pokoje \u2192',"navPokoje()",'gold'],['Klub licytacji',"closeBot();openKlub()"],['Oferty / ceny',"toSec('#offersSec')"],['VIP Elite',"answerC('vip')"]]);
 }
 const KBC={
  vip:["<b>VIP Elite — 499 zł/mc.</b> Wcześniejsze alerty, pełne analizy AI, Due Diligence, Portfolio Pro, raporty, pokoje premium, API i priorytetowe wsparcie.",
@@ -1066,5 +1086,157 @@ function cardKlub(l){
 #aureuMA #maBody>.ma-card{min-height:0}
 #aureuMA #maBody iframe{flex:1 1 auto!important;min-height:58vh!important;height:100%!important}
 </style>
+<!-- ===== NAWIGATOR POKOI W DYMKU (strzalki) — 2026-08-13 ===== -->
+<style>
+.nv{margin:6px 0 2px;border-radius:16px;background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.02));
+border:1px solid rgba(255,255,255,.12);padding:13px 13px 11px;user-select:none}
+.nvh{display:flex;align-items:center;gap:10px}
+.nvb{width:38px;height:38px;flex:0 0 38px;border-radius:12px;cursor:pointer;
+background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.16);color:#E9ECF3;
+font:700 20px/1 Inter,system-ui,sans-serif;display:grid;place-items:center;transition:.15s}
+.nvb:hover{background:rgba(245,196,81,.16);border-color:rgba(245,196,81,.5);color:#F5C451}
+.nvb:active{transform:scale(.93)}
+.nvico{flex:1;text-align:center;font-size:34px;line-height:1.1}
+.nvn{margin:6px 0 2px;text-align:center;font:800 16px/1.25 Inter,system-ui,sans-serif;color:#E9ECF3}
+.nvs{text-align:center;font-size:12px;color:#98A2B3;margin-bottom:8px}
+.nvs b{color:#F5C451}
+.nvt{display:flex;flex-wrap:wrap;gap:5px;justify-content:center;margin-bottom:10px}
+.nvt span{font:600 10px/1.3 Inter,system-ui,sans-serif;padding:4px 7px;border-radius:6px;border:1px solid}
+.nvt .l{color:#F5C451;background:rgba(245,196,81,.10);border-color:rgba(245,196,81,.30)}
+.nvt .p{color:#22D3EE;background:rgba(34,211,238,.10);border-color:rgba(34,211,238,.30)}
+.nvt .r{color:#8B5CF6;background:rgba(139,92,246,.12);border-color:rgba(139,92,246,.32)}
+.nvf{display:flex;align-items:center;gap:9px}
+.nvp{font:800 14px/1 Inter,system-ui,sans-serif;color:#E9ECF3;white-space:nowrap}
+.nvp i{font:600 10px/1 Inter,system-ui,sans-serif;font-style:normal;color:#5f6b7d}
+.nvgo{flex:1;min-height:38px;border:0;border-radius:11px;cursor:pointer;
+background:linear-gradient(180deg,#F5C451,#E0A32E);color:#1a1408;font:700 12.5px/1 Inter,system-ui,sans-serif}
+.nvgo:hover{filter:brightness(1.07)}
+.nvgo.off{background:rgba(255,255,255,.06);color:#98A2B3;border:1px solid rgba(255,255,255,.16)}
+.nvd{margin-top:8px;text-align:center;font-size:10.5px;letter-spacing:.05em;color:#5f6b7d}
+.nvk{display:flex;gap:4px;justify-content:center;margin-top:7px}
+.nvk i{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.18);display:block}
+.nvk i.on{background:#F5C451;box-shadow:0 0 7px rgba(245,196,81,.8)}
+</style>
+<script>
+/* Dymek czatu nawigujacy strzalkami po 10 pokojach AUREU.
+   Dane z rpc('aureu_pokoje') — te same liczby, ktore widzi panel i strona sprzedazowa.
+   Strzalki: przyciski w karcie, klawisze <- ->, oraz swipe na dotyku. */
+(function(){
+  var LINK99='https://buy.stripe.com/14A4greRe9t3ejx6KfdQQ0e';
+  var POK=null, IDX=0, AKTYWNY=false;
+
+  function esc(t){return String(t==null?'':t).replace(/[&<>"]/g,function(c){
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+
+  function karta(){
+    var p=POK[IDX], on=!!p.dostepny, tagi='';
+    if(p.licytacje>0)    tagi+='<span class="l">'+p.licytacje+' licytacji</span>';
+    if(p.przetargi>0)    tagi+='<span class="p">'+p.przetargi+' przetarg\u00f3w</span>';
+    if(p.rynek_wtorny>0) tagi+='<span class="r">'+p.rynek_wtorny+' rynek wt\u00f3rny</span>';
+    var kropki=POK.map(function(_,i){return '<i class="'+(i===IDX?'on':'')+'"></i>';}).join('');
+    return '<div class="nv">'
+      +'<div class="nvh"><button class="nvb" id="nvL" aria-label="Poprzedni pok\u00f3j">\u2039</button>'
+      +'<div class="nvico">'+esc(p.icon)+'</div>'
+      +'<button class="nvb" id="nvR" aria-label="Nast\u0119pny pok\u00f3j">\u203a</button></div>'
+      +'<div class="nvn">'+esc(p.name)+'</div>'
+      +'<div class="nvs"><b>'+p.aktualne+'</b> aktualnych \u00b7 <b>'+p.nowe_30d+'</b> nowych /30 dni</div>'
+      +(tagi?'<div class="nvt">'+tagi+'</div>':'')
+      +'<div class="nvf"><span class="nvp">99 z\u0142 <i>/30 dni</i></span>'
+      +(on?'<button class="nvgo" id="nvGo">Wejd\u017a do pokoju</button>'
+         :'<button class="nvgo off" id="nvGo">Powiadom o otwarciu</button>')+'</div>'
+      +'<div class="nvk">'+kropki+'</div>'
+      +'<div class="nvd">'+(IDX+1)+' / '+POK.length+' \u00b7 przewijaj strza\u0142kami \u2190 \u2192</div>'
+      +'</div>';
+  }
+
+  var host=null;
+  function rysuj(){
+    if(!host) return;
+    host.innerHTML=karta();
+    var L=host.querySelector('#nvL'), R=host.querySelector('#nvR'), G=host.querySelector('#nvGo');
+    if(L) L.onclick=function(){krok(-1);};
+    if(R) R.onclick=function(){krok(1);};
+    if(G) G.onclick=wejdz;
+    var b=document.getElementById('cBody'); if(b) b.scrollTop=b.scrollHeight;
+  }
+  function krok(d){
+    if(!POK||!POK.length) return;
+    IDX=(IDX+d+POK.length)%POK.length;
+    rysuj();
+    try{ zdarz('nawigator_pokoj', POK[IDX].code); }catch(e){}
+  }
+  function wejdz(){
+    var p=POK[IDX];
+    if(p.dostepny){
+      try{ localStorage.setItem('aureu_pokoj',p.code); }catch(e){}
+      try{ zdarz('nawigator_klik_kup', p.code); }catch(e){}
+      window.open(LINK99+'?client_reference_id=pokoj_'+encodeURIComponent(p.code),'_blank','noopener');
+    } else {
+      var mail=window.prompt('Podaj e-mail \u2014 napiszemy w dniu otwarcia pokoju '+p.name+':');
+      if(!mail) return;
+      rpc('aureu_room_notify',{p_niche:p.code,p_email:mail}).then(function(r){
+        var g=host.querySelector('#nvGo');
+        if(r&&r.ok){ if(g){g.textContent='Zapisano \u2713'; g.disabled=true;} }
+        else { alert((r&&r.blad)||'Nie uda\u0142o si\u0119 zapisa\u0107.'); }
+      }).catch(function(){});
+    }
+  }
+  function zdarz(stage,kod){
+    if(typeof rpc==='function') rpc('aureu_zdarzenie',{p_stage:stage,p_niche:kod});
+  }
+
+  /* klawisze — dzialaja tylko gdy nawigator jest otwarty i nie piszemy w polu */
+  document.addEventListener('keydown',function(e){
+    if(!AKTYWNY) return;
+    var t=e.target&&e.target.tagName;
+    if(t==='INPUT'||t==='TEXTAREA') return;
+    if(e.key==='ArrowLeft'){ e.preventDefault(); krok(-1); }
+    if(e.key==='ArrowRight'){ e.preventDefault(); krok(1); }
+  });
+
+  /* swipe na dotyku */
+  var x0=null;
+  document.addEventListener('touchstart',function(e){
+    if(!AKTYWNY||!host) return;
+    if(!host.contains(e.target)) return;
+    x0=e.touches[0].clientX;
+  },{passive:true});
+  document.addEventListener('touchend',function(e){
+    if(x0===null) return;
+    var dx=e.changedTouches[0].clientX-x0; x0=null;
+    if(Math.abs(dx)>42) krok(dx<0?1:-1);
+  },{passive:true});
+
+  window.navPokoje=function(kod){
+    if(typeof openBot==='function' && !document.getElementById('console').classList.contains('open')) openBot();
+    if(typeof bub==='function') bub('\u2190 Pokoje \u2192','u');
+    var d=document.createElement('div');
+    d.className='msg a'; d.id='nvHost';
+    d.innerHTML='<div class="nv"><div class="nvd">\u0141aduj\u0119 pokoje\u2026</div></div>';
+    var b=document.getElementById('cBody'); if(!b) return;
+    b.appendChild(d); b.scrollTop=b.scrollHeight;
+    host=d; AKTYWNY=true;
+    if(typeof chips==='function') chips([['Wszystkie pokoje',"closeBot();toSec('.rooms')"],['Zamknij nawigator',"navZamknij()"]]);
+    rpc('aureu_pokoje',{}).then(function(lista){
+      POK=Array.isArray(lista)?lista:[];
+      if(!POK.length){ d.innerHTML='<div class="nv"><div class="nvd">Nie uda\u0142o si\u0119 pobra\u0107 pokoi.</div></div>'; return; }
+      if(kod){ for(var i=0;i<POK.length;i++){ if(POK[i].code===kod){ IDX=i; break; } } }
+      rysuj();
+      try{ zdarz('nawigator_otwarty', POK[IDX].code); }catch(e){}
+    }).catch(function(){
+      d.innerHTML='<div class="nv"><div class="nvd">Nie uda\u0142o si\u0119 pobra\u0107 pokoi.</div></div>';
+    });
+  };
+  window.navZamknij=function(){
+    AKTYWNY=false;
+    if(host&&host.parentNode) host.parentNode.removeChild(host);
+    host=null;
+    if(typeof greetC==='function'&&typeof chips==='function')
+      chips([['\u2190 Pokoje \u2192',"navPokoje()",'gold'],['Klub licytacji',"closeBot();openKlub()"],['VIP Elite',"answerC('vip')"]]);
+  };
+})();
+</script>
+
+
 </body>
 </html>
