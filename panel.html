@@ -934,7 +934,7 @@ let klubLoaded=false;
 async function loadKlub(){
   if(klubLoaded)return; const box=document.getElementById('klubGrid');
   try{
-    const r=await fetch(SB_URL+'/rest/v1/klub_public?select=title,address,region,niche_code,opening_price,estimate,discount_pct,auction_date,link,area_m2,rooms&order=auction_date.asc.nullslast',{headers:{apikey:SB_KEY,Authorization:'Bearer '+SB_KEY}});
+    const r=await fetch(SB_URL+'/rest/v1/rpc/aureu_oferty',{method:'POST',headers:{apikey:SB_KEY,Authorization:'Bearer '+SB_KEY,'Content-Type':'application/json'},body:JSON.stringify({p_token:(function(){try{return localStorage.getItem('aureu_tok');}catch(e){return null;}})(),p_niche:(function(){try{return localStorage.getItem('aureu_pokoj');}catch(e){return null;}})(),p_limit:500})});
     const d=await r.json();
     document.getElementById('klubn').textContent='· '+d.length+' licytacji';
     const FREE=12;
@@ -1039,7 +1039,7 @@ function cardKlub(l){
  function openMA(t){ensure();document.getElementById('aureuMA').classList.add('open');document.getElementById('maWho').innerHTML=esc(M.email)+' · '+(M.holo?'VIP+Hologram':(M.tier||'Premium'));render(t);}
  function setTab(t){document.querySelectorAll('#maTabs button').forEach(function(b){b.classList.toggle('on',b.dataset.t===t);});}
  function render(t){setTab(t);var b=document.getElementById('maBody');b.innerHTML='<p class="muted">Ladowanie...</p>';if(t==='dash')return rDash(b);if(t==='okazje')return rOkazje(b);if(t==='obs')return rObs(b);if(t==='alerty')return rAlerty(b);if(t==='analiza')return rAnaliza(b);if(t==='holo')return rHolo(b);}
- function loadOffers(){if(OFFERS.length)return Promise.resolve(OFFERS);return rest('klub_public?select=title,address,region,niche_code,opening_price,estimate,discount_pct,auction_date,link&limit=300').then(function(d){OFFERS=Array.isArray(d)?d:[];return OFFERS;});}
+ function loadOffers(){if(OFFERS.length)return Promise.resolve(OFFERS);var tk=null,pk=null;try{tk=localStorage.getItem('aureu_tok');pk=localStorage.getItem('aureu_pokoj');}catch(e){}return rpc('aureu_oferty',{p_token:tk,p_niche:pk,p_limit:500}).then(function(d){OFFERS=Array.isArray(d)?d:[];window.AUREU_ZABLOKOWANE=!!(OFFERS.length&&OFFERS[0].zablokowane);return OFFERS;});}
  function loadWatched(){return rpc('aureu_watch_list',{p_token:tok()}).then(function(d){watched={};(Array.isArray(d)?d:[]).forEach(function(w){watched[w.offer_key]=1;});return d;});}
  function kpi(n,l){return '<div class="ma-kpi"><div class="n">'+n+'</div><div class="l">'+l+'</div></div>';}
  function rDash(b){Promise.all([loadOffers(),loadWatched(),rpc('aureu_alert_list',{p_token:tok()}),rpc('aureu_alert_matches',{p_token:tok()})]).then(function(r){var offers=r[0]||[],w=r[1]||[],al=r[2]||[],mt=r[3]||[];b.innerHTML='<div class="ma-kpis">'+kpi(offers.length,'ofert w klubie')+kpi(w.length,'obserwowane')+kpi(al.length,'aktywne alerty')+kpi(mt.length,'dopasowan')+'</div><p class="muted">Witaj, '+esc(M.email)+'. Pakiet: <b style="color:#E8B04B">'+(M.holo?'VIP + Hologram':(M.tier||'Premium'))+'</b>. Wejdz w „Okazje Live” aby obserwowac oferty, albo ustaw „Alerty” aby dostawac dopasowania.</p>';});}
