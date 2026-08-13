@@ -57,6 +57,21 @@ font:800 16px/1 Inter,sans-serif;text-align:center;text-decoration:none}
 .stopka{margin-top:34px;padding-top:18px;border-top:1px solid var(--line);
 color:var(--mut2);font-size:11.5px;line-height:1.6}
 .err{padding:20px;text-align:center;color:var(--mut)}
+.mod{position:fixed;inset:0;background:rgba(4,5,10,.86);display:none;align-items:center;justify-content:center;padding:18px;z-index:99}
+.mod.on{display:flex}
+.modin{width:100%;max-width:420px;background:var(--card);border:1px solid var(--line2);border-radius:18px;padding:22px}
+.modin h3{font:800 19px/1.25 Inter,sans-serif;margin:0 0 6px}
+.modin p{color:var(--mut);font-size:13.5px;margin:0 0 16px}
+.modin input[type=email]{width:100%;padding:14px;border-radius:11px;border:1px solid var(--line2);
+background:rgba(255,255,255,.04);color:var(--txt);font:400 15px Inter,sans-serif}
+.modin input[type=email]:focus{outline:0;border-color:var(--gold)}
+.zg{display:flex;gap:9px;align-items:flex-start;margin:13px 0;font-size:12.5px;color:var(--mut);line-height:1.5}
+.zg input{margin-top:2px;width:17px;height:17px;accent-color:var(--gold);flex:0 0 17px}
+.modb{display:flex;gap:9px;margin-top:6px}
+.modb button{flex:1;padding:14px;border:0;border-radius:12px;cursor:pointer;font:700 14px Inter,sans-serif}
+.modb .go{background:linear-gradient(180deg,var(--gold),var(--gold-d));color:#1a1408}
+.modb .no{background:rgba(255,255,255,.06);color:var(--mut);border:1px solid var(--line2)}
+.moderr{color:#F87171;font-size:12.5px;margin-top:9px;min-height:16px}
 @media(max-width:430px){h1{font-size:25px}.wrap{padding:20px 15px 48px}}
 </style>
 </head>
@@ -64,6 +79,15 @@ color:var(--mut2);font-size:11.5px;line-height:1.6}
 <div class="wrap">
   <div class="brand"><div class="mark">A</div><b>AUREU</b></div>
   <div id="tresc"><div class="err">Ładowanie pokoju…</div></div>
+  <div class="mod" id="mod"><div class="modin">
+  <h3>Zanim przejdziesz do płatności</h3>
+  <p>Podaj adres e-mail — na niego przypiszemy dostęp do pokoju. Ten sam adres podasz w Stripe.</p>
+  <input type="email" id="mEmail" placeholder="twoj@email.pl" autocomplete="email" inputmode="email">
+  <label class="zg"><input type="checkbox" id="mReg"><span>Akceptuję regulamin i przyjmuję do wiadomości, że AUREU jest serwisem informacyjnym, a nie organizatorem licytacji ani doradcą inwestycyjnym. <b>Wymagane.</b></span></label>
+  <label class="zg"><input type="checkbox" id="mMark"><span>Chcę dostawać powiadomienia o nowych okazjach w tym pokoju. Nieobowiązkowe, mogę wycofać w każdej chwili.</span></label>
+  <div class="modb"><button class="no" id="mNo">Wróć</button><button class="go" id="mGo">Przejdź do płatności</button></div>
+  <div class="moderr" id="mErr"></div>
+</div></div>
   <div class="stopka">
     AUREU to serwis informacyjny prezentujący publicznie dostępne obwieszczenia o licytacjach,
     ogłoszenia o przetargach publicznych oraz oferty z rynku wtórnego. Każda pozycja ma oznaczony typ
@@ -148,12 +172,40 @@ color:var(--mut2);font-size:11.5px;line-height:1.6}
       '<a class="buy" id="kup" href="#">Wejdź do pokoju '+esc(p.name)+' · 99 zł</a>'+
       '<div class="pod">Dostęp od razu po płatności · '+p.aktualne+' okazji czeka w środku</div>';
 
+    /* 2026-08-13: 55 z 58 sesji Stripe wygaslo bez podania e-maila. Lapiemy lead PRZED
+       przekierowaniem, zeby porzucony koszyk nie oznaczal utraty kontaktu. Nic nie wysylamy. */
+    var mod=document.getElementById('mod');
+    function doStripe(mail){
+      try{ localStorage.setItem('aureu_pokoj',kod); }catch(e2){}
+      var u=LINK99+'?client_reference_id=pokoj_'+encodeURIComponent(kod)+(utm?'&'+utm:'')
+            +(mail?'&prefilled_email='+encodeURIComponent(mail):'');
+      window.location.href=u;
+    }
     document.getElementById('kup').onclick=function(e){
       e.preventDefault();
       zdarz('pokoj_klik_kup');
-      try{ localStorage.setItem('aureu_pokoj',kod); }catch(e2){}
-      var u=LINK99+'?client_reference_id=pokoj_'+encodeURIComponent(kod)+(utm?'&'+utm:'');
-      window.location.href=u;
+      mod.classList.add('on');
+      setTimeout(function(){try{document.getElementById('mEmail').focus();}catch(e2){}},60);
+    };
+    document.getElementById('mNo').onclick=function(){ mod.classList.remove('on'); };
+    mod.onclick=function(e){ if(e.target===mod) mod.classList.remove('on'); };
+    document.getElementById('mGo').onclick=function(){
+      var mail=(document.getElementById('mEmail').value||'').trim();
+      var reg=document.getElementById('mReg').checked;
+      var mk=document.getElementById('mMark').checked;
+      var err=document.getElementById('mErr');
+      if(!/^[^@\s]+@[^@\s]+\.[a-z]{2,}$/i.test(mail)){ err.textContent='Podaj poprawny adres e-mail.'; return; }
+      if(!reg){ err.textContent='Akceptacja regulaminu jest wymagana.'; return; }
+      err.textContent=''; this.disabled=true; this.textContent='Zapisuję…';
+      var self=this;
+      rpc('aureu_lead_przed_platnoscia',{p_email:mail,p_niche:kod,
+        p_zgoda_regulamin:true,p_zgoda_marketing:mk,
+        p_utm_source:q('utm_source'),p_utm_medium:q('utm_medium'),
+        p_utm_campaign:q('utm_campaign'),p_utm_content:q('utm_content'),
+        p_referrer:(document.referrer||null)})
+      .then(function(r){ doStripe(mail); })
+      .catch(function(){ doStripe(mail); })   /* blad zapisu nie moze blokowac zakupu */
+      .then(function(){ self.disabled=false; self.textContent='Przejdź do płatności'; });
     };
   })
   .catch(function(){
