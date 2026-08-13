@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>AUREU — Pokój okazji</title>
+<meta name="description" content="Jeden pokój tematyczny, jedna subskrypcja. 99 zł za 30 dni dostępu do zweryfikowanych okazji.">
+<meta name="robots" content="index,follow">
+<meta property="og:type" content="website">
+<meta property="og:title" content="AUREU — Pokój okazji inwestycyjnych">
+<meta property="og:description" content="Licytacje komornicze, przetargi publiczne i rynek wtórny w jednym miejscu. 99 zł / 30 dni za pokój.">
+<style>
+:root{--bg:#04050a;--card:#11151f;--line:rgba(255,255,255,.08);--line2:rgba(255,255,255,.14);
+--txt:#E9ECF3;--mut:#98A2B3;--mut2:#5f6b7d;--gold:#F5C451;--gold-d:#E0A32E;--cyan:#22D3EE;--violet:#8B5CF6}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--txt);
+font:400 15px/1.6 Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;
+-webkit-font-smoothing:antialiased}
+.wrap{max-width:760px;margin:0 auto;padding:28px 18px 60px}
+.brand{display:flex;align-items:center;gap:10px;margin-bottom:26px}
+.mark{width:38px;height:38px;border-radius:11px;display:grid;place-items:center;
+background:radial-gradient(120% 120% at 30% 25%,#1b2438,#0b1120);
+border:1px solid rgba(217,180,90,.5);color:var(--gold);font:800 19px/1 Inter,sans-serif}
+.brand b{font:800 15px/1 Inter,sans-serif;letter-spacing:.16em}
+h1{font:800 30px/1.15 Inter,sans-serif;letter-spacing:-.02em;margin:0 0 8px}
+h1 .ico{font-size:30px}
+.lead{color:var(--mut);margin:0 0 22px;font-size:15.5px}
+.stats{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+.stat{flex:1;min-width:120px;padding:14px;border-radius:14px;background:var(--card);border:1px solid var(--line)}
+.stat b{display:block;font:800 26px/1 Inter,sans-serif;color:var(--gold)}
+.stat span{font-size:10.5px;color:var(--mut2);letter-spacing:.06em;text-transform:uppercase}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:24px}
+.tag{font:600 11px/1.35 Inter,sans-serif;padding:5px 9px;border-radius:7px;border:1px solid}
+.tag.lic{color:var(--gold);background:rgba(245,196,81,.10);border-color:rgba(245,196,81,.30)}
+.tag.prz{color:var(--cyan);background:rgba(34,211,238,.10);border-color:rgba(34,211,238,.30)}
+.tag.ryn{color:var(--violet);background:rgba(139,92,246,.12);border-color:rgba(139,92,246,.32)}
+.box{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px;margin-bottom:20px}
+.box h2{font:700 14px/1.2 Inter,sans-serif;letter-spacing:.08em;text-transform:uppercase;
+color:var(--mut2);margin:0 0 14px}
+.of{display:flex;gap:12px;padding:11px 0;border-bottom:1px solid var(--line)}
+.of:last-child{border-bottom:0}
+.of .t{flex:1;font-size:13.5px;line-height:1.45}
+.of .t small{display:block;color:var(--mut2);font-size:11.5px;margin-top:2px}
+.of .c{font:700 13.5px/1.4 Inter,sans-serif;color:var(--gold);white-space:nowrap}
+.blur{filter:blur(4.5px);user-select:none;pointer-events:none}
+.mask{margin-top:14px;padding:12px 14px;border-radius:11px;background:rgba(245,196,81,.09);
+border:1px solid rgba(245,196,81,.30);color:var(--gold);font:600 12.5px/1.55 Inter,sans-serif}
+ul.plus{list-style:none;padding:0;margin:0}
+ul.plus li{padding:7px 0 7px 26px;position:relative;font-size:14px;color:#c9d3e6}
+ul.plus li:before{content:"";position:absolute;left:4px;top:14px;width:9px;height:9px;
+border-radius:50%;background:var(--gold)}
+.buy{display:block;width:100%;margin-top:6px;padding:17px;border:0;border-radius:14px;cursor:pointer;
+background:linear-gradient(180deg,var(--gold),var(--gold-d));color:#1a1408;
+font:800 16px/1 Inter,sans-serif;text-align:center;text-decoration:none}
+.buy:hover{filter:brightness(1.07)}
+.pod{text-align:center;color:var(--mut2);font-size:12px;margin-top:10px}
+.stopka{margin-top:34px;padding-top:18px;border-top:1px solid var(--line);
+color:var(--mut2);font-size:11.5px;line-height:1.6}
+.err{padding:20px;text-align:center;color:var(--mut)}
+@media(max-width:430px){h1{font-size:25px}.wrap{padding:20px 15px 48px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="brand"><div class="mark">A</div><b>AUREU</b></div>
+  <div id="tresc"><div class="err">Ładowanie pokoju…</div></div>
+  <div class="stopka">
+    AUREU to serwis informacyjny prezentujący publicznie dostępne obwieszczenia o licytacjach,
+    ogłoszenia o przetargach publicznych oraz oferty z rynku wtórnego. Każda pozycja ma oznaczony typ
+    i odnośnik do źródła. Nie prowadzimy licytacji, nie pośredniczymy w sprzedaży i nie świadczymy
+    doradztwa inwestycyjnego. Płatność obsługuje Stripe, dostęp nadawany automatycznie.
+  </div>
+</div>
+<script>
+(function(){
+  var SB='https://mdsvcobwuezriexyqqby.supabase.co';
+  var KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1kc3Zjb2J3dWV6cmlleHlxcWJ5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgwNjMxMjMsImV4cCI6MjA5MzYzOTEyM30.o4CVcSf9drtDxlpVv11T_E3N4dd-BSTrQPRCZXfpusg';
+  var LINK99='https://buy.stripe.com/14A4greRe9t3ejx6KfdQQ0e';
+  function rpc(fn,b){return fetch(SB+'/rest/v1/rpc/'+fn,{method:'POST',
+    headers:{apikey:KEY,Authorization:'Bearer '+KEY,'Content-Type':'application/json'},
+    body:JSON.stringify(b||{})}).then(function(r){return r.json();});}
+  function q(n){return new URLSearchParams(location.search).get(n);}
+  function esc(t){return String(t==null?'':t).replace(/[&<>"]/g,function(c){
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+  function pln(v){return v==null?'—':new Intl.NumberFormat('pl-PL',
+    {style:'currency',currency:'PLN',maximumFractionDigits:0}).format(v);}
+
+  var kod=(q('p')||q('pokoj')||'nieruchomosci').toLowerCase();
+  var utm=['utm_source','utm_medium','utm_campaign','utm_content'].map(function(k){
+    var v=q(k);return v?k+'='+encodeURIComponent(v):null;}).filter(Boolean).join('&');
+
+  Promise.all([rpc('aureu_pokoje',{}), rpc('aureu_oferty',{p_niche:kod,p_limit:5})])
+  .then(function(r){
+    var pokoje=r[0]||[], oferty=Array.isArray(r[1])?r[1]:[];
+    var p=null; for(var i=0;i<pokoje.length;i++){ if(pokoje[i].code===kod){p=pokoje[i];break;} }
+    var el=document.getElementById('tresc');
+    if(!p||!p.dostepny){
+      el.innerHTML='<h1>Ten pokój jeszcze nie jest otwarty</h1>'+
+        '<p class="lead">Otwieramy pokój dopiero wtedy, gdy ma realną podaż ofert. '+
+        'Zajrzyj do panelu i zapisz się na powiadomienie.</p>'+
+        '<a class="buy" href="/panel.html">Zobacz wszystkie pokoje</a>';
+      return;
+    }
+    try{ rpc('aureu_zdarzenie',{p_stage:'pokoj_wyswietlony',p_niche:kod}); }catch(e){}
+
+    var tagi='';
+    if(p.licytacje>0)    tagi+='<span class="tag lic">'+p.licytacje+' licytacji komorniczych</span>';
+    if(p.przetargi>0)    tagi+='<span class="tag prz">'+p.przetargi+' przetargów publicznych</span>';
+    if(p.rynek_wtorny>0) tagi+='<span class="tag ryn">'+p.rynek_wtorny+' z rynku wtórnego</span>';
+
+    var lista='';
+    oferty.forEach(function(o){
+      lista+='<div class="of"><div class="t">'+esc(o.title||'—')+
+             '<small>'+esc(o.region||o.niche_code||'')+'</small></div>'+
+             '<div class="c blur">'+pln(o.cena_od)+'</div></div>';
+    });
+    if(!lista) lista='<div class="err">Brak przykładów do pokazania.</div>';
+
+    el.innerHTML=
+      '<h1><span class="ico">'+esc(p.icon)+'</span> Pokój: '+esc(p.name)+'</h1>'+
+      '<p class="lead">Jeden pokój, jedna subskrypcja. Płacisz tylko za tę kategorię, '+
+      'która Cię interesuje — nie za całą platformę.</p>'+
+      '<div class="stats">'+
+        '<div class="stat"><b>'+p.aktualne+'</b><span>aktualnych okazji</span></div>'+
+        '<div class="stat"><b>'+p.nowe_30d+'</b><span>nowych /30 dni</span></div>'+
+        '<div class="stat"><b>99 zł</b><span>za 30 dni</span></div>'+
+      '</div>'+
+      '<div class="tags">'+tagi+'</div>'+
+      '<div class="box"><h2>Przykłady z tego pokoju</h2>'+lista+
+        '<div class="mask">Ceny i linki do źródeł widzą wyłącznie członkowie pokoju. '+
+        'Subskrypcja odsłania '+p.aktualne+' pozycji z terminami i odnośnikami do obwieszczeń.</div></div>'+
+      '<div class="box"><h2>Co dostajesz</h2><ul class="plus">'+
+        '<li>Pełne dane wszystkich '+p.aktualne+' aktualnych okazji w tym pokoju</li>'+
+        '<li>Odnośnik do źródła przy każdej pozycji — komornik, BZP albo ogłoszenie</li>'+
+        '<li>Oznaczony typ oferty: licytacja, przetarg czy rynek wtórny</li>'+
+        '<li>Cena wywoławcza, wycena i termin, jeśli źródło je podaje</li>'+
+        '<li>Lista obserwowanych i alerty w wybranej kategorii</li>'+
+        '<li>Dostęp 30 dni, bez automatycznego przedłużenia</li>'+
+      '</ul></div>'+
+      '<a class="buy" id="kup" href="#">Wejdź do pokoju '+esc(p.name)+' · 99 zł</a>'+
+      '<div class="pod">Dostęp od razu po płatności · '+p.aktualne+' okazji czeka w środku</div>';
+
+    document.getElementById('kup').onclick=function(e){
+      e.preventDefault();
+      try{ rpc('aureu_zdarzenie',{p_stage:'pokoj_klik_kup',p_niche:kod}); }catch(e2){}
+      try{ localStorage.setItem('aureu_pokoj',kod); }catch(e2){}
+      var u=LINK99+'?client_reference_id=pokoj_'+encodeURIComponent(kod)+(utm?'&'+utm:'');
+      window.location.href=u;
+    };
+  })
+  .catch(function(){
+    document.getElementById('tresc').innerHTML=
+      '<div class="err">Nie udało się wczytać pokoju. Odśwież stronę.</div>';
+  });
+})();
+</script>
+</body>
+</html>
