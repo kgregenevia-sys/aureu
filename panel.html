@@ -633,10 +633,13 @@ h1,h2,h3,.f{font-family:'Sora'}
     if(!g) return;
     if(!lista || !lista.length){ g.innerHTML = '<div class="pkLoad">Nie uda&#322;o si&#281; pobra&#263; pokoi. Od&#347;wie&#380; stron&#281;.</div>'; return; }
     g.innerHTML = lista.map(karta).join('');
+    try{ lista.filter(function(x){return x.dostepny;})
+          .forEach(function(x){ rpc('aureu_zdarzenie', {p_stage:'pokoj_wyswietlony', p_niche:x.code}); }); }catch(e){}
     g.querySelectorAll('[data-kup]').forEach(function(b){
       b.onclick = function(){
         var kod = b.getAttribute('data-kup');
         try{ localStorage.setItem('aureu_pokoj', kod); }catch(e){}
+        try{ rpc('aureu_zdarzenie', {p_stage:'pokoj_klik_kup', p_niche:kod}); }catch(e){}
         window.open(LINK99 + '?client_reference_id=pokoj_' + encodeURIComponent(kod), '_blank', 'noopener');
       };
     });
@@ -1039,7 +1042,7 @@ function cardKlub(l){
  function openMA(t){ensure();document.getElementById('aureuMA').classList.add('open');document.getElementById('maWho').innerHTML=esc(M.email)+' · '+(M.holo?'VIP+Hologram':(M.tier||'Premium'));render(t);}
  function setTab(t){document.querySelectorAll('#maTabs button').forEach(function(b){b.classList.toggle('on',b.dataset.t===t);});}
  function render(t){setTab(t);var b=document.getElementById('maBody');b.innerHTML='<p class="muted">Ladowanie...</p>';if(t==='dash')return rDash(b);if(t==='okazje')return rOkazje(b);if(t==='obs')return rObs(b);if(t==='alerty')return rAlerty(b);if(t==='analiza')return rAnaliza(b);if(t==='holo')return rHolo(b);}
- function loadOffers(){if(OFFERS.length)return Promise.resolve(OFFERS);var tk=null,pk=null;try{tk=localStorage.getItem('aureu_tok');pk=localStorage.getItem('aureu_pokoj');}catch(e){}return rpc('aureu_oferty',{p_token:tk,p_niche:pk,p_limit:500}).then(function(d){OFFERS=Array.isArray(d)?d:[];window.AUREU_ZABLOKOWANE=!!(OFFERS.length&&OFFERS[0].zablokowane);return OFFERS;});}
+ function loadOffers(){if(OFFERS.length)return Promise.resolve(OFFERS);var tk=null,pk=null;try{tk=localStorage.getItem('aureu_tok');pk=localStorage.getItem('aureu_pokoj');}catch(e){}return rpc('aureu_oferty',{p_token:tk,p_niche:pk,p_limit:500}).then(function(d){OFFERS=Array.isArray(d)?d:[];window.AUREU_ZABLOKOWANE=!!(OFFERS.length&&OFFERS[0].zablokowane);if(window.AUREU_ZABLOKOWANE){try{rpc('aureu_zdarzenie',{p_stage:'pokoj_zajawka',p_niche:pk});}catch(e){}try{var pas=document.getElementById('aureuPasZajawka');if(!pas){pas=document.createElement('div');pas.id='aureuPasZajawka';pas.style.cssText='margin:14px 0;padding:12px 14px;border-radius:12px;background:rgba(245,196,81,.10);border:1px solid rgba(245,196,81,.34);color:#F5C451;font:600 12.5px/1.5 Inter,system-ui,sans-serif';pas.innerHTML='Widzisz 5 przykładowych okazji bez linków do źródła. Pełne dane, terminy i linki odblokowuje subskrypcja pokoju — 99 zł / 30 dni.';var g=document.getElementById('pkGrid');if(g&&g.parentNode)g.parentNode.insertBefore(pas,g);}}catch(e){}}return OFFERS;});}
  function loadWatched(){return rpc('aureu_watch_list',{p_token:tok()}).then(function(d){watched={};(Array.isArray(d)?d:[]).forEach(function(w){watched[w.offer_key]=1;});return d;});}
  function kpi(n,l){return '<div class="ma-kpi"><div class="n">'+n+'</div><div class="l">'+l+'</div></div>';}
  function rDash(b){Promise.all([loadOffers(),loadWatched(),rpc('aureu_alert_list',{p_token:tok()}),rpc('aureu_alert_matches',{p_token:tok()})]).then(function(r){var offers=r[0]||[],w=r[1]||[],al=r[2]||[],mt=r[3]||[];b.innerHTML='<div class="ma-kpis">'+kpi(offers.length,'ofert w klubie')+kpi(w.length,'obserwowane')+kpi(al.length,'aktywne alerty')+kpi(mt.length,'dopasowan')+'</div><p class="muted">Witaj, '+esc(M.email)+'. Pakiet: <b style="color:#E8B04B">'+(M.holo?'VIP + Hologram':(M.tier||'Premium'))+'</b>. Wejdz w „Okazje Live” aby obserwowac oferty, albo ustaw „Alerty” aby dostawac dopasowania.</p>';});}
