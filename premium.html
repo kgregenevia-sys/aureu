@@ -92,13 +92,13 @@ footer{border-top:1px solid var(--line);margin-top:34px;padding-top:16px;font-si
 <script>
 var SB='https://mdsvcobwuezriexyqqby.supabase.co',ANON='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1kc3Zjb2J3dWV6cmlleHlxcWJ5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgwNjMxMjMsImV4cCI6MjA5MzYzOTEyM30.o4CVcSf9drtDxlpVv11T_E3N4dd-BSTrQPRCZXfpusg';
 function PLN(v){return v==null?'-':new Intl.NumberFormat('pl-PL',{style:'currency',currency:'PLN',maximumFractionDigits:0}).format(v);}
-fetch(SB+'/rest/v1/auction_listings?select=title,address,region,estimate,opening_price,discount_pct,auction_date&status=eq.active&order=discount_pct.desc&limit=6',{headers:{apikey:ANON,Authorization:'Bearer '+ANON}})
+fetch(SB+'/rest/v1/aureu_oferty_zajawka?select=title,address,region,estimate,opening_price,discount_pct,auction_date&status=eq.active&order=discount_pct.desc&limit=6',{headers:{apikey:ANON,Authorization:'Bearer '+ANON}})
 .then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(d){
  var l=Array.isArray(d)?d:[];var g=document.getElementById('grid');
  if(!l.length){g.innerHTML='<div class="empty">Brak aktywnych ofert w tej chwili.</div>';return;}
  g.innerHTML=l.map(function(o){return '<article class="card"><span class="disc">-'+Math.round(o.discount_pct||0)+'%</span><div class="ctitle">'+(o.title||'Nieruchomość')+'</div><div class="caddr">'+(o.address||o.region||'-')+'</div><div class="prices"><span class="pnow">'+PLN(o.opening_price)+'</span><span class="pest">'+PLN(o.estimate)+'</span></div><div class="lock"><span aria-hidden="true">🔒</span> Termin, link do obwieszczenia i AUREU Score — <b>w Premium</b></div></article>';}).join('');
 }).catch(function(){document.getElementById('grid').innerHTML='<div class="empty">Nie udało się wczytać ofert. Odśwież stronę.</div>';});
-fetch(SB+'/rest/v1/auction_listings?select=discount_pct,auction_date&status=eq.active',{headers:{apikey:ANON,Authorization:'Bearer '+ANON}})
+fetch(SB+'/rest/v1/aureu_oferty_zajawka?select=discount_pct,auction_date&status=eq.active',{headers:{apikey:ANON,Authorization:'Bearer '+ANON}})
 .then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(d){
  var l=Array.isArray(d)?d:[];var n=l.length;var dated=l.filter(function(o){return o.auction_date}).length;
  var ds=l.map(function(o){return o.discount_pct||0}).sort(function(a,b){return a-b});var med=ds.length?Math.round(ds[Math.floor(ds.length/2)]):0;
